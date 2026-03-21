@@ -8,15 +8,11 @@ export function Header() {
       style={{ borderBottom: "1px solid var(--c-border)" }}
     >
       <div className="flex items-center gap-3">
-        <div
-          className="w-8 h-8 rounded-md flex items-center justify-center font-bold text-sm"
-          style={{
-            background: "linear-gradient(135deg, var(--c-logo-from), var(--c-logo-to))",
-            color: "#fff",
-          }}
-        >
-          BF
-        </div>
+        <img
+          src="/logo.svg"
+          alt="BulletForge"
+          className="w-8 h-8 rounded-md"
+        />
         <div>
           <div className="text-base font-bold tracking-tight" style={{ color: "var(--c-text)" }}>
             {APP_NAME}
