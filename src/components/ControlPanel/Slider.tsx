@@ -18,13 +18,14 @@ export function Slider({ label, value, min, max, step, unit, onChange }: SliderP
         <label
           id={`${id}-label`}
           htmlFor={id}
-          className="text-[11px] text-neutral-400"
+          className="text-[11px]"
+          style={{ color: "var(--c-text-muted)" }}
         >
           {label}
         </label>
         <span
           className="text-[11px] font-mono"
-          style={{ color: "#ef4444" }}
+          style={{ color: "var(--c-accent)" }}
           aria-live="polite"
         >
           {display}
@@ -39,7 +40,7 @@ export function Slider({ label, value, min, max, step, unit, onChange }: SliderP
         step={step}
         value={value}
         onChange={(e) => onChange(parseFloat(e.target.value))}
-        className="w-full cursor-pointer accent-red-500"
+        className="w-full"
         aria-valuemin={min}
         aria-valuemax={max}
         aria-valuenow={value}

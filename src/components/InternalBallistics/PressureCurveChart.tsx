@@ -20,8 +20,8 @@ export function PressureCurveChart({
   if (pressureCurve.length < 2) {
     return (
       <div
-        className="rounded-md p-8 text-center text-[11px] font-mono text-neutral-500"
-        style={{ background: "#141414", border: "1px solid #2a2a2a" }}
+        className="rounded-md p-8 text-center text-[11px] font-mono"
+        style={{ background: "var(--c-panel)", border: "1px solid var(--c-border)", color: "var(--c-text-dim)" }}
       >
         No pressure data
       </div>
@@ -81,11 +81,11 @@ export function PressureCurveChart({
   return (
     <div
       className="rounded-md p-4 overflow-x-auto"
-      style={{ background: "#141414", border: "1px solid #2a2a2a" }}
+      style={{ background: "var(--c-panel)", border: "1px solid var(--c-border)" }}
     >
       <div
         className="text-[11px] font-mono tracking-[2px] uppercase mb-3"
-        style={{ color: "#ef4444" }}
+        style={{ color: "var(--c-accent)" }}
       >
         Chamber Pressure vs. Barrel Position
       </div>
@@ -98,7 +98,7 @@ export function PressureCurveChart({
             y1={padding.top}
             x2={xScale(x)}
             y2={padding.top + plotH}
-            stroke="#1a1a1a"
+            stroke="var(--c-chart-grid)"
             strokeWidth="0.5"
           />
         ))}
@@ -109,18 +109,18 @@ export function PressureCurveChart({
             y1={yScale(y)}
             x2={padding.left + plotW}
             y2={yScale(y)}
-            stroke="#1a1a1a"
+            stroke="var(--c-chart-grid)"
             strokeWidth="0.5"
           />
         ))}
 
-        {/* SAAMI max pressure line */}
+        {/* SAAMI max pressure line — semantic warning color */}
         <line
           x1={padding.left}
           y1={saamiY}
           x2={padding.left + plotW}
           y2={saamiY}
-          stroke="#f59e0b"
+          stroke="var(--c-warn)"
           strokeWidth="1"
           strokeDasharray="6 3"
           opacity="0.8"
@@ -129,14 +129,14 @@ export function PressureCurveChart({
           x={padding.left + plotW - 4}
           y={saamiY - 5}
           textAnchor="end"
-          fill="#f59e0b"
+          fill="var(--c-warn)"
           fontSize="9"
           fontFamily="monospace"
         >
           SAAMI MAX {fmtPsi(saamiMaxPressure)} psi
         </text>
 
-        {/* Burn complete position */}
+        {/* Burn complete position — semantic success color */}
         {burnComplete && (
           <>
             <line
@@ -144,7 +144,7 @@ export function PressureCurveChart({
               y1={padding.top}
               x2={burnX}
               y2={padding.top + plotH}
-              stroke="#22c55e"
+              stroke="var(--c-success)"
               strokeWidth="1"
               strokeDasharray="4 3"
               opacity="0.7"
@@ -153,7 +153,7 @@ export function PressureCurveChart({
               x={burnX + 4}
               y={padding.top + 12}
               textAnchor="start"
-              fill="#22c55e"
+              fill="var(--c-success)"
               fontSize="9"
               fontFamily="monospace"
             >
@@ -163,15 +163,15 @@ export function PressureCurveChart({
         )}
 
         {/* Pressure curve */}
-        <path d={pathD} fill="none" stroke="#ef4444" strokeWidth="2" strokeLinejoin="round" />
+        <path d={pathD} fill="none" stroke="var(--c-chart-line)" strokeWidth="2" strokeLinejoin="round" />
 
         {/* Peak pressure marker */}
-        <circle cx={peakX} cy={peakY} r="4" fill="#ef4444" />
+        <circle cx={peakX} cy={peakY} r="4" fill="var(--c-accent)" />
         <text
           x={peakX + 8}
           y={peakY - 8}
           textAnchor="start"
-          fill="#e5e5e5"
+          fill="var(--c-text)"
           fontSize="9"
           fontFamily="monospace"
         >
@@ -185,7 +185,7 @@ export function PressureCurveChart({
             x={xScale(x)}
             y={height - 8}
             textAnchor="middle"
-            fill="#525252"
+            fill="var(--c-chart-text)"
             fontSize="9"
             fontFamily="monospace"
           >
@@ -196,7 +196,7 @@ export function PressureCurveChart({
           x={padding.left + plotW / 2}
           y={height}
           textAnchor="middle"
-          fill="#525252"
+          fill="var(--c-chart-text)"
           fontSize="9"
           fontFamily="monospace"
         >
@@ -210,7 +210,7 @@ export function PressureCurveChart({
             x={padding.left - 8}
             y={yScale(y) + 3}
             textAnchor="end"
-            fill="#525252"
+            fill="var(--c-chart-text)"
             fontSize="9"
             fontFamily="monospace"
           >
@@ -221,7 +221,7 @@ export function PressureCurveChart({
           x={14}
           y={padding.top + plotH / 2}
           textAnchor="middle"
-          fill="#525252"
+          fill="var(--c-chart-text)"
           fontSize="9"
           fontFamily="monospace"
           transform={`rotate(-90, 14, ${padding.top + plotH / 2})`}

@@ -22,20 +22,20 @@ export function BCTruingCalculator() {
     : null;
 
   const inputStyle = {
-    background: "#0f0f0f",
-    border: "1px solid #1a1a1a",
-    color: "#d4d4d4",
+    background: "var(--c-surface)",
+    border: "1px solid var(--c-surface)",
+    color: "var(--c-text)",
   };
 
   return (
     <div
       className="rounded-md overflow-hidden"
-      style={{ background: "#141414", border: "1px solid #2a2a2a" }}
+      style={{ background: "var(--c-panel)", border: "1px solid var(--c-border)" }}
     >
       <div className="px-4 pt-3 pb-2">
         <div
           className="text-[11px] font-mono tracking-[2px] uppercase"
-          style={{ color: "#ef4444" }}
+          style={{ color: "var(--c-accent)" }}
         >
           BC Truing Calculator
         </div>
@@ -45,7 +45,7 @@ export function BCTruingCalculator() {
         {/* Inputs grid */}
         <div className="grid grid-cols-2 gap-x-4 gap-y-2">
           <div>
-            <label className="block text-[8px] font-mono text-neutral-500 uppercase tracking-wider mb-0.5">
+            <label className="block text-[8px] font-mono uppercase tracking-wider mb-0.5" style={{ color: "var(--c-text-dim)" }}>
               Muzzle Velocity (fps)
             </label>
             <input
@@ -55,12 +55,12 @@ export function BCTruingCalculator() {
               step={1}
               value={velocity1}
               onChange={(e) => setVelocity1(Number(e.target.value))}
-              className="w-full text-[10px] font-mono rounded px-2 py-1 outline-none focus:border-neutral-500"
+              className="w-full text-[10px] font-mono rounded px-2 py-1 outline-none"
               style={inputStyle}
             />
           </div>
           <div>
-            <label className="block text-[8px] font-mono text-neutral-500 uppercase tracking-wider mb-0.5">
+            <label className="block text-[8px] font-mono uppercase tracking-wider mb-0.5" style={{ color: "var(--c-text-dim)" }}>
               Muzzle Distance (yds)
             </label>
             <input
@@ -70,12 +70,12 @@ export function BCTruingCalculator() {
               step={1}
               value={distance1}
               onChange={(e) => setDistance1(Number(e.target.value))}
-              className="w-full text-[10px] font-mono rounded px-2 py-1 outline-none focus:border-neutral-500"
+              className="w-full text-[10px] font-mono rounded px-2 py-1 outline-none"
               style={inputStyle}
             />
           </div>
           <div>
-            <label className="block text-[8px] font-mono text-neutral-500 uppercase tracking-wider mb-0.5">
+            <label className="block text-[8px] font-mono uppercase tracking-wider mb-0.5" style={{ color: "var(--c-text-dim)" }}>
               Downrange Velocity (fps)
             </label>
             <input
@@ -85,12 +85,12 @@ export function BCTruingCalculator() {
               step={1}
               value={velocity2}
               onChange={(e) => setVelocity2(Number(e.target.value))}
-              className="w-full text-[10px] font-mono rounded px-2 py-1 outline-none focus:border-neutral-500"
+              className="w-full text-[10px] font-mono rounded px-2 py-1 outline-none"
               style={inputStyle}
             />
           </div>
           <div>
-            <label className="block text-[8px] font-mono text-neutral-500 uppercase tracking-wider mb-0.5">
+            <label className="block text-[8px] font-mono uppercase tracking-wider mb-0.5" style={{ color: "var(--c-text-dim)" }}>
               Downrange Distance (yds)
             </label>
             <input
@@ -100,12 +100,12 @@ export function BCTruingCalculator() {
               step={1}
               value={distance2}
               onChange={(e) => setDistance2(Number(e.target.value))}
-              className="w-full text-[10px] font-mono rounded px-2 py-1 outline-none focus:border-neutral-500"
+              className="w-full text-[10px] font-mono rounded px-2 py-1 outline-none"
               style={inputStyle}
             />
           </div>
           <div>
-            <label className="block text-[8px] font-mono text-neutral-500 uppercase tracking-wider mb-0.5">
+            <label className="block text-[8px] font-mono uppercase tracking-wider mb-0.5" style={{ color: "var(--c-text-dim)" }}>
               Published BC
             </label>
             <input
@@ -115,12 +115,12 @@ export function BCTruingCalculator() {
               step={0.001}
               value={publishedBC}
               onChange={(e) => setPublishedBC(Number(e.target.value))}
-              className="w-full text-[10px] font-mono rounded px-2 py-1 outline-none focus:border-neutral-500"
+              className="w-full text-[10px] font-mono rounded px-2 py-1 outline-none"
               style={inputStyle}
             />
           </div>
           <div>
-            <label className="block text-[8px] font-mono text-neutral-500 uppercase tracking-wider mb-0.5">
+            <label className="block text-[8px] font-mono uppercase tracking-wider mb-0.5" style={{ color: "var(--c-text-dim)" }}>
               Drag Model
             </label>
             <div className="flex gap-1">
@@ -128,9 +128,9 @@ export function BCTruingCalculator() {
                 type="button"
                 className="flex-1 text-[10px] font-mono py-1 rounded"
                 style={{
-                  background: dragModel === "G1" ? "#ef4444" : "#0f0f0f",
-                  border: dragModel === "G1" ? "1px solid #ef4444" : "1px solid #1a1a1a",
-                  color: dragModel === "G1" ? "#fff" : "#a3a3a3",
+                  background: dragModel === "G1" ? "var(--c-accent)" : "var(--c-surface)",
+                  border: dragModel === "G1" ? "1px solid var(--c-accent)" : "1px solid var(--c-surface)",
+                  color: dragModel === "G1" ? "#fff" : "var(--c-text-muted)",
                   cursor: "pointer",
                 }}
                 onClick={() => setDragModel("G1")}
@@ -141,9 +141,9 @@ export function BCTruingCalculator() {
                 type="button"
                 className="flex-1 text-[10px] font-mono py-1 rounded"
                 style={{
-                  background: dragModel === "G7" ? "#ef4444" : "#0f0f0f",
-                  border: dragModel === "G7" ? "1px solid #ef4444" : "1px solid #1a1a1a",
-                  color: dragModel === "G7" ? "#fff" : "#a3a3a3",
+                  background: dragModel === "G7" ? "var(--c-accent)" : "var(--c-surface)",
+                  border: dragModel === "G7" ? "1px solid var(--c-accent)" : "1px solid var(--c-surface)",
+                  color: dragModel === "G7" ? "#fff" : "var(--c-text-muted)",
                   cursor: "pointer",
                 }}
                 onClick={() => setDragModel("G7")}
@@ -158,39 +158,39 @@ export function BCTruingCalculator() {
         {result && (
           <div
             className="mt-4 pt-3"
-            style={{ borderTop: "1px solid #2a2a2a" }}
+            style={{ borderTop: "1px solid var(--c-border)" }}
           >
             <div className="text-center">
-              <div className="text-[8px] font-mono text-neutral-500 uppercase tracking-wider mb-1">
+              <div className="text-[8px] font-mono uppercase tracking-wider mb-1" style={{ color: "var(--c-text-dim)" }}>
                 True BC ({dragModel})
               </div>
-              <div className="text-lg font-bold font-mono text-neutral-100">
+              <div className="text-lg font-bold font-mono" style={{ color: "var(--c-text)" }}>
                 {result.trueBC.toFixed(3)}
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3 mt-3">
               <div className="text-center">
-                <div className="text-[8px] font-mono text-neutral-500 uppercase tracking-wider mb-0.5">
+                <div className="text-[8px] font-mono uppercase tracking-wider mb-0.5" style={{ color: "var(--c-text-dim)" }}>
                   Correction Factor
                 </div>
-                <div className="text-[11px] font-mono font-medium text-neutral-300">
+                <div className="text-[11px] font-mono font-medium" style={{ color: "var(--c-text)" }}>
                   {result.correctionFactor.toFixed(3)}x
                 </div>
               </div>
               <div className="text-center">
-                <div className="text-[8px] font-mono text-neutral-500 uppercase tracking-wider mb-0.5">
+                <div className="text-[8px] font-mono uppercase tracking-wider mb-0.5" style={{ color: "var(--c-text-dim)" }}>
                   Difference
                 </div>
                 <div
                   className="text-[11px] font-mono font-medium"
                   style={{
-                    color: result.percentDifference <= 0 ? "#22c55e" : "#ef4444",
+                    color: result.percentDifference <= 0 ? "var(--c-success)" : "var(--c-danger)",
                   }}
                 >
                   {result.percentDifference > 0 ? "+" : ""}
                   {result.percentDifference.toFixed(1)}%
-                  <span className="ml-1 text-[8px] text-neutral-500">
+                  <span className="ml-1 text-[8px]" style={{ color: "var(--c-text-dim)" }}>
                     {result.percentDifference <= 0 ? "(conservative)" : "(optimistic)"}
                   </span>
                 </div>
@@ -198,8 +198,8 @@ export function BCTruingCalculator() {
             </div>
 
             <div
-              className="mt-3 pt-2 text-[9px] font-mono text-neutral-400"
-              style={{ borderTop: "1px solid #1a1a1a" }}
+              className="mt-3 pt-2 text-[9px] font-mono"
+              style={{ borderTop: "1px solid var(--c-surface)", color: "var(--c-text-muted)" }}
             >
               {result.assessment}
             </div>
@@ -208,8 +208,8 @@ export function BCTruingCalculator() {
 
         {!inputsValid && (
           <div
-            className="mt-4 pt-3 text-center text-[9px] font-mono text-neutral-600"
-            style={{ borderTop: "1px solid #2a2a2a" }}
+            className="mt-4 pt-3 text-center text-[9px] font-mono"
+            style={{ borderTop: "1px solid var(--c-border)", color: "var(--c-text-faint)" }}
           >
             Enter valid chronograph data to calculate true BC
           </div>

@@ -58,11 +58,11 @@ export function BarrelLengthChart({ config }: BarrelLengthChartProps) {
   return (
     <div
       className="rounded-md p-4 overflow-x-auto"
-      style={{ background: "#141414", border: "1px solid #2a2a2a" }}
+      style={{ background: "var(--c-panel)", border: "1px solid var(--c-border)" }}
     >
       <div
         className="text-[11px] font-mono tracking-[2px] uppercase mb-3"
-        style={{ color: "#ef4444" }}
+        style={{ color: "var(--c-accent)" }}
       >
         Barrel Length Optimization
       </div>
@@ -73,7 +73,7 @@ export function BarrelLengthChart({ config }: BarrelLengthChartProps) {
             key={`xg-${x}`}
             x1={xScale(x)} y1={padding.top}
             x2={xScale(x)} y2={padding.top + plotH}
-            stroke="#1a1a1a" strokeWidth="0.5"
+            stroke="var(--c-chart-grid)" strokeWidth="0.5"
           />
         ))}
         {yTicks.map((y) => (
@@ -81,16 +81,16 @@ export function BarrelLengthChart({ config }: BarrelLengthChartProps) {
             key={`yg-${y}`}
             x1={padding.left} y1={yScale(y)}
             x2={padding.left + plotW} y2={yScale(y)}
-            stroke="#1a1a1a" strokeWidth="0.5"
+            stroke="var(--c-chart-grid)" strokeWidth="0.5"
           />
         ))}
 
-        {/* fps/inch bars (background) */}
+        {/* fps/inch bars (background) — semantic colors for performance zones */}
         {data.slice(1).map((d) => {
           const barH = maxFpsPerInch > 0
             ? (d.fpsPerInch / maxFpsPerInch) * (plotH * 0.3)
             : 0;
-          const barColor = d.fpsPerInch >= 10 ? "#22c55e" : d.fpsPerInch >= 5 ? "#f59e0b" : "#ef4444";
+          const barColor = d.fpsPerInch >= 10 ? "var(--c-success)" : d.fpsPerInch >= 5 ? "var(--c-warn)" : "var(--c-danger)";
           return (
             <rect
               key={`bar-${d.length}`}
@@ -106,7 +106,7 @@ export function BarrelLengthChart({ config }: BarrelLengthChartProps) {
         })}
 
         {/* Velocity curve */}
-        <path d={pathD} fill="none" stroke="#ef4444" strokeWidth="2" strokeLinejoin="round" />
+        <path d={pathD} fill="none" stroke="var(--c-chart-line)" strokeWidth="2" strokeLinejoin="round" />
 
         {/* Data points */}
         {data.map((d) => (
@@ -115,8 +115,8 @@ export function BarrelLengthChart({ config }: BarrelLengthChartProps) {
             cx={xScale(d.length)}
             cy={yScale(d.velocity)}
             r="3"
-            fill={d.length === optimalLength ? "#22c55e" : "#ef4444"}
-            stroke={d.length === optimalLength ? "#22c55e" : "none"}
+            fill={d.length === optimalLength ? "var(--c-success)" : "var(--c-accent)"}
+            stroke={d.length === optimalLength ? "var(--c-success)" : "none"}
             strokeWidth="2"
           />
         ))}
@@ -127,12 +127,12 @@ export function BarrelLengthChart({ config }: BarrelLengthChartProps) {
             <line
               x1={xScale(optimalLength)} y1={padding.top}
               x2={xScale(optimalLength)} y2={padding.top + plotH}
-              stroke="#22c55e" strokeWidth="1" strokeDasharray="4 3" opacity="0.6"
+              stroke="var(--c-success)" strokeWidth="1" strokeDasharray="4 3" opacity="0.6"
             />
             <text
               x={xScale(optimalLength) + 6}
               y={padding.top + 14}
-              fill="#22c55e" fontSize="9" fontFamily="monospace"
+              fill="var(--c-success)" fontSize="9" fontFamily="monospace"
             >
               OPTIMAL {optimalLength}" ({optPoint.velocity.toFixed(0)} fps)
             </text>
@@ -144,14 +144,14 @@ export function BarrelLengthChart({ config }: BarrelLengthChartProps) {
           <text
             key={`xl-${x}`}
             x={xScale(x)} y={height - 8}
-            textAnchor="middle" fill="#525252" fontSize="9" fontFamily="monospace"
+            textAnchor="middle" fill="var(--c-chart-text)" fontSize="9" fontFamily="monospace"
           >
             {x}"
           </text>
         ))}
         <text
           x={padding.left + plotW / 2} y={height}
-          textAnchor="middle" fill="#525252" fontSize="9" fontFamily="monospace"
+          textAnchor="middle" fill="var(--c-chart-text)" fontSize="9" fontFamily="monospace"
         >
           BARREL LENGTH (IN)
         </text>
@@ -161,14 +161,14 @@ export function BarrelLengthChart({ config }: BarrelLengthChartProps) {
           <text
             key={`yl-${y}`}
             x={padding.left - 8} y={yScale(y) + 3}
-            textAnchor="end" fill="#525252" fontSize="9" fontFamily="monospace"
+            textAnchor="end" fill="var(--c-chart-text)" fontSize="9" fontFamily="monospace"
           >
             {y}
           </text>
         ))}
         <text
           x={14} y={padding.top + plotH / 2}
-          textAnchor="middle" fill="#525252" fontSize="9" fontFamily="monospace"
+          textAnchor="middle" fill="var(--c-chart-text)" fontSize="9" fontFamily="monospace"
           transform={`rotate(-90, 14, ${padding.top + plotH / 2})`}
         >
           VELOCITY (FPS)
@@ -176,10 +176,10 @@ export function BarrelLengthChart({ config }: BarrelLengthChartProps) {
       </svg>
 
       {/* Legend */}
-      <div className="flex gap-4 mt-2 text-[9px] font-mono text-neutral-500">
-        <span><span style={{ color: "#22c55e" }}>&#9632;</span> &ge;10 fps/in</span>
-        <span><span style={{ color: "#f59e0b" }}>&#9632;</span> 5-10 fps/in</span>
-        <span><span style={{ color: "#ef4444" }}>&#9632;</span> &lt;5 fps/in (diminishing returns)</span>
+      <div className="flex gap-4 mt-2 text-[9px] font-mono" style={{ color: "var(--c-text-dim)" }}>
+        <span><span style={{ color: "var(--c-success)" }}>&#9632;</span> &ge;10 fps/in</span>
+        <span><span style={{ color: "var(--c-warn)" }}>&#9632;</span> 5-10 fps/in</span>
+        <span><span style={{ color: "var(--c-danger)" }}>&#9632;</span> &lt;5 fps/in (diminishing returns)</span>
       </div>
     </div>
   );

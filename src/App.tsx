@@ -3,6 +3,7 @@ import { useBallisticsStore } from "./store/store.ts";
 import { trajectory, kineticEnergy, densityAltitude } from "./lib/ballistics.ts";
 import type { TrajectoryConfig } from "./lib/ballistics.ts";
 import { buildConfig, simulateInternal, CARTRIDGE_INTERNAL_DATA } from "./lib/internal-ballistics.ts";
+import { ThemeProvider } from "./components/Layout/ThemeProvider.tsx";
 import { Header } from "./components/Layout/Header.tsx";
 import { StatsBar } from "./components/StatsBar/StatsBar.tsx";
 import { ControlPanel } from "./components/ControlPanel/ControlPanel.tsx";
@@ -20,6 +21,8 @@ import { ComparisonTable } from "./components/Trajectory/ComparisonTable.tsx";
 import { DOPECard } from "./components/Trajectory/DOPECard.tsx";
 import { StabilityPanel } from "./components/Trajectory/StabilityPanel.tsx";
 import { BCTruingCalculator } from "./components/Trajectory/BCTruingCalculator.tsx";
+import { MultiZeroDOPE } from "./components/Trajectory/MultiZeroDOPE.tsx";
+import { ArmBandDOPE } from "./components/Trajectory/ArmBandDOPE.tsx";
 import { LoadDevelopmentTab } from "./components/LoadDevelopment/LoadDevelopmentTab.tsx";
 
 export default function App() {
@@ -136,346 +139,343 @@ export default function App() {
   );
   const currentLabel = `${cartridge.shortName} ${bullet.name} @ ${muzzleVelocity} fps`;
 
+  const tabs: { key: typeof activeTab; label: string }[] = [
+    { key: "external", label: "External Ballistics" },
+    { key: "internal", label: "Internal Ballistics" },
+    { key: "loaddev", label: "Load Development" },
+  ];
+
   return (
-    <div className="min-h-screen bg-neutral-950">
-      <Header />
+    <ThemeProvider>
+      <div className="min-h-screen" style={{ background: "var(--c-bg)" }}>
+        <Header />
 
-      {/* Tab Bar */}
-      <div
-        className="flex px-5 gap-0"
-        style={{ borderBottom: "1px solid #2a2a2a", background: "#0a0a0a" }}
-      >
-        <button
-          onClick={() => setActiveTab("external")}
-          className="px-4 py-2.5 text-[11px] font-mono tracking-wide cursor-pointer transition-colors"
-          style={{
-            color: activeTab === "external" ? "#ef4444" : "#737373",
-            borderBottom: activeTab === "external" ? "2px solid #ef4444" : "2px solid transparent",
-            background: "transparent",
-          }}
-        >
-          External Ballistics
-        </button>
-        <button
-          onClick={() => setActiveTab("internal")}
-          className="px-4 py-2.5 text-[11px] font-mono tracking-wide cursor-pointer transition-colors"
-          style={{
-            color: activeTab === "internal" ? "#ef4444" : "#737373",
-            borderBottom: activeTab === "internal" ? "2px solid #ef4444" : "2px solid transparent",
-            background: "transparent",
-          }}
-        >
-          Internal Ballistics
-        </button>
-        <button
-          onClick={() => setActiveTab("loaddev")}
-          className="px-4 py-2.5 text-[11px] font-mono tracking-wide cursor-pointer transition-colors"
-          style={{
-            color: activeTab === "loaddev" ? "#ef4444" : "#737373",
-            borderBottom: activeTab === "loaddev" ? "2px solid #ef4444" : "2px solid transparent",
-            background: "transparent",
-          }}
-        >
-          Load Development
-        </button>
-      </div>
-
-      <main className="flex max-md:flex-col">
-        {/* Left Panel: Controls */}
+        {/* Tab Bar */}
         <div
-          className="w-72 min-w-72 shrink-0 overflow-y-auto max-h-[calc(100vh-105px)] max-md:w-full max-md:min-w-0"
-          style={{ borderRight: "1px solid #2a2a2a" }}
+          className="flex px-5 gap-0"
+          style={{ borderBottom: "1px solid var(--c-border)", background: "var(--c-bg)" }}
         >
-          <div className="p-5">
-            <ControlPanel />
+          {tabs.map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key)}
+              className="px-4 py-2.5 text-[11px] font-mono tracking-wide cursor-pointer transition-colors"
+              style={{
+                color: activeTab === tab.key ? "var(--c-accent)" : "var(--c-text-dim)",
+                borderBottom: activeTab === tab.key ? "2px solid var(--c-accent)" : "2px solid transparent",
+                background: "transparent",
+              }}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
 
-            {activeTab === "external" && (
+        <main className="flex max-md:flex-col">
+          {/* Left Panel: Controls */}
+          <div
+            className="w-72 min-w-72 shrink-0 overflow-y-auto max-h-[calc(100vh-105px)] max-md:w-full max-md:min-w-0"
+            style={{ borderRight: "1px solid var(--c-border)" }}
+          >
+            <div className="p-5">
+              <ControlPanel />
+
+              {activeTab === "external" && (
+                <>
+                  {/* Density Altitude */}
+                  <div
+                    className="mt-4 pt-4"
+                    style={{ borderTop: "1px solid var(--c-border)" }}
+                  >
+                    <div
+                      className="text-[10px] tracking-[2px] font-mono uppercase mb-3"
+                      style={{ color: "var(--c-accent)" }}
+                    >
+                      Advanced
+                    </div>
+                    <div
+                      className="rounded-md px-3 py-2 mb-3 text-[10px] font-mono"
+                      style={{ background: "var(--c-surface)", border: "1px solid var(--c-border)" }}
+                    >
+                      <span style={{ color: "var(--c-text-dim)" }}>Density Alt: </span>
+                      <span style={{ color: "var(--c-text)" }}>{da.toLocaleString()} ft</span>
+                    </div>
+
+                    {/* Latitude */}
+                    <div className="mb-2">
+                      <div className="flex justify-between text-[10px] font-mono mb-0.5">
+                        <span style={{ color: "var(--c-text-muted)" }}>Latitude</span>
+                        <span style={{ color: "var(--c-accent)" }}>{latitude}°</span>
+                      </div>
+                      <input
+                        type="range"
+                        min={-90}
+                        max={90}
+                        value={latitude}
+                        onChange={(e) => setLatitude(Number(e.target.value))}
+                        className="w-full"
+                      />
+                    </div>
+
+                    {/* Azimuth */}
+                    <div className="mb-3">
+                      <div className="flex justify-between text-[10px] font-mono mb-0.5">
+                        <span style={{ color: "var(--c-text-muted)" }}>Azimuth (fire direction)</span>
+                        <span style={{ color: "var(--c-accent)" }}>{azimuth}°</span>
+                      </div>
+                      <input
+                        type="range"
+                        min={0}
+                        max={359}
+                        value={azimuth}
+                        onChange={(e) => setAzimuth(Number(e.target.value))}
+                        className="w-full"
+                      />
+                    </div>
+
+                    {/* Comparison button */}
+                    <button
+                      onClick={comparisonEnabled ? clearComparison : snapshotForComparison}
+                      className="w-full rounded-md px-3 py-2 text-[10px] font-mono tracking-wide cursor-pointer transition-colors"
+                      style={{
+                        background: comparisonEnabled ? "var(--c-accent-dim)" : "var(--c-panel)",
+                        border: `1px solid ${comparisonEnabled ? "var(--c-accent)" : "var(--c-border)"}`,
+                        color: comparisonEnabled ? "var(--c-accent)" : "var(--c-text-muted)",
+                      }}
+                    >
+                      {comparisonEnabled ? "✕ Clear Comparison" : "⇄ Snapshot for Comparison"}
+                    </button>
+                    {comparisonEnabled && (
+                      <div className="text-[9px] font-mono mt-1 px-1" style={{ color: "var(--c-text-faint)" }}>
+                        Comparing: {comparisonLabel}
+                      </div>
+                    )}
+                  </div>
+                </>
+              )}
+
+              {(activeTab === "internal" || activeTab === "loaddev") && (
+                <InternalBallisticsPanel
+                  cartridgeShortName={cartridge.shortName}
+                  powderName={powderName}
+                  chargeWeight={chargeWeight}
+                  barrelLength={barrelLength}
+                  onPowderChange={setPowderName}
+                  onChargeWeightChange={setChargeWeight}
+                  onBarrelLengthChange={setBarrelLength}
+                />
+              )}
+            </div>
+          </div>
+
+          {/* Right Panel: Visualizations */}
+          <div className="flex-1 p-5 min-w-0 overflow-y-auto max-h-[calc(100vh-105px)]">
+            {activeTab === "loaddev" ? (
+                <LoadDevelopmentTab />
+            ) : activeTab === "external" ? (
               <>
-                {/* Density Altitude */}
+                <StatsBar
+                  muzzleVelocity={muzzleVelocity}
+                  muzzleEnergy={muzzleEnergy}
+                  zeroRange={zeroRange}
+                  maxOrdinate={maxOrdinate}
+                  transonicRange={transonicRange}
+                />
+
+                <div className="mb-4">
+                  <TrajectoryChart points={trajectoryResults} zeroRange={zeroRange} />
+                </div>
+
+                <div className="mb-4">
+                  <TrajectoryTable points={trajectoryResults} zeroRange={zeroRange} />
+                </div>
+
+                {/* Comparison mode */}
+                {comparisonEnabled && comparisonResults.length > 0 && (
+                  <>
+                    <div className="mb-4">
+                      <ComparisonChart
+                        pointsA={comparisonResults}
+                        pointsB={trajectoryResults}
+                        labelA={comparisonLabel}
+                        labelB={currentLabel}
+                        zeroRange={zeroRange}
+                      />
+                    </div>
+                    <div className="mb-4">
+                      <ComparisonTable
+                        pointsA={comparisonResults}
+                        pointsB={trajectoryResults}
+                        labelA={comparisonLabel}
+                        labelB={currentLabel}
+                      />
+                    </div>
+                  </>
+                )}
+
+                {/* Cartridge info */}
                 <div
-                  className="mt-4 pt-4"
-                  style={{ borderTop: "1px solid #2a2a2a" }}
+                  className="rounded-md p-4 text-[10px] font-mono"
+                  style={{ background: "var(--c-panel)", border: "1px solid var(--c-border)", color: "var(--c-text-dim)" }}
                 >
-                  <div
-                    className="text-[10px] tracking-[2px] font-mono uppercase mb-3"
-                    style={{ color: "#ef4444" }}
-                  >
-                    Advanced
-                  </div>
-                  <div
-                    className="rounded-md px-3 py-2 mb-3 text-[10px] font-mono"
-                    style={{ background: "#0f0f0f", border: "1px solid #1a1a1a" }}
-                  >
-                    <span className="text-neutral-500">Density Alt: </span>
-                    <span className="text-neutral-200">{da.toLocaleString()} ft</span>
-                  </div>
+                  <span style={{ color: "var(--c-accent)" }}>{cartridge.name}</span>
+                  {" "}&middot;{" "}
+                  {bullet.manufacturer} {bullet.name}
+                  {" "}&middot;{" "}
+                  {bullet.weight}gr @ {muzzleVelocity} fps
+                  {" "}&middot;{" "}
+                  BC (G7): {bullet.bc_g7} / BC (G1): {bullet.bc_g1}
+                  {" "}&middot;{" "}
+                  SAAMI MAP: {cartridge.maxPressure.toLocaleString()} psi
+                  {" "}&middot;{" "}
+                  DA: {da.toLocaleString()} ft
+                </div>
 
-                  {/* Latitude */}
-                  <div className="mb-2">
-                    <div className="flex justify-between text-[10px] font-mono text-neutral-400 mb-0.5">
-                      <span>Latitude</span>
-                      <span>{latitude}°</span>
-                    </div>
-                    <input
-                      type="range"
-                      min={-90}
-                      max={90}
-                      value={latitude}
-                      onChange={(e) => setLatitude(Number(e.target.value))}
-                      className="w-full"
-                      style={{ accentColor: "#ef4444", height: 4 }}
-                    />
-                  </div>
+                {/* Stability Panel */}
+                <div className="mt-4 mb-4">
+                  <StabilityPanel
+                    bulletWeight={bullet.weight}
+                    bulletDiameter={bullet.diameter}
+                    twistRate={8}
+                    altitude={altitude}
+                    temperature={temperature}
+                    pressure={barometricPressure}
+                  />
+                </div>
 
-                  {/* Azimuth */}
-                  <div className="mb-3">
-                    <div className="flex justify-between text-[10px] font-mono text-neutral-400 mb-0.5">
-                      <span>Azimuth (fire direction)</span>
-                      <span>{azimuth}°</span>
-                    </div>
-                    <input
-                      type="range"
-                      min={0}
-                      max={359}
-                      value={azimuth}
-                      onChange={(e) => setAzimuth(Number(e.target.value))}
-                      className="w-full"
-                      style={{ accentColor: "#ef4444", height: 4 }}
-                    />
-                  </div>
+                {/* DOPE Card */}
+                <div className="mb-4">
+                  <DOPECard
+                    points={trajectoryResults}
+                    cartridgeName={cartridge.name}
+                    bulletName={`${bullet.manufacturer} ${bullet.name}`}
+                    muzzleVelocity={muzzleVelocity}
+                    zeroRange={zeroRange}
+                    windSpeed={windSpeed}
+                    windAngle={windAngle}
+                    altitude={altitude}
+                    temperature={temperature}
+                  />
+                </div>
 
-                  {/* Comparison button */}
-                  <button
-                    onClick={comparisonEnabled ? clearComparison : snapshotForComparison}
-                    className="w-full rounded-md px-3 py-2 text-[10px] font-mono tracking-wide cursor-pointer transition-colors"
-                    style={{
-                      background: comparisonEnabled ? "rgba(239, 68, 68, 0.1)" : "#141414",
-                      border: `1px solid ${comparisonEnabled ? "#ef4444" : "#2a2a2a"}`,
-                      color: comparisonEnabled ? "#ef4444" : "#a3a3a3",
-                    }}
-                  >
-                    {comparisonEnabled ? "✕ Clear Comparison" : "⇄ Snapshot for Comparison"}
-                  </button>
-                  {comparisonEnabled && (
-                    <div className="text-[9px] font-mono text-neutral-600 mt-1 px-1">
-                      Comparing: {comparisonLabel}
-                    </div>
-                  )}
+                {/* Multi-Zero DOPE Cards */}
+                <div className="mb-4">
+                  <MultiZeroDOPE />
+                </div>
+
+                {/* Arm Band DOPE */}
+                <div className="mb-4">
+                  <ArmBandDOPE />
+                </div>
+
+                {/* BC Truing Calculator */}
+                <div className="mb-4">
+                  <BCTruingCalculator />
                 </div>
               </>
-            )}
+            ) : (
+              <>
+                {internalResult ? (
+                  <>
+                    <InternalBallisticsStats
+                      result={internalResult}
+                      saamiMaxPressure={cartridge.maxPressure}
+                    />
 
-            {(activeTab === "internal" || activeTab === "loaddev") && (
-              <InternalBallisticsPanel
-                cartridgeShortName={cartridge.shortName}
-                powderName={powderName}
-                chargeWeight={chargeWeight}
-                barrelLength={barrelLength}
-                onPowderChange={setPowderName}
-                onChargeWeightChange={setChargeWeight}
-                onBarrelLengthChange={setBarrelLength}
-              />
+                    <div className="mb-4">
+                      <PressureCurveChart
+                        pressureCurve={internalResult.pressureCurve}
+                        saamiMaxPressure={cartridge.maxPressure}
+                        peakPressure={internalResult.peakPressure}
+                        peakPressurePosition={internalResult.peakPressurePosition}
+                        barrelLength={barrelLength}
+                        burnCompletePosition={internalResult.burnCompletePosition}
+                      />
+                    </div>
+
+                    {/* Safe load indicator */}
+                    {chargeRange && (
+                      <div className="mb-4">
+                        <SafeLoadIndicator
+                          chargeWeight={chargeWeight}
+                          minCharge={chargeRange.min}
+                          maxCharge={chargeRange.max}
+                          saamiPercent={(internalResult.peakPressure / cartridge.maxPressure) * 100}
+                        />
+                      </div>
+                    )}
+
+                    {/* Barrel length optimization */}
+                    {ibConfig && (
+                      <div className="mb-4">
+                        <BarrelLengthChart config={ibConfig} />
+                      </div>
+                    )}
+
+                    {/* Burn rate comparison */}
+                    <div className="mb-4">
+                      <BurnRateComparisonChart
+                        cartridgeShortName={cartridge.shortName}
+                        currentPowder={powderName}
+                        chargeWeight={chargeWeight}
+                        bulletWeight={bullet.weight}
+                        bulletDiameter={bullet.diameter}
+                        barrelLength={barrelLength}
+                      />
+                    </div>
+
+                    {/* Temperature comparison */}
+                    {ibConfig && (
+                      <div className="mb-4">
+                        <TempComparisonPanel
+                          config={ibConfig}
+                          powderName={powderName}
+                          saamiMaxPressure={cartridge.maxPressure}
+                        />
+                      </div>
+                    )}
+
+                    {/* Load summary */}
+                    <div
+                      className="rounded-md p-4 text-[10px] font-mono"
+                      style={{ background: "var(--c-panel)", border: "1px solid var(--c-border)", color: "var(--c-text-dim)" }}
+                    >
+                      <span style={{ color: "var(--c-accent)" }}>{cartridge.name}</span>
+                      {" "}&middot;{" "}
+                      {bullet.manufacturer} {bullet.name} ({bullet.weight}gr)
+                      {" "}&middot;{" "}
+                      {chargeWeight}gr {powderName}
+                      {" "}&middot;{" "}
+                      {barrelLength}" barrel
+                      {" "}&middot;{" "}
+                      Predicted MV: {internalResult.muzzleVelocity.toFixed(0)} fps
+                    </div>
+
+                    {/* Safety disclaimer */}
+                    <div
+                      className="rounded-md p-3 mt-3 text-[9px] font-mono"
+                      style={{
+                        background: "var(--c-accent-glow)",
+                        border: "1px solid var(--c-border)",
+                        color: "var(--c-text-dim)",
+                      }}
+                    >
+                      This simulator is for educational and comparative purposes only.
+                      Never use simulation data as the sole basis for determining safe loads.
+                      Always consult published load data from reputable sources and work up
+                      from minimum starting charges with proper safety equipment.
+                    </div>
+                  </>
+                ) : (
+                  <div className="flex items-center justify-center h-64 font-mono text-sm" style={{ color: "var(--c-text-faint)" }}>
+                    Select a cartridge and powder to simulate internal ballistics
+                  </div>
+                )}
+              </>
             )}
           </div>
-        </div>
-
-        {/* Right Panel: Visualizations */}
-        <div className="flex-1 p-5 min-w-0 overflow-y-auto max-h-[calc(100vh-105px)]">
-          {activeTab === "loaddev" ? (
-              <LoadDevelopmentTab />
-          ) : activeTab === "external" ? (
-            <>
-              <StatsBar
-                muzzleVelocity={muzzleVelocity}
-                muzzleEnergy={muzzleEnergy}
-                zeroRange={zeroRange}
-                maxOrdinate={maxOrdinate}
-                transonicRange={transonicRange}
-              />
-
-              <div className="mb-4">
-                <TrajectoryChart points={trajectoryResults} zeroRange={zeroRange} />
-              </div>
-
-              <div className="mb-4">
-                <TrajectoryTable points={trajectoryResults} zeroRange={zeroRange} />
-              </div>
-
-              {/* Comparison mode */}
-              {comparisonEnabled && comparisonResults.length > 0 && (
-                <>
-                  <div className="mb-4">
-                    <ComparisonChart
-                      pointsA={comparisonResults}
-                      pointsB={trajectoryResults}
-                      labelA={comparisonLabel}
-                      labelB={currentLabel}
-                      zeroRange={zeroRange}
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <ComparisonTable
-                      pointsA={comparisonResults}
-                      pointsB={trajectoryResults}
-                      labelA={comparisonLabel}
-                      labelB={currentLabel}
-                    />
-                  </div>
-                </>
-              )}
-
-              {/* Cartridge info */}
-              <div
-                className="rounded-md p-4 text-[10px] font-mono text-neutral-500"
-                style={{ background: "#141414", border: "1px solid #2a2a2a" }}
-              >
-                <span style={{ color: "#ef4444" }}>{cartridge.name}</span>
-                {" "}&middot;{" "}
-                {bullet.manufacturer} {bullet.name}
-                {" "}&middot;{" "}
-                {bullet.weight}gr @ {muzzleVelocity} fps
-                {" "}&middot;{" "}
-                BC (G7): {bullet.bc_g7} / BC (G1): {bullet.bc_g1}
-                {" "}&middot;{" "}
-                SAAMI MAP: {cartridge.maxPressure.toLocaleString()} psi
-                {" "}&middot;{" "}
-                DA: {da.toLocaleString()} ft
-              </div>
-
-              {/* Stability Panel */}
-              <div className="mt-4 mb-4">
-                <StabilityPanel
-                  bulletWeight={bullet.weight}
-                  bulletDiameter={bullet.diameter}
-                  twistRate={8}
-                  altitude={altitude}
-                  temperature={temperature}
-                  pressure={barometricPressure}
-                />
-              </div>
-
-              {/* DOPE Card */}
-              <div className="mb-4">
-                <DOPECard
-                  points={trajectoryResults}
-                  cartridgeName={cartridge.name}
-                  bulletName={`${bullet.manufacturer} ${bullet.name}`}
-                  muzzleVelocity={muzzleVelocity}
-                  zeroRange={zeroRange}
-                  windSpeed={windSpeed}
-                  windAngle={windAngle}
-                  altitude={altitude}
-                  temperature={temperature}
-                />
-              </div>
-
-              {/* BC Truing Calculator */}
-              <div className="mb-4">
-                <BCTruingCalculator />
-              </div>
-            </>
-          ) : (
-            <>
-              {internalResult ? (
-                <>
-                  <InternalBallisticsStats
-                    result={internalResult}
-                    saamiMaxPressure={cartridge.maxPressure}
-                  />
-
-                  <div className="mb-4">
-                    <PressureCurveChart
-                      pressureCurve={internalResult.pressureCurve}
-                      saamiMaxPressure={cartridge.maxPressure}
-                      peakPressure={internalResult.peakPressure}
-                      peakPressurePosition={internalResult.peakPressurePosition}
-                      barrelLength={barrelLength}
-                      burnCompletePosition={internalResult.burnCompletePosition}
-                    />
-                  </div>
-
-                  {/* Safe load indicator */}
-                  {chargeRange && (
-                    <div className="mb-4">
-                      <SafeLoadIndicator
-                        chargeWeight={chargeWeight}
-                        minCharge={chargeRange.min}
-                        maxCharge={chargeRange.max}
-                        saamiPercent={(internalResult.peakPressure / cartridge.maxPressure) * 100}
-                      />
-                    </div>
-                  )}
-
-                  {/* Barrel length optimization */}
-                  {ibConfig && (
-                    <div className="mb-4">
-                      <BarrelLengthChart config={ibConfig} />
-                    </div>
-                  )}
-
-                  {/* Burn rate comparison */}
-                  <div className="mb-4">
-                    <BurnRateComparisonChart
-                      cartridgeShortName={cartridge.shortName}
-                      currentPowder={powderName}
-                      chargeWeight={chargeWeight}
-                      bulletWeight={bullet.weight}
-                      bulletDiameter={bullet.diameter}
-                      barrelLength={barrelLength}
-                    />
-                  </div>
-
-                  {/* Temperature comparison */}
-                  {ibConfig && (
-                    <div className="mb-4">
-                      <TempComparisonPanel
-                        config={ibConfig}
-                        powderName={powderName}
-                        saamiMaxPressure={cartridge.maxPressure}
-                      />
-                    </div>
-                  )}
-
-                  {/* Load summary */}
-                  <div
-                    className="rounded-md p-4 text-[10px] font-mono text-neutral-500"
-                    style={{ background: "#141414", border: "1px solid #2a2a2a" }}
-                  >
-                    <span style={{ color: "#ef4444" }}>{cartridge.name}</span>
-                    {" "}&middot;{" "}
-                    {bullet.manufacturer} {bullet.name} ({bullet.weight}gr)
-                    {" "}&middot;{" "}
-                    {chargeWeight}gr {powderName}
-                    {" "}&middot;{" "}
-                    {barrelLength}" barrel
-                    {" "}&middot;{" "}
-                    Predicted MV: {internalResult.muzzleVelocity.toFixed(0)} fps
-                  </div>
-
-                  {/* Safety disclaimer */}
-                  <div
-                    className="rounded-md p-3 mt-3 text-[9px] font-mono"
-                    style={{
-                      background: "rgba(245, 158, 11, 0.05)",
-                      border: "1px solid #2a2a2a",
-                      color: "#737373",
-                    }}
-                  >
-                    This simulator is for educational and comparative purposes only.
-                    Never use simulation data as the sole basis for determining safe loads.
-                    Always consult published load data from reputable sources and work up
-                    from minimum starting charges with proper safety equipment.
-                  </div>
-                </>
-              ) : (
-                <div className="flex items-center justify-center h-64 text-neutral-600 font-mono text-sm">
-                  Select a cartridge and powder to simulate internal ballistics
-                </div>
-              )}
-            </>
-          )}
-        </div>
-      </main>
-    </div>
+        </main>
+      </div>
+    </ThemeProvider>
   );
 }

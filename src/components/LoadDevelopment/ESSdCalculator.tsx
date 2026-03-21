@@ -24,14 +24,14 @@ export function ESSdCalculator() {
     <div>
       <div
         className="text-[10px] tracking-[2px] font-mono uppercase mb-3"
-        style={{ color: "#ef4444" }}
+        style={{ color: "var(--c-accent)" }}
       >
         ES / SD Calculator
       </div>
 
       {/* Input area */}
       <div className="mb-4">
-        <div className="text-[11px] mb-1 text-neutral-400">
+        <div className="text-[11px] mb-1" style={{ color: "var(--c-text-muted)" }}>
           Enter velocities (fps) — comma or space separated
         </div>
         <textarea
@@ -42,18 +42,18 @@ export function ESSdCalculator() {
           rows={3}
           className="w-full rounded-md px-3 py-2 text-[11px] font-mono resize-none"
           style={{
-            background: "#141414",
-            border: "1px solid #2a2a2a",
-            color: "#e5e5e5",
+            background: "var(--c-panel)",
+            border: "1px solid var(--c-border)",
+            color: "var(--c-text)",
           }}
         />
         <button
           onClick={calculate}
           className="mt-2 px-4 py-1.5 rounded-md text-[11px] font-mono cursor-pointer transition-all"
           style={{
-            background: "rgba(239, 68, 68, 0.15)",
-            border: "1px solid #ef4444",
-            color: "#ef4444",
+            background: "var(--c-accent-dim)",
+            border: "1px solid var(--c-accent)",
+            color: "var(--c-accent)",
           }}
         >
           Calculate
@@ -75,8 +75,8 @@ export function ESSdCalculator() {
 
       {result && result.count > 0 && (
         <div
-          className="mt-3 rounded-md p-2 text-[9px] font-mono text-neutral-500"
-          style={{ background: "#0f0f0f", border: "1px solid #1a1a1a" }}
+          className="mt-3 rounded-md p-2 text-[9px] font-mono"
+          style={{ background: "var(--c-surface)", border: "1px solid var(--c-surface)", color: "var(--c-text-dim)" }}
         >
           {result.standardDeviation < 8
             ? "Excellent consistency — SD under 8 fps is competition-grade."
@@ -98,18 +98,18 @@ function StatBox({ label, value, unit, warn, good }: {
   warn?: boolean;
   good?: boolean;
 }) {
-  const color = warn ? "#f59e0b" : good ? "#22c55e" : "#e5e5e5";
+  const color = warn ? "var(--c-warn)" : good ? "var(--c-success)" : "var(--c-text)";
   return (
     <div
       className="rounded-md px-3 py-2 flex-1 min-w-24"
-      style={{ background: "#141414", border: "1px solid #2a2a2a" }}
+      style={{ background: "var(--c-panel)", border: "1px solid var(--c-border)" }}
     >
-      <div className="text-[9px] uppercase tracking-[1.5px] font-mono mb-0.5 text-neutral-500">
+      <div className="text-[9px] uppercase tracking-[1.5px] font-mono mb-0.5" style={{ color: "var(--c-text-dim)" }}>
         {label}
       </div>
       <div className="flex items-baseline gap-0.5">
         <span className="text-lg font-bold" style={{ color }}>{value}</span>
-        {unit && <span className="text-[10px] font-mono text-neutral-500">{unit}</span>}
+        {unit && <span className="text-[10px] font-mono" style={{ color: "var(--c-text-dim)" }}>{unit}</span>}
       </div>
     </div>
   );

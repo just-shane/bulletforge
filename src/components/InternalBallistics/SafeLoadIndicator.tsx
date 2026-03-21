@@ -31,8 +31,9 @@ export function SafeLoadIndicator({
         ? "yellow"
         : "green";
 
+  // Semantic colors: safety zones should always be red/yellow/green
   const zoneColor =
-    zone === "red" ? "#ef4444" : zone === "yellow" ? "#f59e0b" : "#22c55e";
+    zone === "red" ? "var(--c-danger)" : zone === "yellow" ? "var(--c-warn)" : "var(--c-success)";
 
   const zoneLabel =
     zone === "red"
@@ -44,10 +45,10 @@ export function SafeLoadIndicator({
   return (
     <div
       className="rounded-md px-3 py-2"
-      style={{ background: "#0f0f0f", border: `1px solid ${zone === "red" ? "#ef4444" : "#1a1a1a"}` }}
+      style={{ background: "var(--c-surface)", border: `1px solid ${zone === "red" ? "var(--c-danger)" : "var(--c-surface)"}` }}
     >
       <div className="flex items-center justify-between mb-1.5">
-        <div className="text-[9px] font-mono uppercase tracking-[1.5px] text-neutral-500">
+        <div className="text-[9px] font-mono uppercase tracking-[1.5px]" style={{ color: "var(--c-text-dim)" }}>
           Load Safety
         </div>
         <div
@@ -58,7 +59,7 @@ export function SafeLoadIndicator({
         </div>
       </div>
 
-      {/* Gradient bar */}
+      {/* Gradient bar — semantic safety colors, not theme accent */}
       <div className="relative h-2 rounded-full overflow-hidden mb-1.5">
         <div
           className="absolute inset-0 rounded-full"
@@ -79,9 +80,9 @@ export function SafeLoadIndicator({
       </div>
 
       {/* Labels */}
-      <div className="flex justify-between text-[8px] font-mono text-neutral-600">
+      <div className="flex justify-between text-[8px] font-mono" style={{ color: "var(--c-text-faint)" }}>
         <span>{minCharge.toFixed(1)}gr</span>
-        <span className="text-neutral-500">{chargeWeight.toFixed(1)}gr — {saamiPercent.toFixed(1)}% SAAMI</span>
+        <span style={{ color: "var(--c-text-dim)" }}>{chargeWeight.toFixed(1)}gr — {saamiPercent.toFixed(1)}% SAAMI</span>
         <span>{maxCharge.toFixed(1)}gr</span>
       </div>
     </div>

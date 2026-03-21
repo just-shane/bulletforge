@@ -3,9 +3,11 @@ import type { TrajectoryPoint } from "../lib/ballistics.ts";
 import type { Cartridge } from "../lib/cartridges.ts";
 import type { Bullet } from "../lib/bullets.ts";
 import type { InternalBallisticsResult } from "../lib/internal-ballistics.ts";
+import type { Theme } from "../lib/themes.ts";
 import { CARTRIDGES } from "../lib/cartridges.ts";
 import { BULLETS, bulletsByCaliber } from "../lib/bullets.ts";
 import { CARTRIDGE_INTERNAL_DATA } from "../lib/internal-ballistics.ts";
+import { getThemeById, loadThemeId, saveThemeId } from "../lib/themes.ts";
 
 // Default cartridge: 6.5 Creedmoor
 const defaultCartridge = CARTRIDGES.find((c) => c.shortName === "6.5 CM")!;
@@ -56,10 +58,15 @@ export interface BallisticsStore {
   latitude: number;          // degrees (for Coriolis)
   azimuth: number;           // degrees (direction of fire)
 
+  // Theme
+  theme: Theme;
+  menuOpen: boolean;
+
   // UI state
   activeTab: AppTab;
   glossaryOpen: boolean;
   docsOpen: boolean;
+  educationOpen: boolean;
 
   // Actions — External
   setCartridge: (cartridge: Cartridge) => void;
@@ -97,10 +104,15 @@ export interface BallisticsStore {
   setLatitude: (lat: number) => void;
   setAzimuth: (az: number) => void;
 
+  // Actions — Theme
+  setTheme: (id: string) => void;
+  setMenuOpen: (open: boolean) => void;
+
   // Actions — UI
   setActiveTab: (tab: AppTab) => void;
   setGlossaryOpen: (open: boolean) => void;
   setDocsOpen: (open: boolean) => void;
+  setEducationOpen: (open: boolean) => void;
 }
 
 export const useBallisticsStore = create<BallisticsStore>((set) => ({
@@ -141,10 +153,15 @@ export const useBallisticsStore = create<BallisticsStore>((set) => ({
   latitude: 45,
   azimuth: 0,
 
+  // Theme
+  theme: getThemeById(loadThemeId()),
+  menuOpen: false,
+
   // UI
   activeTab: "external",
   glossaryOpen: false,
   docsOpen: false,
+  educationOpen: false,
 
   setCartridge: (cartridge) => {
     const available = bulletsByCaliber(cartridge.bulletDiameter);
@@ -220,10 +237,21 @@ export const useBallisticsStore = create<BallisticsStore>((set) => ({
   setLatitude: (lat) => set({ latitude: lat }),
   setAzimuth: (az) => set({ azimuth: az }),
 
+  // Theme actions
+  setTheme: (id) => {
+    const theme = getThemeById(id);
+    saveThemeId(id);
+    set({ theme });
+  },
+
+  setMenuOpen: (open) => set({ menuOpen: open }),
+
   // UI actions
   setActiveTab: (tab) => set({ activeTab: tab }),
 
   setGlossaryOpen: (open) => set({ glossaryOpen: open }),
 
   setDocsOpen: (open) => set({ docsOpen: open }),
+
+  setEducationOpen: (open) => set({ educationOpen: open }),
 }));

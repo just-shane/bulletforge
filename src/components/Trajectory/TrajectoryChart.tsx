@@ -9,8 +9,8 @@ export function TrajectoryChart({ points, zeroRange }: TrajectoryChartProps) {
   if (points.length < 2) {
     return (
       <div
-        className="rounded-md p-8 text-center text-[11px] font-mono text-neutral-500"
-        style={{ background: "#141414", border: "1px solid #2a2a2a" }}
+        className="rounded-md p-8 text-center text-[11px] font-mono"
+        style={{ background: "var(--c-panel)", border: "1px solid var(--c-border)", color: "var(--c-text-dim)" }}
       >
         No trajectory data
       </div>
@@ -59,9 +59,9 @@ export function TrajectoryChart({ points, zeroRange }: TrajectoryChartProps) {
   return (
     <div
       className="rounded-md p-4 overflow-x-auto"
-      style={{ background: "#141414", border: "1px solid #2a2a2a" }}
+      style={{ background: "var(--c-panel)", border: "1px solid var(--c-border)" }}
     >
-      <div className="text-[11px] font-mono tracking-[2px] uppercase mb-3" style={{ color: "#ef4444" }}>
+      <div className="text-[11px] font-mono tracking-[2px] uppercase mb-3" style={{ color: "var(--c-accent)" }}>
         Trajectory
       </div>
       <svg
@@ -77,7 +77,7 @@ export function TrajectoryChart({ points, zeroRange }: TrajectoryChartProps) {
             y1={padding.top}
             x2={xScale(r)}
             y2={padding.top + plotH}
-            stroke="#1f1f1f"
+            stroke="var(--c-chart-grid)"
             strokeWidth="0.5"
           />
         ))}
@@ -88,7 +88,7 @@ export function TrajectoryChart({ points, zeroRange }: TrajectoryChartProps) {
             y1={yScale(d)}
             x2={padding.left + plotW}
             y2={yScale(d)}
-            stroke="#1f1f1f"
+            stroke="var(--c-chart-grid)"
             strokeWidth="0.5"
           />
         ))}
@@ -99,7 +99,7 @@ export function TrajectoryChart({ points, zeroRange }: TrajectoryChartProps) {
           y1={zeroY}
           x2={padding.left + plotW}
           y2={zeroY}
-          stroke="#333"
+          stroke="var(--c-border-light)"
           strokeWidth="1"
           strokeDasharray="4 4"
         />
@@ -108,7 +108,7 @@ export function TrajectoryChart({ points, zeroRange }: TrajectoryChartProps) {
         <path
           d={pathD}
           fill="none"
-          stroke="#ef4444"
+          stroke="var(--c-chart-line)"
           strokeWidth="2"
           strokeLinejoin="round"
         />
@@ -121,17 +121,17 @@ export function TrajectoryChart({ points, zeroRange }: TrajectoryChartProps) {
               y1={padding.top}
               x2={zeroX}
               y2={padding.top + plotH}
-              stroke="#ef4444"
+              stroke="var(--c-accent)"
               strokeWidth="1"
               strokeDasharray="3 3"
               opacity="0.5"
             />
-            <circle cx={zeroX} cy={zeroY} r="4" fill="#ef4444" />
+            <circle cx={zeroX} cy={zeroY} r="4" fill="var(--c-accent)" />
             <text
               x={zeroX}
               y={padding.top - 5}
               textAnchor="middle"
-              fill="#ef4444"
+              fill="var(--c-accent)"
               fontSize="9"
               fontFamily="monospace"
             >
@@ -147,7 +147,7 @@ export function TrajectoryChart({ points, zeroRange }: TrajectoryChartProps) {
             x={xScale(r)}
             y={height - 8}
             textAnchor="middle"
-            fill="#525252"
+            fill="var(--c-chart-text)"
             fontSize="9"
             fontFamily="monospace"
           >
@@ -158,7 +158,7 @@ export function TrajectoryChart({ points, zeroRange }: TrajectoryChartProps) {
           x={padding.left + plotW / 2}
           y={height}
           textAnchor="middle"
-          fill="#525252"
+          fill="var(--c-chart-text)"
           fontSize="9"
           fontFamily="monospace"
         >
@@ -172,7 +172,7 @@ export function TrajectoryChart({ points, zeroRange }: TrajectoryChartProps) {
             x={padding.left - 8}
             y={yScale(d) + 3}
             textAnchor="end"
-            fill="#525252"
+            fill="var(--c-chart-text)"
             fontSize="9"
             fontFamily="monospace"
           >
@@ -183,7 +183,7 @@ export function TrajectoryChart({ points, zeroRange }: TrajectoryChartProps) {
           x={12}
           y={padding.top + plotH / 2}
           textAnchor="middle"
-          fill="#525252"
+          fill="var(--c-chart-text)"
           fontSize="9"
           fontFamily="monospace"
           transform={`rotate(-90, 12, ${padding.top + plotH / 2})`}
