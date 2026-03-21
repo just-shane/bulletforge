@@ -10,8 +10,10 @@ export function ScopeConfig() {
   const setCurrentMagnification = useBallisticsStore((s) => s.setCurrentMagnification);
 
   const [expanded, setExpanded] = useState(false);
+  const [selectedPreset, setSelectedPreset] = useState(-1);
 
   function handlePreset(index: number) {
+    setSelectedPreset(index);
     if (index < 0 || index >= SCOPE_PRESETS.length) return;
     const preset = SCOPE_PRESETS[index];
     setScope(preset.scope);
@@ -22,6 +24,7 @@ export function ScopeConfig() {
   }
 
   function updateScope(partial: Partial<ScopeProfile>) {
+    setSelectedPreset(-1);
     setScope({ ...scope, ...partial });
   }
 
@@ -64,7 +67,7 @@ export function ScopeConfig() {
               Preset
             </div>
             <select
-              value={-1}
+              value={selectedPreset}
               onChange={(e) => handlePreset(Number(e.target.value))}
               className="w-full rounded text-[10px] font-mono px-2 py-1 cursor-pointer"
               style={{

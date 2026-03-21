@@ -30,6 +30,7 @@ import { TurretMatchTable } from "./components/Trajectory/TurretMatchTable.tsx";
 import { BDCOverlay } from "./components/Trajectory/BDCOverlay.tsx";
 import { CustomTurretDial } from "./components/Trajectory/CustomTurretDial.tsx";
 import { ShareExport, parseShareURL } from "./components/Trajectory/ShareExport.tsx";
+import { ChronoImport } from "./components/Trajectory/ChronoImport.tsx";
 import { CARTRIDGES } from "./lib/cartridges.ts";
 import { bulletsByCaliber } from "./lib/bullets.ts";
 
@@ -459,6 +460,11 @@ export default function App() {
                 {/* BC Truing Calculator */}
                 <div className="mb-4">
                   <BCTruingCalculator />
+                </div>
+
+                {/* Chronograph Data Import & Reference */}
+                <div className="mb-4">
+                  <ChronoImport />
                 </div>
 
                 {/* Share & Export */}

@@ -22,8 +22,9 @@
 | **v0.6.0** | Batch A | Steep angle warnings, ogive profiles on all bullets, multi-zero DOPE cards, arm band DOPE format, shooting angle slider |
 | **v0.7.0** | Batch B | Scope profile system, turret matching, BDC reticle overlay, custom turret dial builder, FFP/SFP holdover correction |
 | **v0.8.0** | Batch C | Rifle profiles (localStorage), performance tracking (ES/SD trends), shareable URLs, export/print, localStorage persistence layer |
+| **v0.9.0** | Phase 7 | Chrono data import (LabRadar/MagnetoSpeed CSV), seed reference data (Ammolytics), barrel length validation, predicted vs. measured comparison |
 
-> **Current:** `v0.8.0` — defined in `src/lib/version.ts`
+> **Current:** `v0.9.0` — defined in `src/lib/version.ts`
 > **Versioning:** Major phases bump minor version. Patches for bugfixes.
 
 ---
@@ -279,13 +280,19 @@
 > *Same killer concept from StringForge. Feed real data back in. The model gets smarter.*
 
 ### 📟 7.1 Chronograph Input
-- [ ] **Chrono data entry** — Enter shot strings with auto average, ES, SD
-- [ ] **Multi-session tracking** — Log multiple range sessions per load
-- [ ] **Device tags** — LabRadar, MagnetoSpeed, Caldwell, Garmin Xero C1
+- [x] **Chrono data entry** — Enter shot strings with auto average, ES, SD
+  > *Completed in v0.8.0 (PerformanceTracker) and v0.9.0 (ChronoImport CSV parser)*
+- [x] **CSV import** — LabRadar Report CSV and MagnetoSpeed LOG.CSV auto-detection and parsing
+  > *Completed in v0.9.0 — ChronoImport component with format auto-detect, multi-series support, save to performance log*
+- [x] **Multi-session tracking** — Log multiple range sessions per load
+  > *Completed in v0.8.0 — PerformanceTracker with localStorage persistence, filtered by load combo*
+- [x] **Device tags** — LabRadar, MagnetoSpeed, Caldwell, Garmin Xero C1
+  > *Completed in v0.9.0 — device field on ChronoReference, auto-detected from CSV format*
 - [ ] **Setup snapshot** — Freeze full config at time of entry
 
 ### 📊 7.2 Predicted vs. Actual
-- [ ] **Velocity delta** — Predicted MV vs. actual MV, % error
+- [x] **Velocity delta** — Predicted MV vs. actual MV, % error
+  > *Completed in v0.9.0 — ChronoImport reference comparison with color-coded delta (green <25fps, yellow <50, red >50)*
 - [ ] **Trajectory verification** — Enter actual drops at distance, compare to model
 - [x] **BC refinement** — `refineBCFromVelocity()` RK4 binary search truing from two velocity measurements (BCTruingCalculator UI)
   > *Cherry-picked in v0.5.1 — pure math engine function + self-contained UI calculator*
