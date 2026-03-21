@@ -65,31 +65,31 @@
 > *Logo. CI/CD. Get it live.*
 
 ### 🎨 2.1 Branding
-- [ ] **BulletForge SVG logo** — Bullet + crosshair icon, red/dark theme
-- [ ] **Favicon** — SVG favicon for browser tabs
-- [ ] **PWA icons** — 192px, 512px, Apple Touch (180px)
-- [ ] **OG image** — 1200×630 social preview card
-- [ ] **Theme color** — `#ef4444` (red) across manifest + meta
+- [x] **BulletForge SVG logo** — Bullet + crosshair reticle with mil-dots, red/dark theme
+- [x] **Favicon** — SVG favicon for browser tabs
+- [x] **PWA icons** — 192px, 512px, Apple Touch (180px) — generated via sharp script
+- [x] **OG image** — 1200×630 social preview card with feature pills
+- [x] **Theme color** — `#ef4444` (red) across manifest + meta
 
 ### 🚀 2.2 Deploy to bulletforge.io
 - [ ] **cPanel account** — Set up bulletforge.io under St. Clair Hosting (needs additional license)
 - [ ] **DNS** — Point bulletforge.io to server IP
 - [ ] **SSL** — Let's Encrypt wildcard via WHM AutoSSL
-- [ ] **Apache .htaccess** — HTTPS redirect, security headers, Vite caching, SPA fallback, gzip
-- [ ] **GitHub Actions CI/CD** — Test → Build → FTPS deploy on push to main
+- [x] **Apache .htaccess** — HTTPS redirect, security headers, Vite caching, SPA fallback, gzip
+- [x] **GitHub Actions CI/CD** — Test → Build → FTPS deploy on push to main
 - [ ] **GitHub secrets** — FTP_SERVER, FTP_USERNAME, FTP_PASSWORD
 
 ### 📊 2.3 Analytics & SEO
 - [ ] **Plausible account** — Add bulletforge.io as site
 - [ ] **Sentry project** — Create project, add production DSN
-- [ ] **OG meta tags** — Title, description, image for link sharing
-- [ ] **Twitter cards** — `summary_large_image`
-- [ ] **JSON-LD** — WebApplication schema (already in index.html, verify)
+- [x] **OG meta tags** — Title, description, image for link sharing
+- [x] **Twitter cards** — `summary_large_image`
+- [x] **JSON-LD** — WebApplication schema (verified in index.html)
 
 ### 📱 2.4 PWA & Offline
-- [ ] **manifest.json** — App name, icons, standalone display
-- [ ] **Service worker** — Network-first caching for offline use at the bench
-- [ ] **Apple web app** — iOS standalone mode meta tags
+- [x] **manifest.json** — App name, icons, standalone display
+- [x] **Service worker** — Network-first caching for offline use at the bench
+- [x] **Apple web app** — iOS standalone mode meta tags (in index.html)
 
 ---
 
