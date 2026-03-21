@@ -244,3 +244,6 @@ function CorrectionDoc({ name, desc }: { name: string; desc: string }) {
     </div>
   );
 }
+
+
+export default DocsPanel;

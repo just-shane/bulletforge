@@ -349,3 +349,6 @@ export function CustomTurretDial() {
     </div>
   );
 }
+
+
+export default CustomTurretDial;

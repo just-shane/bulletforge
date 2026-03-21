@@ -2,7 +2,7 @@
 
 ### Ballistics & reloading simulator. In your browser. No $150 desktop app required.
 
-> **Coming soon:** [https://bulletforge.io](https://bulletforge.io)
+> **Live at:** [https://bulletforge.io](https://bulletforge.io)
 > For reloaders, long-range shooters, and gunsmiths who want real physics — not guesswork.
 
 ---
@@ -26,8 +26,10 @@
 | **v0.9.1** | Phase 8.6 | ML training data ingestion pipeline — GRT XML parser, 115-record normalized corpus (48 projectiles, 12 powders, 48 calibers, 7 loads), typed query utilities |
 | **v0.9.2** | Docs & Education | Full Docs panel (4 sections), Education panel (cartridge guide, safari guide, ballistics 101, reloading safety), Glossary (53 terms, 7 categories, search + filter) |
 | **v0.9.3** | Pre-launch polish | TODO audit & accuracy pass, fixed stale theme names, updated build size claim (165KB gzipped), visual/UX audit across all tabs + 6 themes + mobile, verified data completeness (60 bullets, 24 powders, 15 cartridges), error handling & edge case testing |
+| **v0.9.4** | Backend & Community | Supabase auth (email/password, magic link), localStorage↔cloud sync, RLS policies, community load sharing, crowd-sourced BCs, reporting/moderation, CI/CD deploy to bulletforge.io |
+| **v0.9.5** | Production hardening | Sentry error tracking (env var DSN, release tags), Plausible analytics activation, React.lazy code splitting (387KB → 117KB gzip main chunk), Node 22 CI, service worker cache versioning |
 
-> **Current:** `v0.9.3` — defined in `src/lib/version.ts`
+> **Current:** `v0.9.5` — defined in `src/lib/version.ts`
 > **Versioning:** Major phases bump minor version. Patches for bugfixes.
 
 ---
@@ -36,10 +38,10 @@
 
 | Status | Service | Required? | Notes |
 |--------|---------|-----------|-------|
-| 🔜 | Plausible Analytics | Yes | `@plausible-analytics/tracker` NPM package (wired, needs account) |
-| 🔜 | Sentry | Yes | `@sentry/react` (wired, needs DSN) |
-| 🔜 | Let's Encrypt | Yes | SSL via WHM AutoSSL (needs cPanel license) |
-| 🔜 | Supabase | No | Future: chrono data, user accounts, API backend |
+| ✅ | Plausible Analytics | Yes | `@plausible-analytics/tracker` wired via `src/lib/analytics.ts` (needs Plausible account) |
+| ✅ | Sentry | Yes | `@sentry/react` wired via env var `VITE_SENTRY_DSN` (needs Sentry project + GitHub secret) |
+| ✅ | Let's Encrypt | Yes | SSL active via WHM AutoSSL |
+| ✅ | Supabase | Yes | Auth, cloud sync, community tables — `uhmpkprcxrajbtkvqmwg.supabase.co` |
 
 ---
 
@@ -97,17 +99,17 @@
 - [x] **Theme color** — `#ef4444` (red) across manifest + meta
 
 ### 🚀 2.2 Deploy to bulletforge.io
-- [ ] **cPanel account** — Set up bulletforge.io under St. Clair Hosting (needs additional license)
-- [ ] **DNS** — Point bulletforge.io to server IP
-- [ ] **SSL** — Let's Encrypt wildcard via WHM AutoSSL
+- [x] **cPanel account** — bulletforge.io on St. Clair Hosting (67.222.28.49)
+- [x] **DNS** — A record pointing to 67.222.28.49
+- [x] **SSL** — Let's Encrypt via WHM AutoSSL
 - [x] **Apache .htaccess** — HTTPS redirect, security headers, Vite caching, SPA fallback, gzip
-- [x] **GitHub Actions CI/CD** — Test → Build → FTPS deploy on push to main
-- [ ] **GitHub secrets** — FTP_SERVER, FTP_USERNAME, FTP_PASSWORD
-- [ ] **Enable "Require status checks to pass"** — Add to main-protection ruleset once CI/CD deploys are working
+- [x] **GitHub Actions CI/CD** — Test → Lint → Build → FTPS deploy on push to main (Node 22)
+- [x] **GitHub secrets** — FTP_SERVER, FTP_USERNAME, FTP_PASSWORD, VITE_SUPABASE_URL, VITE_SUPABASE_PUBLISHABLE_KEY, VITE_SENTRY_DSN
+- [ ] **Enable "Require status checks to pass"** — Add to main-protection ruleset
 
 ### 📊 2.3 Analytics & SEO
-- [ ] **Plausible account** — Add bulletforge.io as site
-- [ ] **Sentry project** — Create project, add production DSN
+- [ ] **Plausible account** — Register bulletforge.io at plausible.io (tracker code is wired)
+- [ ] **Sentry project** — Create project, set VITE_SENTRY_DSN GitHub secret (code is wired)
 - [x] **OG meta tags** — Title, description, image for link sharing
 - [x] **Twitter cards** — `summary_large_image`
 - [x] **JSON-LD** — WebApplication schema (verified in index.html)
@@ -307,12 +309,15 @@
 - [x] **Confidence scoring** — `± X fps` 95% CI uncertainty band that tightens with data, confidence score (0-100), level rating, pooled SD, progress bar in Load Calibration dashboard
 - [x] **Seasonal tracking** — Color-coded seasonal velocity bars (Winter/Spring/Summer/Fall), SD per season, total seasonal spread with powder stability assessment
 
-### 🌐 7.4 Community Learning *(requires backend)*
-- [ ] **Anonymous aggregation** — Opt-in upload of load data + chrono results
-- [ ] **Crowd-sourced BCs** — True BCs from thousands of users vs. manufacturer claims
+### 🌐 7.4 Community Learning *(Supabase backend — v0.9.4)*
+- [x] **Opt-in load sharing** — PublishLoadDialog with safety warnings, explicit consent, pressure flagging
+  > *Completed in v0.9.4 — shared_loads table with RLS, server-side unsafe flag trigger, 3-report auto-hide*
+- [x] **Crowd-sourced BCs** — CommunityBCBadge shows confidence-weighted average vs. manufacturer BC
+  > *Completed in v0.9.4 — community_bc_contributions table, community_bc_aggregates view, min 2 contributors + score >= 30*
+- [x] **Load recipe sharing** — CommunityBrowser with filter/sort, expandable details, safety badges
+  > *Completed in v0.9.4 — ReportDialog for flagging unsafe/inaccurate loads*
 - [ ] **Powder lot variation** — Track velocity differences between powder lots
-- [ ] **"Real world" comparisons** — _"142gr SMK: published G7 BC 0.264, community-measured 0.259"_
-- [ ] **Load recipe sharing** — Browse proven loads from the community
+- [ ] **Anonymous aggregation** — Allow non-authenticated users to contribute data
 
 ---
 
@@ -423,9 +428,11 @@
 
 > **Test Suite:** 194 unit tests (Vitest) — 54 external + 37 internal ballistics + 20 load development + 30 powders + 35 storage + 18 confidence
 
-> **Stack:** React 19 · TypeScript · Vite · Zustand · Tailwind v4 · RK4 Ballistics Engine
+> **Stack:** React 19 · TypeScript · Vite · Zustand · Tailwind v4 · Supabase · RK4 Ballistics Engine
 
-> **Infra:** GitHub Actions CI/CD · FTPS deploy · St. Clair Hosting · Let's Encrypt · Plausible · Sentry
+> **Infra:** GitHub Actions CI/CD (Node 22) · FTPS deploy · St. Clair Hosting · Let's Encrypt · Plausible · Sentry
+
+> **Bundle:** 387KB main chunk (117KB gzip) + lazy-loaded tab/modal chunks via React.lazy
 
 ---
 

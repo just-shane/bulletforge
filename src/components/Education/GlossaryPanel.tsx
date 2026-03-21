@@ -254,3 +254,6 @@ export function GlossaryPanel() {
     </div>
   );
 }
+
+
+export default GlossaryPanel;

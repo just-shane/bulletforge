@@ -170,3 +170,6 @@ export function TempComparisonPanel({
     </div>
   );
 }
+
+
+export default TempComparisonPanel;

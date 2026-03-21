@@ -1,5 +1,5 @@
 // ─── Service Worker for offline support ─────────────────────────
-const CACHE_NAME = "bulletforge-v1";
+const CACHE_NAME = "bulletforge-v0.9.5";
 const PRECACHE_URLS = ["/", "/index.html"];
 
 // Install: precache shell

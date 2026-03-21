@@ -184,3 +184,6 @@ export function BarrelLengthChart({ config }: BarrelLengthChartProps) {
     </div>
   );
 }
+
+
+export default BarrelLengthChart;

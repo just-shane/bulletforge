@@ -314,3 +314,6 @@ export function ArmBandDOPE() {
     </div>
   );
 }
+
+
+export default ArmBandDOPE;

@@ -114,3 +114,6 @@ export function LoadDevelopmentTab() {
     </div>
   );
 }
+
+
+export default LoadDevelopmentTab;

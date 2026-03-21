@@ -656,3 +656,6 @@ export function ChronoImport() {
     </div>
   );
 }
+
+
+export default ChronoImport;

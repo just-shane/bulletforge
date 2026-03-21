@@ -1,20 +1,17 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import * as Sentry from "@sentry/react";
-import { init as plausibleInit } from "@plausible-analytics/tracker";
+import { APP_VERSION } from "./lib/version.ts";
+import "./lib/analytics.ts";
 import "./index.css";
 import App from "./App.tsx";
 
 // Initialize Sentry (production only)
 Sentry.init({
-  dsn: "https://placeholder@sentry.io/0",
+  dsn: import.meta.env.VITE_SENTRY_DSN,
   enabled: import.meta.env.PROD,
   tracesSampleRate: 0.1,
-});
-
-// Initialize Plausible analytics
-plausibleInit({
-  domain: "bulletforge.io",
+  release: `bulletforge@${APP_VERSION}`,
 });
 
 // Register service worker for offline support

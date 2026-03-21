@@ -218,3 +218,6 @@ export function BCTruingCalculator() {
     </div>
   );
 }
+
+
+export default BCTruingCalculator;
