@@ -114,12 +114,16 @@ type EducationSection =
   | "cartridge-guide"
   | "ballistics-101"
   | "safari-guide"
+  | "long-range"
+  | "load-development"
   | "reloading-safety";
 
 const SECTIONS: { id: EducationSection; title: string; icon: string }[] = [
   { id: "cartridge-guide", title: "Cartridge Guide", icon: ">" },
   { id: "safari-guide", title: "Safari & Dangerous Game", icon: ">" },
   { id: "ballistics-101", title: "Ballistics 101", icon: ">" },
+  { id: "long-range", title: "Long-Range Shooting", icon: ">" },
+  { id: "load-development", title: "Load Development", icon: ">" },
   { id: "reloading-safety", title: "Reloading Safety", icon: ">" },
 ];
 
@@ -377,6 +381,100 @@ export function EducationPanel() {
 
               <Section title="Wind: The Shooter's Biggest Challenge">
                 Wind drift is the primary source of misses at long range — not drop. Drop is consistent and predictable; wind is neither. A 10 mph full-value crosswind can push a .308 bullet over 70 inches at 1,000 yards. Reading wind is an acquired skill. BulletForge can show you how much drift to expect, but only you can read the wind at your location.
+              </Section>
+            </div>
+          )}
+
+          {/* ---- Long-Range Shooting ---- */}
+          {activeSection === "long-range" && (
+            <div className="flex flex-col gap-5">
+              <div
+                className="rounded-md p-4"
+                style={{
+                  background: "var(--c-accent-glow, var(--c-panel))",
+                  border: "1px solid var(--c-accent)",
+                }}
+              >
+                <p className="text-[10px] font-mono leading-relaxed" style={{ color: "var(--c-text-dim)" }}>
+                  Beyond 600 yards, the atmosphere becomes the dominant variable. Understanding when advanced corrections matter — and when they don't — separates consistent hits from frustrating misses.
+                </p>
+              </div>
+
+              <Section title="When Do Advanced Corrections Matter?">
+                At 100-300 yards, none of these effects matter. Bullet drop and a basic wind call are enough. At 300-600 yards, density altitude and accurate wind reading become critical. Beyond 600 yards, spin drift, Coriolis, and aerodynamic jump start to add up. Past 1,000 yards, ignoring any of these can mean a miss by feet, not inches. BulletForge models all of them — use the comparison mode to see exactly how much each correction contributes at your target distance.
+              </Section>
+
+              <Section title="Spin Drift">
+                A bullet spinning from a right-hand twist barrel will drift to the right over distance (left for left-twist). This is caused by the yaw of repose — the bullet's nose precessing slightly to the right as it tracks the arc of its trajectory. At 1,000 yards with a typical .308 load, spin drift can account for 6-10 inches of rightward deflection. It is consistent and predictable, which means you can dial for it.
+              </Section>
+
+              <Section title="Coriolis Effect">
+                The Earth is rotating underneath the bullet while it's in flight. In the Northern Hemisphere, Coriolis deflects the bullet slightly to the right; in the Southern Hemisphere, to the left. The magnitude depends on your latitude, the direction you're shooting (azimuth), and time of flight. At 1,000 yards it is typically 2-4 inches — small but additive with spin drift. Shooting due north or south produces the maximum horizontal deflection; shooting east or west minimizes it.
+              </Section>
+
+              <Section title="Eötvös Effect">
+                The vertical component of Coriolis. Shooting east (with Earth's rotation), the bullet effectively weighs less and drops less. Shooting west (against rotation), it drops more. This is the Eötvös effect. At typical rifle ranges it is very small — under an inch at 1,000 yards — but BulletForge includes it for completeness. ELR shooters past 1,500 yards should account for it.
+              </Section>
+
+              <Section title="Aerodynamic Jump">
+                When a crosswind hits a spinning bullet, the bullet's nose yaws into the wind. Due to gyroscopic precession, this yaw converts into a vertical deflection — the bullet impacts high or low depending on wind direction and twist. This is aerodynamic jump. It is proportional to crosswind speed and inversely proportional to muzzle velocity. A 10 mph crosswind can cause 1-3 inches of vertical shift at 1,000 yards. If your groups are vertically strung on windy days, aerodynamic jump may be the reason.
+              </Section>
+
+              <Section title="Density Altitude — The Hidden Variable">
+                Two shooters at the same GPS altitude can get different trajectories if their atmospheric conditions differ. Density altitude collapses temperature, barometric pressure, and humidity into a single equivalent altitude. A hot summer day at 2,000 feet elevation might have a density altitude of 5,000 feet — meaning the air is as thin as it would be at 5,000 feet on a standard day. Thinner air means less drag, flatter trajectory, and less wind drift. Always compute density altitude, not just elevation, for your DOPE cards.
+              </Section>
+
+              <Section title="Practical Tips for Long-Range Shooting">
+                1. Build DOPE cards at multiple density altitudes — a sea-level card is useless at 7,000 feet. 2. Zero at the density altitude you'll be shooting at, or true your BC with a chronograph at distance. 3. Spin drift and Coriolis are additive for right-twist barrels shooting in the Northern Hemisphere — they both push right. 4. Wind is still your biggest variable; a 1 mph wind reading error matters more than Coriolis at most distances. 5. Use BulletForge's comparison mode to isolate each effect: run one trajectory with Coriolis on, one with it off, and see the actual delta for your specific setup.
+              </Section>
+            </div>
+          )}
+
+          {/* ---- Load Development Guide ---- */}
+          {activeSection === "load-development" && (
+            <div className="flex flex-col gap-5">
+              <div
+                className="rounded-md p-4"
+                style={{
+                  background: "var(--c-accent-glow, var(--c-panel))",
+                  border: "1px solid var(--c-accent)",
+                }}
+              >
+                <p className="text-[10px] font-mono leading-relaxed" style={{ color: "var(--c-text-dim)" }}>
+                  Load development is the systematic process of finding the optimal combination of components and dimensions for your specific rifle. Every barrel is different — the goal is to find what YOUR rifle shoots best.
+                </p>
+              </div>
+
+              <Section title="The Load Development Process">
+                The general sequence is: 1. Select your components (brass, primer, powder, bullet). 2. Find a safe starting charge from published load data. 3. Run a ladder or charge weight test to find a velocity node. 4. Optimize seating depth around that charge. 5. Fine-tune charge weight in small increments. 6. Validate with a larger sample size. BulletForge's Load Development tab walks you through each step with predicted pressures and velocities.
+              </Section>
+
+              <Section title="Ladder Test Method">
+                A ladder test fires single rounds at incrementally increasing charge weights, typically in 0.3-grain steps from minimum to near-maximum. You're looking for a velocity plateau — a range of charge weights where velocity changes very little despite increasing powder. This "node" indicates the barrel's natural harmonic convergence point. Loads developed at a node tend to be more consistent and less sensitive to small charge weight variations. BulletForge's ladder planner generates the step table with predicted velocity and pressure for each increment.
+              </Section>
+
+              <Section title="Optimal Charge Weight (OCW)">
+                OCW is Dan Newberry's method. Fire 3-round groups at each charge weight in your ladder. The optimal charge is where groups are tight AND point of impact (POI) doesn't shift between adjacent charge weights. BulletForge scores OCW results using a weighted formula: 50% group size, 30% standard deviation, 20% POI consistency. The best charge is one that shoots well AND tolerates slight variations — a "forgiving" node.
+              </Section>
+
+              <Section title="Seating Depth Optimization">
+                Once your charge weight is locked, fine-tune bullet seating depth. Start with the bullet touching the rifling lands (jam) and work back in 0.010-inch increments to 0.100 inches off the lands. Secant ogive bullets (like Berger VLDs and Hornady ELD-M) are more sensitive to seating depth — small changes produce big accuracy differences. Tangent ogive bullets (like Sierra MatchKing) are more forgiving. BulletForge knows each bullet's ogive type and adjusts its recommendations accordingly.
+              </Section>
+
+              <Section title="ES and SD — Measuring Consistency">
+                Extreme Spread (ES) is the difference between your fastest and slowest shot. Standard Deviation (SD) measures how tightly your velocities cluster around the mean. For precision rifle work, an SD under 10 fps is good, under 8 fps is competition-grade, and under 5 fps is exceptional. ES should be under 25 fps. A chronograph is essential — without one, you're guessing. BulletForge's ES/SD calculator grades your strings and tracks trends over time.
+              </Section>
+
+              <Section title="The Role of Brass Preparation">
+                Consistent brass is the foundation of consistent ammunition. Key steps: 1. Sort brass by headstamp (or ideally by weight). 2. Full-length size or neck-size only (neck-sizing gives better consistency but may cause chambering issues after several firings). 3. Trim to uniform length. 4. Deburr and chamfer case mouths. 5. Uniform flash holes and primer pockets. Each of these steps reduces one variable — and load development is all about isolating variables.
+              </Section>
+
+              <Section title="Working Up Safely">
+                Always start at the minimum published charge weight, not the middle or the max. Increase in 0.3-grain increments for most cartridges (0.5 grains for magnums with large case capacity). Watch for pressure signs at every step. BulletForge's internal ballistics engine can predict approximate pressures, but YOUR barrel, chamber, brass, and components will differ from the model. The simulator shows trends — your chronograph and your brass show reality.
+              </Section>
+
+              <Section title="Validating Your Load">
+                Once you've found an accurate charge weight and seating depth, validate with a minimum of 20-round test group, ideally 30-50 rounds across multiple range sessions and different temperatures. A 3-round group can lie; a 30-round aggregate tells the truth. Log your chrono data in BulletForge's performance tracker to build a statistical picture of your load's true consistency.
               </Section>
             </div>
           )}

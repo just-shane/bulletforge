@@ -410,8 +410,8 @@
 - [x] **Safari & dangerous game** — Cartridge selection guide, species quick-reference table (Cape buffalo through impala), minimum legal calibers, bullet recommendations, MRC Tsavo callout
 - [x] **Ballistics 101** — BC explained, zero range, internal ballistics, density altitude, wind
 - [x] **Reloading safety** — Cardinal rules, pressure signs, BulletForge limitations disclaimer, essential equipment
-- [ ] **Long-range shooting** — Coriolis, density altitude, spin drift — when they matter and when they don't
-- [ ] **Load development guide** — Ladder tests, OCW, seating depth methodology walkthrough
+- [x] **Long-range shooting** — Coriolis, density altitude, spin drift, Eötvös, aerodynamic jump — when they matter and when they don't, practical tips
+- [x] **Load development guide** — Ladder tests, OCW, seating depth, ES/SD, brass prep, working up safely, load validation methodology walkthrough
 
 ### 📘 Glossary
 - [x] **Full glossary** — 53 terms across 7 categories (External Ballistics, Internal Ballistics, Cartridge & Bullet, Optics & Sighting, Reloading, Measurement & Units, Safety), searchable with category filters and abbreviation badges
