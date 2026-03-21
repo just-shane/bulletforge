@@ -1,7 +1,11 @@
 import { APP_NAME, APP_SUBTITLE, APP_VERSION } from "../../lib/version.ts";
+import { useBallisticsStore } from "../../store/store.ts";
 import { HamburgerMenu } from "../Menu/HamburgerMenu.tsx";
 
 export function Header() {
+  const user = useBallisticsStore((s) => s.user);
+  const setAuthModalOpen = useBallisticsStore((s) => s.setAuthModalOpen);
+
   return (
     <div
       className="flex items-center justify-between px-6 py-4"
@@ -33,7 +37,20 @@ export function Header() {
         </div>
       </a>
 
-      <HamburgerMenu />
+      <div className="flex items-center gap-3">
+        <button
+          onClick={() => setAuthModalOpen(true)}
+          className="rounded-md px-3 py-1.5 text-[10px] font-mono tracking-wide cursor-pointer transition-colors"
+          style={{
+            background: user ? "var(--c-accent-glow)" : "var(--c-panel)",
+            border: `1px solid ${user ? "var(--c-accent)" : "var(--c-border)"}`,
+            color: user ? "var(--c-accent)" : "var(--c-text-muted)",
+          }}
+        >
+          {user ? user.email?.split("@")[0] : "Sign In"}
+        </button>
+        <HamburgerMenu />
+      </div>
     </div>
   );
 }

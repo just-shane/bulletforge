@@ -12,6 +12,8 @@ import {
 } from "../../lib/storage.ts";
 import { refineBCFromVelocity, trajectory } from "../../lib/ballistics.ts";
 import { computeConfidence } from "../../lib/confidence.ts";
+import { PublishLoadDialog } from "./PublishLoadDialog.tsx";
+import { CommunityBCBadge } from "./CommunityBCBadge.tsx";
 
 // ─── Helpers ──────────────────────────────────────────────────────
 
@@ -195,8 +197,11 @@ export function PerformanceTracker() {
   const temperature = useBallisticsStore((s) => s.temperature);
   const barometricPressure = useBallisticsStore((s) => s.barometricPressure);
   const humidity = useBallisticsStore((s) => s.humidity);
+  const user = useBallisticsStore((s) => s.user);
+  const internalResult = useBallisticsStore((s) => s.internalResult);
 
   const [collapsed, setCollapsed] = useState(false);
+  const [showPublish, setShowPublish] = useState(false);
   const [velocityInput, setVelocityInput] = useState("");
   const [notes, setNotes] = useState("");
   const [records, setRecords] = useState<PerformanceRecord[]>([]);
@@ -307,8 +312,8 @@ export function PerformanceTracker() {
     let bcCorrectionFactor = existing?.bcCorrectionFactor;
     if (avg > 0 && muzzleVelocity > 0 && Math.abs(avg - muzzleVelocity) > 5) {
       try {
-        const bc = bullet.bc_G7 || bullet.bc_G1;
-        const dragModel = bullet.bc_G7 ? "G7" as const : "G1" as const;
+        const bc = bullet.bc_g7 || bullet.bc_g1;
+        const dragModel = bullet.bc_g7 ? "G7" as const : "G1" as const;
         if (bc) {
           const result = refineBCFromVelocity(
             muzzleVelocity, 0,
@@ -619,7 +624,7 @@ export function PerformanceTracker() {
                   <MiniStat
                     label="True BC"
                     value={calibration.trueBC.toFixed(4)}
-                    unit={bullet.bc_G7 ? "G7" : "G1"}
+                    unit={bullet.bc_g7 ? "G7" : "G1"}
                     color={
                       calibration.bcCorrectionFactor != null
                         ? calibration.bcCorrectionFactor < 1
@@ -710,6 +715,38 @@ export function PerformanceTracker() {
                       {conf.totalRounds} rounds across {conf.sessionCount} session{conf.sessionCount !== 1 ? "s" : ""} · Pooled SD: {conf.pooledSD} fps
                     </div>
                   </div>
+                );
+              })()}
+
+              {/* Community BC Badge */}
+              {calibration.trueBC != null && (
+                <CommunityBCBadge
+                  bulletName={bullet.name}
+                  bulletManufacturer={bullet.manufacturer}
+                  manufacturerBC={bullet.bc_g7 || bullet.bc_g1}
+                  dragModel={bullet.bc_g7 ? "G7" : "G1"}
+                />
+              )}
+
+              {/* Share This Load */}
+              {user && calibration.sessionCount >= 1 && (() => {
+                const velocitySets = records
+                  .filter((r) => r.chargeWeight === chargeWeight)
+                  .map((r) => r.velocities);
+                const conf = computeConfidence(velocitySets, calibration.sdHistory);
+                if (!conf || conf.score < 30) return null;
+                return (
+                  <button
+                    onClick={() => setShowPublish(true)}
+                    className="w-full rounded-md px-3 py-2 mt-2 text-[10px] font-mono tracking-wide cursor-pointer transition-colors"
+                    style={{
+                      background: "var(--c-panel)",
+                      border: "1px solid var(--c-accent)",
+                      color: "var(--c-accent)",
+                    }}
+                  >
+                    Share This Load with Community
+                  </button>
                 );
               })()}
 
@@ -826,8 +863,8 @@ export function PerformanceTracker() {
                   if (isNaN(range) || isNaN(drop) || range <= 0) return;
 
                   // Run trajectory prediction for this range
-                  const bc = bullet.bc_G7 || bullet.bc_G1;
-                  const dragModel = bullet.bc_G7 ? "G7" as const : "G1" as const;
+                  const bc = bullet.bc_g7 || bullet.bc_g1;
+                  const dragModel = bullet.bc_g7 ? "G7" as const : "G1" as const;
                   if (!bc) return;
 
                   const result = trajectory({
@@ -901,6 +938,26 @@ export function PerformanceTracker() {
           </div>
         </div>
       )}
+
+      {/* Publish Load Dialog */}
+      {showPublish && calibration && (() => {
+        const velocitySets = records
+          .filter((r) => r.chargeWeight === chargeWeight)
+          .map((r) => r.velocities);
+        const conf = computeConfidence(velocitySets, calibration.sdHistory);
+        return (
+          <PublishLoadDialog
+            calibration={calibration}
+            bullet={bullet}
+            cartridge={cartridge}
+            confidence={conf}
+            barrelLength={barrelLength}
+            internalResult={internalResult}
+            onClose={() => setShowPublish(false)}
+            onPublished={() => setShowPublish(false)}
+          />
+        );
+      })()}
     </div>
   );
 }
