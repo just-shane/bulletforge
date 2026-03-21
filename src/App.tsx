@@ -17,6 +17,9 @@ import { TempComparisonPanel } from "./components/InternalBallistics/TempCompari
 import { SafeLoadIndicator } from "./components/InternalBallistics/SafeLoadIndicator.tsx";
 import { ComparisonChart } from "./components/Trajectory/ComparisonChart.tsx";
 import { ComparisonTable } from "./components/Trajectory/ComparisonTable.tsx";
+import { DOPECard } from "./components/Trajectory/DOPECard.tsx";
+import { StabilityPanel } from "./components/Trajectory/StabilityPanel.tsx";
+import { BCTruingCalculator } from "./components/Trajectory/BCTruingCalculator.tsx";
 import { LoadDevelopmentTab } from "./components/LoadDevelopment/LoadDevelopmentTab.tsx";
 
 export default function App() {
@@ -337,6 +340,38 @@ export default function App() {
                 SAAMI MAP: {cartridge.maxPressure.toLocaleString()} psi
                 {" "}&middot;{" "}
                 DA: {da.toLocaleString()} ft
+              </div>
+
+              {/* Stability Panel */}
+              <div className="mt-4 mb-4">
+                <StabilityPanel
+                  bulletWeight={bullet.weight}
+                  bulletDiameter={bullet.diameter}
+                  twistRate={8}
+                  altitude={altitude}
+                  temperature={temperature}
+                  pressure={barometricPressure}
+                />
+              </div>
+
+              {/* DOPE Card */}
+              <div className="mb-4">
+                <DOPECard
+                  points={trajectoryResults}
+                  cartridgeName={cartridge.name}
+                  bulletName={`${bullet.manufacturer} ${bullet.name}`}
+                  muzzleVelocity={muzzleVelocity}
+                  zeroRange={zeroRange}
+                  windSpeed={windSpeed}
+                  windAngle={windAngle}
+                  altitude={altitude}
+                  temperature={temperature}
+                />
+              </div>
+
+              {/* BC Truing Calculator */}
+              <div className="mb-4">
+                <BCTruingCalculator />
               </div>
             </>
           ) : (

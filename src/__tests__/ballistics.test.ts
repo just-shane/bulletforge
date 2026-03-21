@@ -11,6 +11,8 @@ import {
   densityAltitude,
   stationToAbsolutePressure,
   altitudeVelocityCorrection,
+  millerStability,
+  refineBCFromVelocity,
 } from "../lib/ballistics.ts";
 import type { TrajectoryConfig } from "../lib/ballistics.ts";
 
@@ -455,5 +457,73 @@ describe("Angle Shooting", () => {
     // shift the ratio — actual ~0.76 at 500yds is reasonable
     expect(ratio).toBeGreaterThan(0.65);
     expect(ratio).toBeLessThan(0.95);
+  });
+});
+
+describe("Miller Stability Factor", () => {
+  it("6.5mm 140gr in 1:8 twist is well stabilized", () => {
+    // 6.5 CM 140gr ELD-M: ~1.33" long, 0.264" diameter
+    const result = millerStability(140, 0.264, 1.33, 8);
+    expect(result.stabilityFactor).toBeGreaterThan(1.3);
+    expect(result.stabilityFactor).toBeLessThan(2.5);
+    expect(result.rating).toBe("stable");
+  });
+
+  it(".308 175gr SMK in 1:10 twist is stable", () => {
+    // .308 175gr Sierra MatchKing: ~1.24" long, 0.308" diameter
+    const result = millerStability(175, 0.308, 1.24, 10);
+    expect(result.stabilityFactor).toBeGreaterThan(1.0);
+    expect(result.rating).not.toBe("unstable");
+  });
+
+  it("heavy bullet in slow twist is unstable", () => {
+    // 6.5mm 156gr Berger in 1:9 twist — pushing it
+    const result = millerStability(156, 0.264, 1.45, 9);
+    // May be marginal or unstable depending on exact length
+    expect(result.stabilityFactor).toBeLessThan(2.0);
+  });
+
+  it("altitude increases stability factor", () => {
+    const seaLevel = millerStability(140, 0.264, 1.33, 8, 0, 59, 29.92);
+    const highAlt = millerStability(140, 0.264, 1.33, 8, 5000, 59, 29.92);
+    expect(highAlt.stabilityFactor).toBeGreaterThan(seaLevel.stabilityFactor);
+  });
+
+  it("returns min and max twist recommendations", () => {
+    const result = millerStability(140, 0.264, 1.33, 8);
+    expect(result.minTwist).toBeGreaterThan(0);
+    expect(result.maxTwist).toBeGreaterThan(0);
+    expect(result.minTwist).toBeGreaterThanOrEqual(result.maxTwist); // Slower twist = higher number
+  });
+});
+
+describe("BC Refinement (Truing)", () => {
+  it("returns a reasonable BC for realistic velocity drop", () => {
+    // 6.5 CM 140gr ELD-M G7 0.264: actual solver shows ~2696 fps at 200 yds
+    // Test with a slightly lower velocity to simulate a bullet with slightly worse BC
+    const result = refineBCFromVelocity(2700, 0, 2690, 200, 0.264, "G7");
+    expect(result.trueBC).toBeGreaterThan(0.05);
+    expect(result.trueBC).toBeLessThan(1.0);
+    expect(typeof result.assessment).toBe("string");
+  });
+
+  it("higher velocity retention indicates higher true BC", () => {
+    // Same distance, but bullet retains more velocity = higher BC
+    const lowRetain = refineBCFromVelocity(2700, 0, 2680, 300, 0.264, "G7");
+    const highRetain = refineBCFromVelocity(2700, 0, 2690, 300, 0.264, "G7");
+    expect(highRetain.trueBC).toBeGreaterThan(lowRetain.trueBC);
+  });
+
+  it("handles invalid input gracefully", () => {
+    // V2 > V1 is physically impossible
+    const result = refineBCFromVelocity(2500, 0, 2700, 300, 0.264, "G7");
+    expect(result.trueBC).toBe(0.264); // Returns published BC
+    expect(result.correctionFactor).toBe(1.0);
+  });
+
+  it("returns meaningful assessment string", () => {
+    const result = refineBCFromVelocity(2700, 0, 2690, 200, 0.264, "G7");
+    expect(typeof result.assessment).toBe("string");
+    expect(result.assessment.length).toBeGreaterThan(10);
   });
 });

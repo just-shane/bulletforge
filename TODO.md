@@ -17,8 +17,9 @@
 | **v0.4.0** | Phase 4 | Load development tools — ladder test planner, ES/SD calculator, seating depth optimizer, OCW analysis, load recipe/session types, 15+ primer database, 73 tests |
 | **v0.4.1** | Phase 3 cleanup | Barrel length optimizer, burn rate comparison chart, temp sensitivity modeling, hot/cold comparison panel, safe load indicator, 85 tests |
 | **v0.5.0** | Phase 5 | Coriolis/Eötvös, aerodynamic jump, density altitude, station-to-absolute pressure, comparison mode with overlay chart + delta table, latitude/azimuth controls, 102 tests |
+| **v0.5.1** | Cherry-pick | Miller stability factor, BC truing calculator, DOPE card generator, stability panel UI — low-hanging fruit from Phases 6 & 7, 111 tests |
 
-> **Current:** `v0.5.0` — defined in `src/lib/version.ts`
+> **Current:** `v0.5.1` — defined in `src/lib/version.ts`
 > **Versioning:** Major phases bump minor version. Patches for bugfixes.
 
 ---
@@ -241,7 +242,8 @@
 
 ### 🔫 6.1 Rifle Profiles
 - [ ] **Rifle database** — Save rifle configs: caliber, barrel length, twist rate, sight height
-- [ ] **Twist rate stability** — Miller/Greenhill stability factor calculator
+- [x] **Twist rate stability** — Miller stability factor with altitude/temp corrections, color-coded rating, twist rate recommendations (StabilityPanel UI)
+  > *Cherry-picked in v0.5.1 — pure math + UI, no persistence dependencies*
 - [ ] **Barrel life tracking** — Round count, accuracy degradation estimates
 - [ ] **Multiple rifle support** — Switch between saved rifles
 
@@ -252,7 +254,8 @@
 - [ ] **First focal plane vs. second** — Magnification-dependent holdover for SFP scopes
 
 ### 📋 6.3 DOPE Cards
-- [ ] **Auto-generated DOPE cards** — Print-ready range cards with drop/wind at key distances
+- [x] **Auto-generated DOPE cards** — Print-ready range cards with @media print CSS, 100-yard increments, drop/drift/velocity/energy (DOPECard UI)
+  > *Cherry-picked in v0.5.1 — pure UI component using existing trajectory data*
 - [ ] **Multiple zero cards** — Different altitude/temp DOPE for travel
 - [ ] **Arm band format** — Compact format for PRS/NRL competition
 - [ ] **QR code cards** — Scan to load exact setup in BulletForge
@@ -272,7 +275,8 @@
 ### 📊 7.2 Predicted vs. Actual
 - [ ] **Velocity delta** — Predicted MV vs. actual MV, % error
 - [ ] **Trajectory verification** — Enter actual drops at distance, compare to model
-- [ ] **BC refinement** — Back-calculate actual BC from velocity at two distances (truing)
+- [x] **BC refinement** — `refineBCFromVelocity()` RK4 binary search truing from two velocity measurements (BCTruingCalculator UI)
+  > *Cherry-picked in v0.5.1 — pure math engine function + self-contained UI calculator*
 - [ ] **Environmental correlation** — Track how temp/altitude affect your specific load
 
 ### 🧠 7.3 Personal Calibration
@@ -370,7 +374,7 @@
 
 ## 📈 Stats
 
-> **Test Suite:** 102 unit tests (Vitest) — 45 external + 37 internal ballistics + 20 load development
+> **Test Suite:** 111 unit tests (Vitest) — 54 external + 37 internal ballistics + 20 load development
 
 > **Stack:** React 19 · TypeScript · Vite · Zustand · Tailwind v4 · RK4 Ballistics Engine
 

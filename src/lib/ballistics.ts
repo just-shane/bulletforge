@@ -845,6 +845,223 @@ export function trajectory(config: TrajectoryConfig): TrajectoryResult {
 }
 
 // ---------------------------------------------------------------------------
+// Miller Stability Factor
+// ---------------------------------------------------------------------------
+
+/**
+ * Miller stability factor — determines if a twist rate properly stabilizes a bullet.
+ *
+ * Uses the Miller twist rule formula:
+ *   SG = (30 * W) / (T² * D³ * L * (1 + L²))
+ * where:
+ *   W = bullet weight in grains
+ *   T = twist rate in calibers per turn
+ *   D = bullet diameter in inches
+ *   L = bullet length in calibers (length / diameter)
+ *
+ * Stability ranges:
+ *   SG < 1.0  — Unstable (bullet will tumble)
+ *   1.0-1.3   — Marginally stable (accuracy suffers)
+ *   1.3-2.0   — Well stabilized (ideal for most shooting)
+ *   > 2.0     — Over-stabilized (may not transition well to sleep)
+ *
+ * Corrected for altitude and temperature:
+ *   SG_corrected = SG * (T_actual / T_std) * (P_std / P_actual)
+ *
+ * @param bulletWeight - Weight in grains
+ * @param bulletDiameter - Diameter in inches
+ * @param bulletLength - Length in inches (if not known, estimate from weight and diameter)
+ * @param twistRate - Barrel twist rate in inches per turn (e.g., 8 for 1:8)
+ * @param altitude - Altitude in feet (default 0)
+ * @param temperature - Temperature in degrees F (default 59)
+ * @param pressure - Barometric pressure in inHg (default 29.92)
+ * @returns Object with stability factor, rating, and recommended twist range
+ */
+export function millerStability(
+  bulletWeight: number,
+  bulletDiameter: number,
+  bulletLength: number,
+  twistRate: number,
+  altitude: number = 0,
+  temperature: number = 59,
+  pressure: number = 29.92,
+): {
+  stabilityFactor: number;
+  rating: "unstable" | "marginal" | "stable" | "over-stabilized";
+  recommendation: string;
+  minTwist: number;  // Slowest twist that gives SG >= 1.4
+  maxTwist: number;  // Fastest reasonable twist (SG ~2.0)
+} {
+  // Convert twist rate to calibers per turn
+  const twistCalibers = twistRate / bulletDiameter;
+
+  // Bullet length in calibers
+  const lengthCalibers = bulletLength / bulletDiameter;
+
+  // Miller formula (simplified)
+  const sg = (30 * bulletWeight) / (
+    twistCalibers * twistCalibers *
+    bulletDiameter * bulletDiameter * bulletDiameter *
+    lengthCalibers * (1 + lengthCalibers * lengthCalibers)
+  );
+
+  // Altitude/temperature correction
+  // Higher altitude = thinner air = easier to stabilize
+  const tempRatio = (temperature + 459.67) / (59 + 459.67); // Rankine ratio
+  const pressureRatio = 29.92 / pressure;
+  const altFactor = Math.exp(altitude / 27000); // Density decreases with altitude
+  const sgCorrected = sg * tempRatio * pressureRatio * altFactor;
+
+  // Rating
+  let rating: "unstable" | "marginal" | "stable" | "over-stabilized";
+  let recommendation: string;
+
+  if (sgCorrected < 1.0) {
+    rating = "unstable";
+    recommendation = `Bullet will tumble. Need faster twist rate (lower number). Try 1:${Math.floor(twistRate * Math.sqrt(sgCorrected / 1.5))}".`;
+  } else if (sgCorrected < 1.3) {
+    rating = "marginal";
+    recommendation = `Marginally stable. Accuracy may suffer in cold/dense air. Consider 1:${Math.floor(twistRate * Math.sqrt(sgCorrected / 1.5))}" for better stability.`;
+  } else if (sgCorrected <= 2.0) {
+    rating = "stable";
+    recommendation = "Well stabilized. Good balance of stability and precision.";
+  } else {
+    rating = "over-stabilized";
+    recommendation = `SG ${sgCorrected.toFixed(1)} is high. Bullet may not transition to sleep. A slower twist (1:${Math.ceil(twistRate * Math.sqrt(sgCorrected / 1.8))}") could improve long-range accuracy.`;
+  }
+
+  // Calculate min/max twist recommendations
+  // For SG = 1.4: solve T = sqrt(30 * W / (SG * D^3 * L * (1+L^2))) * D
+  const calcTwist = (targetSG: number) => {
+    const tCal = Math.sqrt((30 * bulletWeight) / (targetSG * bulletDiameter * bulletDiameter * bulletDiameter * lengthCalibers * (1 + lengthCalibers * lengthCalibers)));
+    return tCal * bulletDiameter;
+  };
+
+  const minTwist = Math.round(calcTwist(1.4) * 2) / 2; // Round to nearest 0.5"
+  const maxTwist = Math.round(calcTwist(2.0) * 2) / 2;
+
+  return {
+    stabilityFactor: Math.round(sgCorrected * 100) / 100,
+    rating,
+    recommendation,
+    minTwist,
+    maxTwist,
+  };
+}
+
+// ---------------------------------------------------------------------------
+// BC Refinement (Truing) Calculator
+// ---------------------------------------------------------------------------
+
+/**
+ * Back-calculate the true ballistic coefficient from two velocity measurements
+ * at different distances. This is "truing" — using real-world data to correct
+ * the manufacturer's published BC.
+ *
+ * Uses the relationship: BC = f(v1, v2, distance, drag_model)
+ * where the drag function integral between v1 and v2 over the distance
+ * determines the actual BC.
+ *
+ * @param velocity1 - Velocity at first distance (fps) — typically muzzle velocity
+ * @param distance1 - First measurement distance (yards) — typically 0 (muzzle)
+ * @param velocity2 - Velocity at second distance (fps) — from downrange chrono
+ * @param distance2 - Second measurement distance (yards)
+ * @param publishedBC - Manufacturer's published BC for reference
+ * @param dragModel - G1 or G7
+ * @param altitude - Shooting altitude in feet (default 0)
+ * @param temperature - Temperature in degrees F (default 59)
+ * @param pressure - Barometric pressure in inHg (default 29.92)
+ * @param humidity - Relative humidity 0-1 (default 0.78)
+ * @returns Object with true BC, correction factor, and comparison
+ */
+export function refineBCFromVelocity(
+  velocity1: number,
+  distance1: number,
+  velocity2: number,
+  distance2: number,
+  publishedBC: number,
+  dragModel: DragModel = "G7",
+  altitude: number = 0,
+  temperature: number = 59,
+  pressure: number = 29.92,
+  humidity: number = 0.78,
+): {
+  trueBC: number;
+  correctionFactor: number;  // trueBC / publishedBC
+  percentDifference: number; // how far off the published BC is
+  assessment: string;
+} {
+  const rhoRatio = airDensity(altitude, temperature, pressure, humidity) / standardAirDensity();
+  const vs = speedOfSound(temperature);
+  const distanceFt = (distance2 - distance1) * 3; // yards to feet
+
+  if (distanceFt <= 0 || velocity1 <= 0 || velocity2 <= 0 || velocity2 >= velocity1) {
+    return {
+      trueBC: publishedBC,
+      correctionFactor: 1.0,
+      percentDifference: 0,
+      assessment: "Invalid input — V2 must be less than V1 and distance must be positive.",
+    };
+  }
+
+  // Binary search for the BC that produces the observed velocity drop
+  let lo = 0.01;
+  let hi = publishedBC * 5.0;
+
+  for (let i = 0; i < 40; i++) {
+    const midBC = (lo + hi) / 2;
+
+    // Simulate with this BC using RK4 (matching main solver accuracy)
+    const dt = 0.0005;
+    let vx = velocity1;
+    let x = 0;
+
+    while (x < distanceFt && vx > 100) {
+      const accel = (v: number) => {
+        const m = v / vs;
+        return -dragRetardation(v, m, midBC, dragModel, rhoRatio);
+      };
+
+      const k1 = accel(vx);
+      const k2 = accel(vx + k1 * dt / 2);
+      const k3 = accel(vx + k2 * dt / 2);
+      const k4 = accel(vx + k3 * dt);
+
+      vx += (dt / 6) * (k1 + 2 * k2 + 2 * k3 + k4);
+      x += vx * dt;
+    }
+
+    if (vx > velocity2) {
+      // BC too high (not enough drag) — need lower BC
+      hi = midBC;
+    } else {
+      // BC too low (too much drag) — need higher BC
+      lo = midBC;
+    }
+  }
+
+  const trueBC = Math.round(((lo + hi) / 2) * 1000) / 1000;
+  const correctionFactor = Math.round((trueBC / publishedBC) * 1000) / 1000;
+  const percentDiff = Math.round((correctionFactor - 1) * 1000) / 10;
+
+  let assessment: string;
+  if (Math.abs(percentDiff) < 2) {
+    assessment = "Published BC is accurate. No correction needed.";
+  } else if (percentDiff < 0) {
+    assessment = `Published BC is ${Math.abs(percentDiff).toFixed(1)}% optimistic. True BC is lower — expect more drop than published data suggests.`;
+  } else {
+    assessment = `Published BC is ${percentDiff.toFixed(1)}% conservative. Bullet performs better than published — you have a slight advantage.`;
+  }
+
+  return {
+    trueBC,
+    correctionFactor,
+    percentDifference: percentDiff,
+    assessment,
+  };
+}
+
+// ---------------------------------------------------------------------------
 // Convenience: default config
 // ---------------------------------------------------------------------------
 
