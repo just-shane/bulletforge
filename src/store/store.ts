@@ -4,10 +4,12 @@ import type { Cartridge } from "../lib/cartridges.ts";
 import type { Bullet } from "../lib/bullets.ts";
 import type { InternalBallisticsResult } from "../lib/internal-ballistics.ts";
 import type { Theme } from "../lib/themes.ts";
+import type { ScopeProfile } from "../lib/optics.ts";
 import { CARTRIDGES } from "../lib/cartridges.ts";
 import { BULLETS, bulletsByCaliber } from "../lib/bullets.ts";
 import { CARTRIDGE_INTERNAL_DATA } from "../lib/internal-ballistics.ts";
 import { getThemeById, loadThemeId, saveThemeId } from "../lib/themes.ts";
+import { DEFAULT_SCOPE } from "../lib/optics.ts";
 
 // Default cartridge: 6.5 Creedmoor
 const defaultCartridge = CARTRIDGES.find((c) => c.shortName === "6.5 CM")!;
@@ -58,6 +60,10 @@ export interface BallisticsStore {
   latitude: number;          // degrees (for Coriolis)
   azimuth: number;           // degrees (direction of fire)
 
+  // Optics
+  scope: ScopeProfile;
+  currentMagnification: number;
+
   // Theme
   theme: Theme;
   menuOpen: boolean;
@@ -103,6 +109,10 @@ export interface BallisticsStore {
   // Actions — Advanced
   setLatitude: (lat: number) => void;
   setAzimuth: (az: number) => void;
+
+  // Actions — Optics
+  setScope: (scope: ScopeProfile) => void;
+  setCurrentMagnification: (mag: number) => void;
 
   // Actions — Theme
   setTheme: (id: string) => void;
@@ -152,6 +162,10 @@ export const useBallisticsStore = create<BallisticsStore>((set) => ({
   // Advanced ballistics
   latitude: 45,
   azimuth: 0,
+
+  // Optics
+  scope: { ...DEFAULT_SCOPE },
+  currentMagnification: 10,
 
   // Theme
   theme: getThemeById(loadThemeId()),
@@ -236,6 +250,10 @@ export const useBallisticsStore = create<BallisticsStore>((set) => ({
   // Advanced ballistics actions
   setLatitude: (lat) => set({ latitude: lat }),
   setAzimuth: (az) => set({ azimuth: az }),
+
+  // Optics actions
+  setScope: (scope) => set({ scope }),
+  setCurrentMagnification: (mag) => set({ currentMagnification: mag }),
 
   // Theme actions
   setTheme: (id) => {

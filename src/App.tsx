@@ -24,6 +24,10 @@ import { BCTruingCalculator } from "./components/Trajectory/BCTruingCalculator.t
 import { MultiZeroDOPE } from "./components/Trajectory/MultiZeroDOPE.tsx";
 import { ArmBandDOPE } from "./components/Trajectory/ArmBandDOPE.tsx";
 import { LoadDevelopmentTab } from "./components/LoadDevelopment/LoadDevelopmentTab.tsx";
+import { ScopeConfig } from "./components/ControlPanel/ScopeConfig.tsx";
+import { TurretMatchTable } from "./components/Trajectory/TurretMatchTable.tsx";
+import { BDCOverlay } from "./components/Trajectory/BDCOverlay.tsx";
+import { CustomTurretDial } from "./components/Trajectory/CustomTurretDial.tsx";
 
 export default function App() {
   const cartridge = useBallisticsStore((s) => s.cartridge);
@@ -233,6 +237,14 @@ export default function App() {
                       />
                     </div>
 
+                    {/* Optics / Scope config */}
+                    <div
+                      className="mt-4 pt-4 mb-4"
+                      style={{ borderTop: "1px solid var(--c-border)" }}
+                    >
+                      <ScopeConfig />
+                    </div>
+
                     {/* Comparison button */}
                     <button
                       onClick={comparisonEnabled ? clearComparison : snapshotForComparison}
@@ -356,6 +368,21 @@ export default function App() {
                     altitude={altitude}
                     temperature={temperature}
                   />
+                </div>
+
+                {/* Turret Match Table */}
+                <div className="mb-4">
+                  <TurretMatchTable />
+                </div>
+
+                {/* BDC Reticle Overlay */}
+                <div className="mb-4">
+                  <BDCOverlay />
+                </div>
+
+                {/* Custom Turret Dial */}
+                <div className="mb-4">
+                  <CustomTurretDial />
                 </div>
 
                 {/* Multi-Zero DOPE Cards */}

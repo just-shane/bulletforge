@@ -20,8 +20,9 @@
 | **v0.5.1** | Cherry-pick | Miller stability factor, BC truing calculator, DOPE card generator, stability panel UI — low-hanging fruit from Phases 6 & 7, 111 tests |
 | **v0.5.2** | Polish | 6-theme system (4 dark + 2 light) with hamburger settings menu, CSS variable theming, per-theme slider styling, Docs & Education stubs |
 | **v0.6.0** | Batch A | Steep angle warnings, ogive profiles on all bullets, multi-zero DOPE cards, arm band DOPE format, shooting angle slider |
+| **v0.7.0** | Batch B | Scope profile system, turret matching, BDC reticle overlay, custom turret dial builder, FFP/SFP holdover correction |
 
-> **Current:** `v0.6.0` — defined in `src/lib/version.ts`
+> **Current:** `v0.7.0` — defined in `src/lib/version.ts`
 > **Versioning:** Major phases bump minor version. Patches for bugfixes.
 
 ---
@@ -250,10 +251,14 @@
 - [ ] **Multiple rifle support** — Switch between saved rifles
 
 ### 🔭 6.2 Optic Integration
-- [ ] **Turret matching** — MOA or MIL adjustments matched to your scope's click value
-- [ ] **Custom turret builder** — Generate custom turret dial markings for your load
-- [ ] **BDC reticle overlay** — Show where your BDC dots actually land with your load (vs. manufacturer's assumption)
-- [ ] **First focal plane vs. second** — Magnification-dependent holdover for SFP scopes
+- [x] **Turret matching** — TurretMatchTable with drop/drift clicks, cumulative elevation tracking, scope travel warnings
+  > *Completed in v0.7.0 — scope profile system with 6 presets (Vortex Razor, Nightforce ATACR, etc.), MIL/MOA toggle, 50/100yd increments*
+- [x] **Custom turret builder** — CustomTurretDial SVG generator with range-marked dial, printable, configurable max range
+  > *Completed in v0.7.0 — angular mapping of elevation clicks to range labels, print-optimized SVG*
+- [x] **BDC reticle overlay** — BDCOverlay comparing BDC dot actual vs intended ranges with error color-coding
+  > *Completed in v0.7.0 — 3 built-in reticles (Vortex Dead-Hold, Nikon BDC 600, Burris Ballistic Plex), interpolated range matching*
+- [x] **First focal plane vs. second** — SFP holdover correction at non-calibrated magnification, integrated into scope config + turret table
+  > *Completed in v0.7.0 — sfpHoldoverCorrection() function, magnification slider for SFP scopes*
 
 ### 📋 6.3 DOPE Cards
 - [x] **Auto-generated DOPE cards** — Print-ready range cards with @media print CSS, 100-yard increments, drop/drift/velocity/energy (DOPECard UI)
