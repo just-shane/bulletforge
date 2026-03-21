@@ -784,7 +784,7 @@ export function trajectory(config: TrajectoryConfig): TrajectoryResult {
       const machR = vr / vs;
       const dragR = dragRetardation(vr, machR, config.bc, config.dragModel, rhoRatio);
 
-      let ax = -dragR * (vrx / (vr || 1));
+      const ax = -dragR * (vrx / (vr || 1));
       let ay = -dragR * (vry / (vr || 1)) - gravityEffective;
       let az = -dragR * (vrz / (vr || 1));
 

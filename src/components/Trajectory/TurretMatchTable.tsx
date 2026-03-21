@@ -19,13 +19,12 @@ export function TurretMatchTable() {
   const filtered = trajectoryResults.filter((p) => p.range > 0 && p.range % increment === 0);
 
   // Build table rows with cumulative elevation
-  let cumulativeElev = 0;
   const rows = filtered.map((p) => {
     const drop = isMil ? p.dropMIL : p.dropMOA;
     const drift = isMil ? p.driftMIL : p.driftMOA;
     const dropClicks = clicksForAdjustment(Math.abs(drop), scope.clickValue);
     const driftClicks = clicksForAdjustment(Math.abs(drift), scope.clickValue);
-    cumulativeElev = Math.abs(drop);
+    const cumulativeElev = Math.abs(drop);
 
     const exceedsElev = cumulativeElev > scope.maxElevationTravel;
     const exceedsWind = Math.abs(drift) > scope.maxWindageTravel;

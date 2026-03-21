@@ -239,6 +239,7 @@ export function PerformanceTracker() {
   }, [cartridge.shortName, bullet.name, powderName, chargeWeight]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- loading data from localStorage on dependency change
     refreshRecords();
   }, [refreshRecords]);
 

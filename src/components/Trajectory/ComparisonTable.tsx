@@ -13,7 +13,7 @@ function deltaColor(delta: number, positiveIsBetter: boolean): string {
   return aIsBetter ? "var(--c-success)" : "var(--c-danger)";
 }
 
-export function ComparisonTable({ pointsA, pointsB, labelA: _labelA, labelB: _labelB }: ComparisonTableProps) {
+export function ComparisonTable({ pointsA, pointsB }: ComparisonTableProps) {
   // Build range lookup maps
   const mapA = new Map<number, TrajectoryPoint>();
   for (const p of pointsA) mapA.set(p.range, p);

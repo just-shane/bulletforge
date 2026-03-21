@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { useBallisticsStore } from "../../store/store.ts";
 import { trajectory } from "../../lib/ballistics.ts";
 import type { TrajectoryConfig } from "../../lib/ballistics.ts";
-import { buildShareURL } from "./ShareExport.tsx";
+import { buildShareURL } from "../../lib/share.ts";
 import { generateQRSvg } from "../../lib/qr.ts";
 
 export function ArmBandDOPE() {

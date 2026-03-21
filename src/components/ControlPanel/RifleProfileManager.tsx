@@ -164,6 +164,7 @@ export function RifleProfileManager() {
 
   // Load profiles from localStorage on mount
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- initializing state from localStorage
     setProfiles(loadRifleProfiles());
   }, []);
 
