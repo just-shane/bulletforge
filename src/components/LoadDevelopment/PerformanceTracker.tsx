@@ -710,6 +710,12 @@ export function PerformanceTracker() {
             </div>
           )}
 
+          {/* ─── Environmental Correlation ──────────── */}
+          {records.length >= 2 && <EnvironmentalCorrelation records={records} />}
+
+          {/* ─── Seasonal Tracking ──────────────────── */}
+          {records.length >= 2 && <SeasonalTracking records={records} />}
+
           {/* ─── Trajectory Verification Entry ──────── */}
           <div className="mt-4">
             <div
@@ -838,6 +844,317 @@ export function PerformanceTracker() {
               </button>
             </div>
           </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── Environmental Correlation ────────────────────────────────────
+
+interface TempBand {
+  label: string;
+  min: number;
+  max: number;
+  records: PerformanceRecord[];
+  avgVelocity: number;
+  avgSD: number;
+}
+
+function EnvironmentalCorrelation({ records }: { records: PerformanceRecord[] }) {
+  const [expanded, setExpanded] = useState(false);
+
+  // Group records by temperature bands (using conditions or configSnapshot)
+  const bands = useMemo(() => {
+    const withTemp = records.filter(
+      (r) => r.conditions?.temperature != null || r.configSnapshot?.temperature != null,
+    );
+    if (withTemp.length < 2) return [];
+
+    const bandDefs = [
+      { label: "Cold (<40\u00B0F)", min: -60, max: 40 },
+      { label: "Cool (40-60\u00B0F)", min: 40, max: 60 },
+      { label: "Mild (60-80\u00B0F)", min: 60, max: 80 },
+      { label: "Warm (80-100\u00B0F)", min: 80, max: 100 },
+      { label: "Hot (>100\u00B0F)", min: 100, max: 200 },
+    ];
+
+    return bandDefs
+      .map((def) => {
+        const matching = withTemp.filter((r) => {
+          const temp = r.configSnapshot?.temperature ?? r.conditions?.temperature ?? 0;
+          return temp >= def.min && temp < def.max;
+        });
+        if (matching.length === 0) return null;
+
+        const allVels = matching.flatMap((r) => r.velocities);
+        const avgVelocity = allVels.reduce((a, b) => a + b, 0) / allVels.length;
+        const avgSD = matching.reduce((sum, r) => sum + r.sd, 0) / matching.length;
+
+        return {
+          ...def,
+          records: matching,
+          avgVelocity: Math.round(avgVelocity),
+          avgSD: Math.round(avgSD * 10) / 10,
+        } as TempBand;
+      })
+      .filter((b): b is TempBand => b !== null);
+  }, [records]);
+
+  // Altitude analysis
+  const altitudeAnalysis = useMemo(() => {
+    const withAlt = records.filter(
+      (r) => r.conditions?.altitude != null || r.configSnapshot?.altitude != null,
+    );
+    if (withAlt.length < 2) return null;
+
+    const altitudes = withAlt.map((r) => r.configSnapshot?.altitude ?? r.conditions?.altitude ?? 0);
+    const minAlt = Math.min(...altitudes);
+    const maxAlt = Math.max(...altitudes);
+    if (maxAlt - minAlt < 500) return null; // Need meaningful altitude variation
+
+    // Split into low and high halves
+    const midAlt = (minAlt + maxAlt) / 2;
+    const lowRecs = withAlt.filter((r) => (r.configSnapshot?.altitude ?? r.conditions?.altitude ?? 0) < midAlt);
+    const highRecs = withAlt.filter((r) => (r.configSnapshot?.altitude ?? r.conditions?.altitude ?? 0) >= midAlt);
+
+    if (lowRecs.length === 0 || highRecs.length === 0) return null;
+
+    const lowAvg = lowRecs.flatMap((r) => r.velocities).reduce((a, b) => a + b, 0) /
+      lowRecs.flatMap((r) => r.velocities).length;
+    const highAvg = highRecs.flatMap((r) => r.velocities).reduce((a, b) => a + b, 0) /
+      highRecs.flatMap((r) => r.velocities).length;
+
+    return {
+      lowLabel: `<${Math.round(midAlt).toLocaleString()} ft`,
+      highLabel: `\u2265${Math.round(midAlt).toLocaleString()} ft`,
+      lowAvg: Math.round(lowAvg),
+      highAvg: Math.round(highAvg),
+      delta: Math.round(highAvg - lowAvg),
+    };
+  }, [records]);
+
+  if (bands.length < 2 && !altitudeAnalysis) return null;
+
+  return (
+    <div className="mt-4">
+      <button
+        onClick={() => setExpanded(!expanded)}
+        className="flex items-center justify-between w-full text-left cursor-pointer"
+        style={{ background: "transparent", border: "none", padding: 0 }}
+      >
+        <span className="text-[10px] uppercase tracking-[2px] font-mono" style={{ color: "var(--c-accent)" }}>
+          Environmental Correlation
+        </span>
+        <span className="text-[10px] font-mono" style={{ color: "var(--c-text-faint)" }}>
+          {expanded ? "\u25B4" : "\u25BE"}
+        </span>
+      </button>
+
+      {!expanded && (
+        <div className="text-[8px] font-mono mt-0.5" style={{ color: "var(--c-text-faint)" }}>
+          {bands.length} temperature band{bands.length !== 1 ? "s" : ""} with data
+          {altitudeAnalysis ? " \u00B7 altitude comparison available" : ""}
+        </div>
+      )}
+
+      {expanded && (
+        <div className="mt-2">
+          {/* Temperature bands */}
+          {bands.length >= 2 && (
+            <div>
+              <div className="text-[9px] font-mono mb-1.5" style={{ color: "var(--c-text-dim)" }}>
+                Velocity and SD by temperature range
+              </div>
+              <div
+                className="rounded-md overflow-hidden"
+                style={{ border: "1px solid var(--c-border)" }}
+              >
+                <table className="w-full text-[10px] font-mono" style={{ borderCollapse: "collapse" }}>
+                  <thead>
+                    <tr style={{ background: "var(--c-surface, var(--c-panel))", color: "var(--c-text-dim)" }}>
+                      <th className="text-left px-2 py-1.5">Temp Band</th>
+                      <th className="text-right px-2 py-1.5">Sessions</th>
+                      <th className="text-right px-2 py-1.5">Avg Vel</th>
+                      <th className="text-right px-2 py-1.5">Avg SD</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {bands.map((band) => (
+                      <tr key={band.label} style={{ borderTop: "1px solid var(--c-border)", color: "var(--c-text)" }}>
+                        <td className="px-2 py-1.5">{band.label}</td>
+                        <td className="text-right px-2 py-1.5">{band.records.length}</td>
+                        <td className="text-right px-2 py-1.5">{band.avgVelocity} fps</td>
+                        <td className="text-right px-2 py-1.5 font-bold" style={{ color: sdColor(band.avgSD) }}>
+                          {band.avgSD}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              {bands.length >= 2 && (
+                <div className="text-[8px] font-mono mt-1" style={{ color: "var(--c-text-faint)" }}>
+                  Velocity shift: {Math.abs(bands[bands.length - 1].avgVelocity - bands[0].avgVelocity)} fps across{" "}
+                  {bands[0].label.split("(")[0].trim()} to {bands[bands.length - 1].label.split("(")[0].trim()} conditions
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Altitude comparison */}
+          {altitudeAnalysis && (
+            <div className="mt-3">
+              <div className="text-[9px] font-mono mb-1.5" style={{ color: "var(--c-text-dim)" }}>
+                Altitude effect
+              </div>
+              <div className="flex gap-2">
+                <div className="flex-1 rounded-md p-2 text-center" style={{ background: "var(--c-surface, var(--c-panel))", border: "1px solid var(--c-border)" }}>
+                  <div className="text-[8px] font-mono uppercase" style={{ color: "var(--c-text-dim)" }}>{altitudeAnalysis.lowLabel}</div>
+                  <div className="text-sm font-bold font-mono" style={{ color: "var(--c-text)" }}>{altitudeAnalysis.lowAvg} fps</div>
+                </div>
+                <div className="flex items-center text-[9px] font-mono" style={{ color: altitudeAnalysis.delta > 0 ? "var(--c-success)" : "var(--c-warn)" }}>
+                  {altitudeAnalysis.delta > 0 ? "+" : ""}{altitudeAnalysis.delta}
+                </div>
+                <div className="flex-1 rounded-md p-2 text-center" style={{ background: "var(--c-surface, var(--c-panel))", border: "1px solid var(--c-border)" }}>
+                  <div className="text-[8px] font-mono uppercase" style={{ color: "var(--c-text-dim)" }}>{altitudeAnalysis.highLabel}</div>
+                  <div className="text-sm font-bold font-mono" style={{ color: "var(--c-text)" }}>{altitudeAnalysis.highAvg} fps</div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── Seasonal Tracking ────────────────────────────────────────────
+
+const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const SEASONS: { name: string; months: number[]; color: string }[] = [
+  { name: "Winter", months: [11, 0, 1], color: "#6cb4ee" },
+  { name: "Spring", months: [2, 3, 4], color: "#7dd87d" },
+  { name: "Summer", months: [5, 6, 7], color: "#e8a838" },
+  { name: "Fall", months: [8, 9, 10], color: "#d4764e" },
+];
+
+function SeasonalTracking({ records }: { records: PerformanceRecord[] }) {
+  const [expanded, setExpanded] = useState(false);
+
+  const seasonalData = useMemo(() => {
+    if (records.length < 3) return null;
+
+    // Group by month
+    const byMonth: Record<number, { velocities: number[]; sds: number[] }> = {};
+    for (const r of records) {
+      const month = new Date(r.date).getMonth();
+      if (!byMonth[month]) byMonth[month] = { velocities: [], sds: [] };
+      byMonth[month].velocities.push(...r.velocities);
+      byMonth[month].sds.push(r.sd);
+    }
+
+    const monthlyStats = Object.entries(byMonth).map(([month, data]) => ({
+      month: parseInt(month),
+      label: MONTH_NAMES[parseInt(month)],
+      avgVelocity: Math.round(data.velocities.reduce((a, b) => a + b, 0) / data.velocities.length),
+      avgSD: Math.round((data.sds.reduce((a, b) => a + b, 0) / data.sds.length) * 10) / 10,
+      sessions: data.sds.length,
+    }));
+
+    // Group by season
+    const seasonalStats = SEASONS.map((season) => {
+      const monthData = season.months.flatMap((m) => byMonth[m] ? [byMonth[m]] : []);
+      if (monthData.length === 0) return null;
+
+      const allVels = monthData.flatMap((d) => d.velocities);
+      const allSDs = monthData.flatMap((d) => d.sds);
+
+      return {
+        name: season.name,
+        color: season.color,
+        avgVelocity: Math.round(allVels.reduce((a, b) => a + b, 0) / allVels.length),
+        avgSD: Math.round((allSDs.reduce((a, b) => a + b, 0) / allSDs.length) * 10) / 10,
+        sessions: allSDs.length,
+      };
+    }).filter((s) => s !== null);
+
+    if (seasonalStats.length < 2) return null;
+
+    return { monthlyStats, seasonalStats };
+  }, [records]);
+
+  if (!seasonalData) return null;
+
+  const { seasonalStats } = seasonalData;
+  const maxVel = Math.max(...seasonalStats.map((s) => s!.avgVelocity));
+  const minVel = Math.min(...seasonalStats.map((s) => s!.avgVelocity));
+  const velRange = maxVel - minVel || 1;
+
+  return (
+    <div className="mt-4">
+      <button
+        onClick={() => setExpanded(!expanded)}
+        className="flex items-center justify-between w-full text-left cursor-pointer"
+        style={{ background: "transparent", border: "none", padding: 0 }}
+      >
+        <span className="text-[10px] uppercase tracking-[2px] font-mono" style={{ color: "var(--c-accent)" }}>
+          Seasonal Tracking
+        </span>
+        <span className="text-[10px] font-mono" style={{ color: "var(--c-text-faint)" }}>
+          {expanded ? "\u25B4" : "\u25BE"}
+        </span>
+      </button>
+
+      {!expanded && (
+        <div className="text-[8px] font-mono mt-0.5" style={{ color: "var(--c-text-faint)" }}>
+          {seasonalStats.length} season{seasonalStats.length !== 1 ? "s" : ""} with data
+          {velRange > 5 ? ` \u00B7 ${velRange} fps seasonal spread` : ""}
+        </div>
+      )}
+
+      {expanded && (
+        <div className="mt-2">
+          <div className="text-[9px] font-mono mb-2" style={{ color: "var(--c-text-dim)" }}>
+            How your load performs across seasons. Expect higher velocities in summer (hotter powder) and lower in winter.
+          </div>
+
+          {/* Seasonal bars */}
+          <div className="flex flex-col gap-1.5 mb-2">
+            {seasonalStats.map((season) => {
+              if (!season) return null;
+              const barWidth = velRange > 0
+                ? 30 + ((season.avgVelocity - minVel) / velRange) * 70
+                : 50;
+              return (
+                <div key={season.name} className="flex items-center gap-2">
+                  <div className="w-14 text-[9px] font-mono font-bold shrink-0" style={{ color: season.color }}>
+                    {season.name}
+                  </div>
+                  <div className="flex-1 h-4 rounded-sm overflow-hidden" style={{ background: "var(--c-border)" }}>
+                    <div
+                      className="h-full rounded-sm flex items-center justify-end px-1.5"
+                      style={{ width: `${barWidth}%`, background: season.color, opacity: 0.7 }}
+                    >
+                      <span className="text-[8px] font-mono font-bold" style={{ color: "#000" }}>
+                        {season.avgVelocity}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="text-[8px] font-mono shrink-0 w-16 text-right" style={{ color: "var(--c-text-dim)" }}>
+                    SD {season.avgSD} · {season.sessions}s
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {velRange > 5 && (
+            <div className="text-[8px] font-mono mt-1" style={{ color: "var(--c-text-faint)" }}>
+              Total seasonal velocity spread: {velRange} fps ({((velRange / maxVel) * 100).toFixed(1)}%).
+              {velRange > 30 ? " Consider a temperature-insensitive powder." : velRange > 15 ? " Moderate — verify DOPE at temperature extremes." : " Minimal — this load is temperature-stable."}
+            </div>
+          )}
         </div>
       )}
     </div>
