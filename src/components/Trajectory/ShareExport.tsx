@@ -106,25 +106,29 @@ export function ShareExport() {
   const [shareURL, setShareURL] = useState("");
   const [copied, setCopied] = useState(false);
 
-  const state = useBallisticsStore((s) => ({
-    cartridge: s.cartridge,
-    bullet: s.bullet,
-    muzzleVelocity: s.muzzleVelocity,
-    sightHeight: s.sightHeight,
-    zeroRange: s.zeroRange,
-    windSpeed: s.windSpeed,
-    windAngle: s.windAngle,
-    shootingAngle: s.shootingAngle,
-    altitude: s.altitude,
-    temperature: s.temperature,
-    barometricPressure: s.barometricPressure,
-    humidity: s.humidity,
-  }));
+  const cartridge = useBallisticsStore((s) => s.cartridge);
+  const bullet = useBallisticsStore((s) => s.bullet);
+  const muzzleVelocity = useBallisticsStore((s) => s.muzzleVelocity);
+  const sightHeight = useBallisticsStore((s) => s.sightHeight);
+  const zeroRange = useBallisticsStore((s) => s.zeroRange);
+  const windSpeed = useBallisticsStore((s) => s.windSpeed);
+  const windAngle = useBallisticsStore((s) => s.windAngle);
+  const shootingAngle = useBallisticsStore((s) => s.shootingAngle);
+  const altitude = useBallisticsStore((s) => s.altitude);
+  const temperature = useBallisticsStore((s) => s.temperature);
+  const barometricPressure = useBallisticsStore((s) => s.barometricPressure);
+  const humidity = useBallisticsStore((s) => s.humidity);
 
   const handleGenerate = useCallback(() => {
     const base = window.location.origin + window.location.pathname;
-    setShareURL(buildShareURL(base, state));
-  }, [state]);
+    setShareURL(buildShareURL(base, {
+      cartridge, bullet, muzzleVelocity, sightHeight, zeroRange,
+      windSpeed, windAngle, shootingAngle,
+      altitude, temperature, barometricPressure, humidity,
+    }));
+  }, [cartridge, bullet, muzzleVelocity, sightHeight, zeroRange,
+      windSpeed, windAngle, shootingAngle,
+      altitude, temperature, barometricPressure, humidity]);
 
   const handleCopy = useCallback(() => {
     if (!shareURL) return;
