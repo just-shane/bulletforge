@@ -16,6 +16,11 @@ import {
   getCartridgeInternalData,
   availableInternalPowders,
   availableInternalCartridges,
+  tempAdjustedVelocity,
+  compareLoadAtTemps,
+  comparePowders,
+  findOptimalBarrelLength,
+  POWDER_INTERNAL_DATA,
   type InternalBallisticsConfig,
 } from "../lib/internal-ballistics";
 
@@ -280,5 +285,119 @@ describe("Physics sanity", () => {
 
     expect(result.efficiencyPercent).toBeGreaterThanOrEqual(10);
     expect(result.efficiencyPercent).toBeLessThanOrEqual(45);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 7. Temperature Sensitivity (4 tests)
+// ---------------------------------------------------------------------------
+
+describe("Temperature sensitivity", () => {
+  it("tempAdjustedVelocity returns higher velocity at higher temp", () => {
+    const result = tempAdjustedVelocity(2700, "H4350", 59, 100);
+    expect(result).toBeGreaterThan(2700);
+  });
+
+  it("tempAdjustedVelocity returns lower velocity at lower temp", () => {
+    const result = tempAdjustedVelocity(2700, "H4350", 59, 0);
+    expect(result).toBeLessThan(2700);
+  });
+
+  it("tempAdjustedVelocity returns baseMV for unknown powder", () => {
+    const result = tempAdjustedVelocity(2700, "FakePowder", 59, 100);
+    expect(result).toBe(2700);
+  });
+
+  it("compareLoadAtTemps returns velocity and pressure deltas", () => {
+    const config = buildConfig("6.5 CM", "H4350", 41.5, 140, 0.264, 24)!;
+    const result = compareLoadAtTemps(config, "H4350", 20, 100, 59);
+
+    expect(result.hot.velocity).toBeGreaterThan(result.cold.velocity);
+    expect(result.velocityDelta).toBeGreaterThan(0);
+    expect(result.pressureDelta).toBeGreaterThan(0);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 8. Burn Rate Comparison (3 tests)
+// ---------------------------------------------------------------------------
+
+describe("Burn rate comparison", () => {
+  it("comparePowders returns results for valid powders", () => {
+    const results = comparePowders("6.5 CM", ["H4350", "Varget"], 41.5, 140, 0.264, 24);
+    expect(results).toHaveLength(2);
+
+    for (const r of results) {
+      expect(r).not.toBeNull();
+    }
+
+    expect(results[0]!.result.muzzleVelocity).not.toBe(results[1]!.result.muzzleVelocity);
+  });
+
+  it("comparePowders returns null for unknown powder", () => {
+    const results = comparePowders("6.5 CM", ["H4350", "FakePowder"], 41.5, 140, 0.264, 24);
+    expect(results).toHaveLength(2);
+    expect(results[0]).not.toBeNull();
+    expect(results[1]).toBeNull();
+  });
+
+  it("comparePowders results have pressure curves", () => {
+    const results = comparePowders("6.5 CM", ["H4350", "Varget"], 41.5, 140, 0.264, 24);
+
+    for (const r of results) {
+      if (r !== null) {
+        expect(r.result.pressureCurve.length).toBeGreaterThan(0);
+      }
+    }
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 9. Optimal Barrel Length (3 tests)
+// ---------------------------------------------------------------------------
+
+describe("Optimal barrel length", () => {
+  const config = buildConfig("6.5 CM", "H4350", 41.5, 140, 0.264, 24)!;
+
+  it("findOptimalBarrelLength returns data for each length", () => {
+    const result = findOptimalBarrelLength(config);
+    expect(result.data).toHaveLength(15); // 16" to 30"
+  });
+
+  it("findOptimalBarrelLength velocity increases with length", () => {
+    const result = findOptimalBarrelLength(config);
+
+    for (let i = 1; i < result.data.length; i++) {
+      expect(result.data[i].velocity).toBeGreaterThanOrEqual(result.data[i - 1].velocity);
+    }
+  });
+
+  it("findOptimalBarrelLength finds a reasonable optimal length", () => {
+    const result = findOptimalBarrelLength(config);
+    expect(result.optimalLength).toBeGreaterThanOrEqual(16);
+    expect(result.optimalLength).toBeLessThanOrEqual(30);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 10. Powder Temperature Sensitivity Data (2 tests)
+// ---------------------------------------------------------------------------
+
+describe("Powder temperature sensitivity data", () => {
+  it("all powders have tempSensitivity field", () => {
+    for (const [name, data] of Object.entries(POWDER_INTERNAL_DATA)) {
+      expect(data.tempSensitivity, `${name} should have tempSensitivity`).toBeDefined();
+      expect(typeof data.tempSensitivity).toBe("number");
+      expect(data.tempSensitivity, `${name} tempSensitivity should be > 0`).toBeGreaterThan(0);
+    }
+  });
+
+  it("Vihtavuori powders are more temp-stable than ball powders", () => {
+    const n150 = POWDER_INTERNAL_DATA["N150"];
+    const blc2 = POWDER_INTERNAL_DATA["BL-C(2)"];
+
+    expect(n150).toBeDefined();
+    expect(blc2).toBeDefined();
+    expect(n150.tempSensitivity).toBeLessThan(blc2.tempSensitivity);
   });
 });
