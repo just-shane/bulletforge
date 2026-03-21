@@ -16,8 +16,9 @@
 | **v0.3.0** | Phase 3 | Internal ballistics engine (Nobel-Abel + Vieille), pressure curve chart, 22 powder profiles, 15 cartridge internal data, tabbed UI, safety warnings, 53 tests |
 | **v0.4.0** | Phase 4 | Load development tools — ladder test planner, ES/SD calculator, seating depth optimizer, OCW analysis, load recipe/session types, 15+ primer database, 73 tests |
 | **v0.4.1** | Phase 3 cleanup | Barrel length optimizer, burn rate comparison chart, temp sensitivity modeling, hot/cold comparison panel, safe load indicator, 85 tests |
+| **v0.5.0** | Phase 5 | Coriolis/Eötvös, aerodynamic jump, density altitude, station-to-absolute pressure, comparison mode with overlay chart + delta table, latitude/azimuth controls, 102 tests |
 
-> **Current:** `v0.4.1` — defined in `src/lib/version.ts`
+> **Current:** `v0.5.0` — defined in `src/lib/version.ts`
 > **Versioning:** Major phases bump minor version. Patches for bugfixes.
 
 ---
@@ -93,6 +94,7 @@
 - [x] **Apache .htaccess** — HTTPS redirect, security headers, Vite caching, SPA fallback, gzip
 - [x] **GitHub Actions CI/CD** — Test → Build → FTPS deploy on push to main
 - [ ] **GitHub secrets** — FTP_SERVER, FTP_USERNAME, FTP_PASSWORD
+- [ ] **Enable "Require status checks to pass"** — Add to main-protection ruleset once CI/CD deploys are working
 
 ### 📊 2.3 Analytics & SEO
 - [ ] **Plausible account** — Add bulletforge.io as site
@@ -126,7 +128,8 @@
 ### 📏 3.2 Barrel Length Effects
 - [x] **Velocity vs. barrel length** — `velocityForBarrelLength()` multi-simulation
 - [x] **Optimal barrel length** — `findOptimalBarrelLength()` with diminishing returns threshold + SVG chart with green/yellow/red fps/inch bars
-- [ ] **Compensator/brake effects** — Backpressure modeling for muzzle devices (deferred — requires gas dynamics extension)
+- [ ] **Compensator/brake effects** — Backpressure modeling for muzzle devices
+  > **Deferred (v0.4.1):** Requires extending the Nobel-Abel engine with gas dynamics at the muzzle — modeling backpressure from brakes/comps needs an expansion chamber model with port geometry, baffle count, and exit cone angles. Non-trivial physics extension with limited reloading value (doesn't change load data, only dwell time). Revisit if users request it or when the engine gets a gas system model for semi-auto port pressure tuning.
 
 ### 🌡️ 3.3 Temperature Sensitivity
 - [x] **Powder temp modeling** — `tempSensitivity` field on all 24 powders (fps/°F), `tempAdjustedVelocity()` function
@@ -166,6 +169,7 @@
 - [x] **COAL/CBTO calculator** — OAL calculated from base OAL minus jump distance
 - [x] **Jump-to-lands table** — 8-step plan: jam → 0.010" → 0.020" → ... → 0.100" off the lands
 - [ ] **Ogive profile data** — Secant vs. tangent ogive behavior differences
+  > **Deferred (v0.4.0):** Ogive geometry affects seating depth sensitivity — secant ogives (VLDs) are more jump-sensitive than tangent ogives (Sierra MatchKing). Needs per-bullet ogive type in the bullet database plus educational content on how it affects seating depth testing strategy. Low priority until we add bullet comparisons or refine the seating depth optimizer with ogive-aware recommendations.
 - [x] **Magazine length check** — `checkMagazineLength()` warns when OAL exceeds max
 
 ### 📊 4.3 Optimal Charge Weight (OCW)
@@ -177,7 +181,9 @@
 - [x] **Load recipes** — `createLoadRecipe()` with full component data, dimensions, performance, notes
 - [x] **Session notes** — `createRangeSession()` with date, location, conditions, shot strings, groups
 - [ ] **Performance tracking** — ES/SD trends over time for a given load (needs persistence/UI)
+  > **Deferred (v0.4.0):** Tracking ES/SD trends across sessions requires persistent storage — either localStorage for MVP or Supabase for cross-device sync. Blocked on deciding the persistence strategy (Phase 7 introduces Supabase for chrono calibration, so it makes sense to batch all persistence work together rather than build a localStorage bridge that gets replaced).
 - [ ] **Export/share** — Print-friendly load cards, share links (needs UI)
+  > **Deferred (v0.4.0):** Load card export needs a print-optimized layout (CSS @media print or canvas-to-PNG) and shareable URLs (which need either URL-encoded state or a backend for short links). Both depend on having a live deployment and persistence layer. Natural fit for Phase 7/8 when we have Supabase and the site is public.
 
 ### 🗄️ 4.5 Primer Database
 - [x] **15+ primers** — CCI, Federal, Remington, Winchester — small/large rifle, magnum, match
@@ -194,31 +200,38 @@
 
 ---
 
-## 🔜 Phase 5 — Advanced Ballistics
+## ✅ Phase 5 — Advanced Ballistics
 
 > *Coriolis. Spin drift. Density altitude. The stuff that matters past 600 yards.*
 
 ### 🌍 5.1 Long-Range Corrections
-- [ ] **Coriolis effect** — Latitude and azimuth-dependent drift (matters at 800+ yards)
-- [ ] **Aerodynamic jump** — Crosswind-induced vertical shift
+- [x] **Coriolis effect** — `coriolisAcceleration()` integrated into RK4 solver, latitude + azimuth controls in UI
+- [x] **Aerodynamic jump** — `aerodynamicJump()` crosswind-induced vertical shift, shown in trajectory points
 - [ ] **Magnus effect** — Spin-induced drift in crosswind
-- [ ] **Eötvös effect** — Earth rotation velocity correction for extreme range
+  > **Deferred (v0.5.0):** Magnus effect is a third-order correction that requires the full 6-DOF (six degrees of freedom) projectile model — spin rate decay, yaw of repose, and dynamic stability tracking per time step. The point-mass solver can't model it accurately. Revisit if/when we upgrade to a 6-DOF engine. At typical rifle ranges (<1500 yds), Magnus is sub-MOA and masked by other uncertainties.
+- [x] **Eötvös effect** — Earth rotation velocity correction integrated into Coriolis function (vertical component)
 
 ### 🏔️ 5.2 Environment
-- [ ] **Density altitude calculator** — Single number that captures all atmospheric effects
-- [ ] **Station pressure vs. absolute** — Proper conversion for altitude
+- [x] **Density altitude calculator** — `densityAltitude()` from standard atmosphere inversion, displayed in UI
+- [x] **Station pressure vs. absolute** — `stationToAbsolutePressure()` hypsometric conversion
 - [ ] **Weather API integration** — Pull current conditions from GPS/location (optional)
-- [ ] **Altitude velocity correction** — Auto-adjust MV for shooting altitude
+  > **Deferred (v0.5.0):** Requires geolocation API permission + a weather data provider (OpenWeatherMap, NWS API, etc.). Natural fit for the mobile/PWA experience in Phase 8. Low priority — shooters at the range know their conditions from a Kestrel or phone.
+- [x] **Altitude velocity correction** — `altitudeVelocityCorrection()` empirical MV correction for altitude
 
 ### 📐 5.3 Angle Shooting
-- [ ] **Improved angle correction** — Rifleman's rule with cosine indicator
-- [ ] **Uphill vs. downhill** — Separate calculations showing it's the same correction
+- [x] **Improved angle correction** — Rifleman's rule cosine correction already in RK4 solver (`gravityEffective = GRAVITY * cosShoot`)
+- [x] **Uphill vs. downhill** — Cosine rule applies symmetrically (verified in tests)
 - [ ] **Steep angle warnings** — Alert when cosine error becomes significant
+  > **Deferred (v0.5.0):** Needs a threshold calculation (e.g., >15° shows warning badge) and UI component. Small feature, will add in a polish pass.
 
 ### 🔄 5.4 Comparison Mode
-- [ ] **Side-by-side loads** — Compare two complete setups: cartridge, bullet, velocity, trajectory
-- [ ] **Overlay trajectories** — Same chart, two curves, different colors
-- [ ] **Delta table** — Show differences in drop, drift, energy at each range
+- [x] **Side-by-side loads** — Snapshot current trajectory, change setup, compare side-by-side
+- [x] **Overlay trajectories** — ComparisonChart with two color-coded curves (red/blue) on shared axes
+- [x] **Delta table** — ComparisonTable showing drop/drift/velocity/energy deltas with color-coded advantage indicators
+
+### 🧪 5.5 Testing
+- [x] **17 advanced ballistics tests** — Density altitude, station pressure, altitude MV correction, Coriolis, aerodynamic jump, angle shooting
+- [x] **102 total tests passing** — 45 external + 37 internal + 20 load development
 
 ---
 
@@ -357,7 +370,7 @@
 
 ## 📈 Stats
 
-> **Test Suite:** 85 unit tests (Vitest) — 28 external + 37 internal ballistics + 20 load development
+> **Test Suite:** 102 unit tests (Vitest) — 45 external + 37 internal ballistics + 20 load development
 
 > **Stack:** React 19 · TypeScript · Vite · Zustand · Tailwind v4 · RK4 Ballistics Engine
 

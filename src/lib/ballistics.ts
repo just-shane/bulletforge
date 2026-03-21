@@ -49,6 +49,8 @@ export interface TrajectoryPoint {
   momentum: number;       // lb-s
   machNumber: number;
   spinDrift: number;      // inches
+  coriolisInches: number;   // Coriolis horizontal deflection in inches
+  aeroJumpInches: number;   // Aerodynamic jump vertical deflection in inches
 }
 
 export interface TrajectoryResult {
@@ -275,6 +277,82 @@ export function standardAirDensity(): number {
 }
 
 /**
+ * Calculate density altitude — the altitude in standard atmosphere that has
+ * the same air density as the current conditions. This is the single number
+ * that captures all atmospheric effects on bullet flight.
+ *
+ * Uses the relationship: ρ = ρ₀ * (1 - L*h/T₀)^(gM/(RL) - 1)
+ * where L = lapse rate, T₀ = sea level temp, g = gravity, M = molar mass, R = gas constant
+ *
+ * Inverted to solve for h given ρ.
+ *
+ * @param altitudeFt - True altitude in feet
+ * @param tempF - Temperature in degrees F
+ * @param pressureInHg - Barometric pressure in inHg (station pressure)
+ * @param humidity - Relative humidity 0-1
+ * @returns Density altitude in feet
+ */
+export function densityAltitude(
+  altitudeFt: number,
+  tempF: number,
+  pressureInHg: number,
+  humidity: number,
+): number {
+  const rho = airDensity(altitudeFt, tempF, pressureInHg, humidity);
+  const rhoStd = standardAirDensity();
+
+  // Standard atmosphere lapse rate model inverted
+  // In standard atmosphere: ρ/ρ₀ = (1 - 6.8756e-6 * h)^4.2559
+  // Solving for h: h = (1 - (ρ/ρ₀)^(1/4.2559)) / 6.8756e-6
+  const ratio = rho / rhoStd;
+
+  if (ratio <= 0 || ratio >= 2) return altitudeFt; // Sanity guard
+
+  const da = (1 - Math.pow(ratio, 1 / 4.2559)) / 6.8756e-6;
+  return Math.round(da);
+}
+
+/**
+ * Convert station pressure to absolute (sea-level corrected) pressure.
+ * Station pressure is what a barometer reads at your location.
+ * Absolute pressure is corrected to sea level equivalent.
+ *
+ * @param stationPressureInHg - Local barometer reading in inHg
+ * @param altitudeFt - Elevation in feet
+ * @param tempF - Temperature in degrees F
+ * @returns Sea-level corrected pressure in inHg
+ */
+export function stationToAbsolutePressure(
+  stationPressureInHg: number,
+  altitudeFt: number,
+  tempF: number,
+): number {
+  // Hypsometric formula approximation
+  const tempC = (tempF - 32) * (5 / 9);
+  const tempK = tempC + 273.15;
+  const exponent = (altitudeFt * 0.3048 * 0.0289644 * 9.80665) / (8.31447 * tempK);
+  return stationPressureInHg * Math.exp(exponent);
+}
+
+/**
+ * Estimate muzzle velocity correction for shooting at altitude.
+ * Higher altitude = less air resistance = slightly higher effective MV.
+ * This is a simplified empirical correction.
+ *
+ * @param baseMV - Muzzle velocity at sea level in fps
+ * @param altitudeFt - Shooting altitude in feet
+ * @returns Corrected muzzle velocity in fps
+ */
+export function altitudeVelocityCorrection(
+  baseMV: number,
+  altitudeFt: number,
+): number {
+  // Empirical: about 1-2 fps per 1000 ft (from less barrel friction in thinner air)
+  // This is a very small effect - the main altitude effect is on drag, already handled
+  return baseMV + (altitudeFt / 1000) * 1.5;
+}
+
+/**
  * Density ratio relative to standard atmosphere
  */
 function densityRatio(
@@ -412,6 +490,69 @@ function spinDrift(time: number, twistRate?: number): number {
   // Approximate SG - tighter twist = higher SG
   const sg = 1.5; // Assume stable bullet
   return 1.25 * (sg + 1.2) * Math.pow(time, 1.83);
+}
+
+/**
+ * Coriolis acceleration components for a projectile.
+ *
+ * The Coriolis effect has two components for a bullet:
+ * - Horizontal deflection: 2 * Ω * vx * sin(lat) — deflects right in Northern hemisphere
+ * - Vertical (Eötvös) effect: 2 * Ω * vx * cos(lat) * sin(azimuth) — affects drop
+ *
+ * Ω = Earth's rotation rate = 7.2921e-5 rad/s
+ *
+ * @param vx - Downrange velocity in fps
+ * @param latitude - Shooter's latitude in degrees (positive = North)
+ * @param azimuth - Direction of fire in degrees (0 = North, 90 = East)
+ * @returns { horizontal: ft/s², vertical: ft/s² } accelerations
+ */
+function coriolisAcceleration(
+  vx: number,
+  latitude: number,
+  azimuth: number,
+): { horizontal: number; vertical: number } {
+  const OMEGA = 7.2921e-5; // Earth rotation rate rad/s
+  const latRad = (latitude * Math.PI) / 180;
+  const azRad = (azimuth * Math.PI) / 180;
+
+  // Horizontal deflection (right in Northern hemisphere)
+  const horizontal = 2 * OMEGA * vx * Math.sin(latRad);
+
+  // Eötvös effect — vertical acceleration change when shooting East/West
+  const vertical = 2 * OMEGA * vx * Math.cos(latRad) * Math.sin(azRad);
+
+  return { horizontal, vertical };
+}
+
+/**
+ * Aerodynamic jump — crosswind-induced vertical deflection.
+ * When a spinning bullet enters a crosswind, the aerodynamic moment
+ * causes a precession that tilts the nose, creating a vertical deflection
+ * component. This is VERTICAL shift caused by HORIZONTAL wind.
+ *
+ * Approximation: aeroJump ≈ (crosswind / muzzleVelocity) * range * factor
+ * where factor depends on stability. Typical: 0.5-1.0 inches per 10mph
+ * crosswind per 100 yards for a stable bullet.
+ *
+ * @param crossWindFps - Crosswind component in fps
+ * @param muzzleVelocity - Muzzle velocity in fps
+ * @param time - Time of flight in seconds
+ * @param twistRate - Barrel twist rate in inches/turn
+ * @returns Vertical deflection in inches (positive = up for right-twist, right crosswind)
+ */
+function aerodynamicJump(
+  crossWindFps: number,
+  muzzleVelocity: number,
+  time: number,
+  twistRate?: number,
+): number {
+  if (!twistRate || twistRate <= 0 || time <= 0) return 0;
+  // Stability-dependent factor — tighter twist = more effect
+  // Typical SG ≈ 1.5 for well-stabilized bullet
+  const sg = 1.5;
+  // Deflection accumulates with time squared (angular rate * time = angle, angle * distance = offset)
+  const factor = 0.01 * (sg / twistRate);
+  return factor * (crossWindFps / muzzleVelocity) * Math.pow(time, 2) * muzzleVelocity * 12;
 }
 
 // ---------------------------------------------------------------------------
@@ -592,6 +733,9 @@ export function trajectory(config: TrajectoryConfig): TrajectoryResult {
       const sdSign = config.twistDirection === "left" ? -1 : 1;
       const totalDrift = driftInches + sd * sdSign;
 
+      // Aerodynamic jump — crosswind-induced vertical shift
+      const aeroJumpInches = aerodynamicJump(crossWind, config.muzzleVelocity, t, config.twistRate);
+
       if (rangeYards <= config.zeroRange && dropInches > maxOrdinate) {
         maxOrdinate = dropInches;
       }
@@ -607,7 +751,7 @@ export function trajectory(config: TrajectoryConfig): TrajectoryResult {
 
       points.push({
         range: nextRange,
-        dropInches: nextRange === 0 ? 0 : dropInches,
+        dropInches: nextRange === 0 ? 0 : dropInches + aeroJumpInches * sdSign,
         dropMOA: inchesToMOA(dropInches, rangeYards),
         dropMIL: inchesToMIL(dropInches, rangeYards),
         driftInches: totalDrift,
@@ -619,12 +763,17 @@ export function trajectory(config: TrajectoryConfig): TrajectoryResult {
         momentum: momentum(config.bulletWeight, v),
         machNumber: mach,
         spinDrift: sd * sdSign,
+        coriolisInches: 0,  // Coriolis is already integrated into the z-axis, this is for display
+        aeroJumpInches: nextRange === 0 ? 0 : aeroJumpInches * sdSign,
       });
 
       nextRange += stepSize;
     }
 
     // RK4 integration step
+    // Coriolis setup (only if lat/azimuth provided)
+    const hasCoriolis = config.latitude != null && config.azimuth != null;
+
     const doStep = () => {
       // Wind affects the bullet by changing the relative airspeed
       // The drag acts on the velocity relative to the air
@@ -635,11 +784,18 @@ export function trajectory(config: TrajectoryConfig): TrajectoryResult {
       const machR = vr / vs;
       const dragR = dragRetardation(vr, machR, config.bc, config.dragModel, rhoRatio);
 
-      return {
-        ax: -dragR * (vrx / (vr || 1)),
-        ay: -dragR * (vry / (vr || 1)) - gravityEffective,
-        az: -dragR * (vrz / (vr || 1)),
-      };
+      let ax = -dragR * (vrx / (vr || 1));
+      let ay = -dragR * (vry / (vr || 1)) - gravityEffective;
+      let az = -dragR * (vrz / (vr || 1));
+
+      // Coriolis + Eötvös
+      if (hasCoriolis) {
+        const cor = coriolisAcceleration(vx, config.latitude!, config.azimuth!);
+        az += cor.horizontal;  // Horizontal deflection
+        ay += cor.vertical;    // Eötvös vertical effect
+      }
+
+      return { ax, ay, az };
     };
 
     // k1
