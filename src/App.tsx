@@ -11,6 +11,7 @@ import { TrajectoryTable } from "./components/Trajectory/TrajectoryTable.tsx";
 import { InternalBallisticsPanel } from "./components/InternalBallistics/InternalBallisticsPanel.tsx";
 import { InternalBallisticsStats } from "./components/InternalBallistics/InternalBallisticsStats.tsx";
 import { PressureCurveChart } from "./components/InternalBallistics/PressureCurveChart.tsx";
+import { LoadDevelopmentTab } from "./components/LoadDevelopment/LoadDevelopmentTab.tsx";
 
 export default function App() {
   const cartridge = useBallisticsStore((s) => s.cartridge);
@@ -136,6 +137,17 @@ export default function App() {
         >
           Internal Ballistics
         </button>
+        <button
+          onClick={() => setActiveTab("loaddev")}
+          className="px-4 py-2.5 text-[11px] font-mono tracking-wide cursor-pointer transition-colors"
+          style={{
+            color: activeTab === "loaddev" ? "#ef4444" : "#737373",
+            borderBottom: activeTab === "loaddev" ? "2px solid #ef4444" : "2px solid transparent",
+            background: "transparent",
+          }}
+        >
+          Load Development
+        </button>
       </div>
 
       <main className="flex max-md:flex-col">
@@ -147,7 +159,7 @@ export default function App() {
           <div className="p-5">
             <ControlPanel />
 
-            {activeTab === "internal" && (
+            {(activeTab === "internal" || activeTab === "loaddev") && (
               <InternalBallisticsPanel
                 cartridgeShortName={cartridge.shortName}
                 powderName={powderName}
@@ -163,7 +175,9 @@ export default function App() {
 
         {/* Right Panel: Visualizations */}
         <div className="flex-1 p-5 min-w-0 overflow-y-auto max-h-[calc(100vh-105px)]">
-          {activeTab === "external" ? (
+          {activeTab === "loaddev" ? (
+              <LoadDevelopmentTab />
+          ) : activeTab === "external" ? (
             <>
               <StatsBar
                 muzzleVelocity={muzzleVelocity}

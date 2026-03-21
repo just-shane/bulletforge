@@ -7,6 +7,20 @@
 
 ---
 
+## 🔢 Version History
+
+| Version | Phase | What Shipped |
+|---------|-------|-------------|
+| **v0.1.0** | Phase 1 | RK4 external ballistics engine, G1/G7 drag, 15 cartridges, 60+ bullets, 25 powders, SVG trajectory chart, full data table |
+| **v0.2.0** | Phase 2 | BulletForge logo, PWA manifest + service worker, OG image, CI/CD pipeline, .htaccess, SEO meta tags |
+| **v0.3.0** | Phase 3 | Internal ballistics engine (Nobel-Abel + Vieille), pressure curve chart, 22 powder profiles, 15 cartridge internal data, tabbed UI, safety warnings, 53 tests |
+| **v0.4.0** | Phase 4 | Load development tools — ladder test planner, ES/SD calculator, seating depth optimizer, OCW analysis, load recipe/session types, 15+ primer database, 73 tests |
+
+> **Current:** `v0.4.0` — defined in `src/lib/version.ts`
+> **Versioning:** Major phases bump minor version. Patches for bugfixes.
+
+---
+
 ## 🔑 API Keys & External Services
 
 | Status | Service | Required? | Notes |
@@ -137,32 +151,45 @@
 
 ---
 
-## 🔜 Phase 4 — Load Development Tools
+## ✅ Phase 4 — Load Development Tools
 
 > *Ladder tests. OCW. Seating depth. The stuff reloaders actually do at the bench.*
 
 ### 📐 4.1 Ladder Test Planner
-- [ ] **Charge weight ladder** — Auto-generate test plan: start charge → max charge in 0.3gr steps
-- [ ] **Velocity plateau detection** — Input chrono data, find the flat spot (velocity node)
-- [ ] **ES/SD calculator** — Extreme spread and standard deviation from shot strings
-- [ ] **Round count estimator** — How many rounds needed for the test, component cost estimate
+- [x] **Charge weight ladder** — Auto-generate test plan: start → max in 0.3gr steps with predicted MV & pressure
+- [x] **Velocity plateau detection** — `velocityNodeDetection()` finds flat spots in charge-vs-velocity curve
+- [x] **ES/SD calculator** — Interactive calculator with quality assessment (competition-grade < 8 SD)
+- [x] **Round count estimator** — Total rounds calculated from steps × rounds per step
 
 ### 🎯 4.2 Seating Depth Optimizer
-- [ ] **COAL/CBTO calculator** — Cartridge overall length and base-to-ogive
-- [ ] **Jump-to-lands table** — Generate test plan from jam → 0.020" → 0.040" → 0.060" off
+- [x] **COAL/CBTO calculator** — OAL calculated from base OAL minus jump distance
+- [x] **Jump-to-lands table** — 8-step plan: jam → 0.010" → 0.020" → ... → 0.100" off the lands
 - [ ] **Ogive profile data** — Secant vs. tangent ogive behavior differences
-- [ ] **Magazine length check** — Warning when COAL exceeds magazine box length
+- [x] **Magazine length check** — `checkMagazineLength()` warns when OAL exceeds max
 
 ### 📊 4.3 Optimal Charge Weight (OCW)
-- [ ] **OCW methodology** — Dan Newberry's method with step-by-step guide
-- [ ] **Group analysis** — Input group sizes at each charge weight, find the sweet spot
-- [ ] **POI shift tracking** — Plot point-of-impact shift across charge weights
+- [x] **OCW methodology** — Weighted scoring: 50% group size, 30% SD, 20% POI consistency
+- [x] **Group analysis** — `analyzeOCW()` finds optimal charge from test data
+- [x] **POI shift tracking** — POI shift included in OCWResult scoring
 
 ### 📋 4.4 Load Logbook
-- [ ] **Load recipes** — Save complete load data: cartridge, brass, primer, powder, charge, bullet, COAL, velocity
-- [ ] **Session notes** — Date, range, conditions, rifle, barrel round count
-- [ ] **Performance tracking** — ES/SD trends over time for a given load
-- [ ] **Export/share** — Print-friendly load cards, share links
+- [x] **Load recipes** — `createLoadRecipe()` with full component data, dimensions, performance, notes
+- [x] **Session notes** — `createRangeSession()` with date, location, conditions, shot strings, groups
+- [ ] **Performance tracking** — ES/SD trends over time for a given load (needs persistence/UI)
+- [ ] **Export/share** — Print-friendly load cards, share links (needs UI)
+
+### 🗄️ 4.5 Primer Database
+- [x] **15+ primers** — CCI, Federal, Remington, Winchester — small/large rifle, magnum, match
+
+### 🎛️ 4.6 UI
+- [x] **Load Development tab** — Third tab with sub-navigation: Ladder Test / ES-SD Calc / Seating Depth
+- [x] **Ladder test view** — Step table with predicted MV, pressure, SAAMI %, over-pressure flags
+- [x] **ES/SD calculator** — Interactive input with quality feedback
+- [x] **Seating depth view** — OAL table with jump distances and magazine fit check
+
+### 🧪 4.7 Testing
+- [x] **20 load development tests** — ES/SD, ladder planner, seating depth, OCW, load recipe, primers
+- [x] **73 total tests passing** — 28 external + 25 internal + 20 load development
 
 ---
 
@@ -329,7 +356,7 @@
 
 ## 📈 Stats
 
-> **Test Suite:** 53 unit tests (Vitest) — 28 external + 25 internal ballistics
+> **Test Suite:** 73 unit tests (Vitest) — 28 external + 25 internal ballistics + 20 load development
 
 > **Stack:** React 19 · TypeScript · Vite · Zustand · Tailwind v4 · RK4 Ballistics Engine
 

@@ -13,7 +13,7 @@ const defaultBullets = bulletsByCaliber(defaultCartridge.bulletDiameter);
 const defaultBullet = defaultBullets.find((b) => b.name === "140gr ELD-M" && b.manufacturer === "Hornady") ?? defaultBullets[0];
 const defaultCartridgeInternal = CARTRIDGE_INTERNAL_DATA["6.5 CM"];
 
-export type AppTab = "external" | "internal";
+export type AppTab = "external" | "internal" | "loaddev";
 
 export interface BallisticsStore {
   // Selections
