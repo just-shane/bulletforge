@@ -18,8 +18,10 @@
 | **v0.4.1** | Phase 3 cleanup | Barrel length optimizer, burn rate comparison chart, temp sensitivity modeling, hot/cold comparison panel, safe load indicator, 85 tests |
 | **v0.5.0** | Phase 5 | Coriolis/Eötvös, aerodynamic jump, density altitude, station-to-absolute pressure, comparison mode with overlay chart + delta table, latitude/azimuth controls, 102 tests |
 | **v0.5.1** | Cherry-pick | Miller stability factor, BC truing calculator, DOPE card generator, stability panel UI — low-hanging fruit from Phases 6 & 7, 111 tests |
+| **v0.5.2** | Polish | 6-theme system (4 dark + 2 light) with hamburger settings menu, CSS variable theming, per-theme slider styling, Docs & Education stubs |
+| **v0.6.0** | Batch A | Steep angle warnings, ogive profiles on all bullets, multi-zero DOPE cards, arm band DOPE format, shooting angle slider |
 
-> **Current:** `v0.5.1` — defined in `src/lib/version.ts`
+> **Current:** `v0.6.0` — defined in `src/lib/version.ts`
 > **Versioning:** Major phases bump minor version. Patches for bugfixes.
 
 ---
@@ -169,8 +171,8 @@
 ### 🎯 4.2 Seating Depth Optimizer
 - [x] **COAL/CBTO calculator** — OAL calculated from base OAL minus jump distance
 - [x] **Jump-to-lands table** — 8-step plan: jam → 0.010" → 0.020" → ... → 0.100" off the lands
-- [ ] **Ogive profile data** — Secant vs. tangent ogive behavior differences
-  > **Deferred (v0.4.0):** Ogive geometry affects seating depth sensitivity — secant ogives (VLDs) are more jump-sensitive than tangent ogives (Sierra MatchKing). Needs per-bullet ogive type in the bullet database plus educational content on how it affects seating depth testing strategy. Low priority until we add bullet comparisons or refine the seating depth optimizer with ogive-aware recommendations.
+- [x] **Ogive profile data** — `ogiveType: "secant" | "tangent" | "hybrid"` on all bullets, context-aware seating depth recommendations
+  > *Completed in v0.6.0 — per-bullet ogive classification with color-coded guidance in SeatingDepthView (secant=jump-sensitive, tangent=forgiving, hybrid=moderate)*
 - [x] **Magazine length check** — `checkMagazineLength()` warns when OAL exceeds max
 
 ### 📊 4.3 Optimal Charge Weight (OCW)
@@ -222,8 +224,8 @@
 ### 📐 5.3 Angle Shooting
 - [x] **Improved angle correction** — Rifleman's rule cosine correction already in RK4 solver (`gravityEffective = GRAVITY * cosShoot`)
 - [x] **Uphill vs. downhill** — Cosine rule applies symmetrically (verified in tests)
-- [ ] **Steep angle warnings** — Alert when cosine error becomes significant
-  > **Deferred (v0.5.0):** Needs a threshold calculation (e.g., >15° shows warning badge) and UI component. Small feature, will add in a polish pass.
+- [x] **Steep angle warnings** — Warning badge when |angle| > 15° with cosine factor display and Rifleman's Rule caveat
+  > *Completed in v0.6.0 — shooting angle slider (-60° to 60°) added to ControlPanel with live cosine correction display*
 
 ### 🔄 5.4 Comparison Mode
 - [x] **Side-by-side loads** — Snapshot current trajectory, change setup, compare side-by-side
@@ -256,8 +258,10 @@
 ### 📋 6.3 DOPE Cards
 - [x] **Auto-generated DOPE cards** — Print-ready range cards with @media print CSS, 100-yard increments, drop/drift/velocity/energy (DOPECard UI)
   > *Cherry-picked in v0.5.1 — pure UI component using existing trajectory data*
-- [ ] **Multiple zero cards** — Different altitude/temp DOPE for travel
-- [ ] **Arm band format** — Compact format for PRS/NRL competition
+- [x] **Multiple zero cards** — MultiZeroDOPE component with up to 4 altitude/temp scenarios, recomputed trajectories, Print All
+  > *Completed in v0.6.0 — editable scenario labels, altitude, temperature per card*
+- [x] **Arm band format** — ArmBandDOPE compact strip for PRS/NRL competition (200px wide, 50-yard increments, 10mph wind holds)
+  > *Completed in v0.6.0 — printable wrist card format with date stamp*
 - [ ] **QR code cards** — Scan to load exact setup in BulletForge
 
 ---
@@ -369,6 +373,25 @@
 - [ ] **Community data** — Crowd-sourced true BCs and load recipes don't exist anywhere else
 - [ ] **Chrono integration** — Automatic model improvement from real-world data
 - [ ] **Open platform** — API access means anyone can build on top of BulletForge
+
+---
+
+## 📚 Docs & Education *(stubbed in v0.5.2)*
+
+> *Accessible from the hamburger settings menu. Panels stubbed, content TBD.*
+
+### 📖 Docs
+- [ ] **Getting started** — Quick walkthrough of the three tabs and what they do
+- [ ] **Engine details** — RK4 solver, drag models, atmospheric modeling explanation
+- [ ] **Data sources** — Where the cartridge/bullet/powder data comes from, accuracy notes
+- [ ] **API reference** — When Phase 8 API ships, document endpoints here
+
+### 🎓 Education
+- [ ] **Ballistics 101** — External ballistics fundamentals (trajectory, BC, drag, wind)
+- [ ] **Internal ballistics** — How powder burns, pressure curves, SAAMI specs explained
+- [ ] **Reloading safety** — Required reading: pressure signs, working up loads, equipment
+- [ ] **Long-range shooting** — Coriolis, density altitude, spin drift — when they matter and when they don't
+- [ ] **Load development guide** — Ladder tests, OCW, seating depth methodology walkthrough
 
 ---
 
