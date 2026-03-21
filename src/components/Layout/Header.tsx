@@ -1,5 +1,6 @@
 import { APP_NAME, APP_SUBTITLE, APP_VERSION } from "../../lib/version.ts";
 import { HamburgerMenu } from "../Menu/HamburgerMenu.tsx";
+import { ThemedLogo } from "./ThemedLogo.tsx";
 
 export function Header() {
   return (
@@ -7,12 +8,12 @@ export function Header() {
       className="flex items-center justify-between px-6 py-4"
       style={{ borderBottom: "1px solid var(--c-border)" }}
     >
-      <div className="flex items-center gap-3">
-        <img
-          src="/logo.svg"
-          alt="BulletForge"
-          className="w-8 h-8 rounded-md"
-        />
+      <a
+        href="/"
+        className="flex items-center gap-3 no-underline"
+        style={{ textDecoration: "none" }}
+      >
+        <ThemedLogo size={44} />
         <div>
           <div className="text-base font-bold tracking-tight" style={{ color: "var(--c-text)" }}>
             {APP_NAME}
@@ -21,7 +22,7 @@ export function Header() {
             {APP_SUBTITLE.toUpperCase()} v{APP_VERSION}
           </div>
         </div>
-      </div>
+      </a>
 
       <HamburgerMenu />
     </div>
