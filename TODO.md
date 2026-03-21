@@ -252,7 +252,7 @@
   > *Completed in v0.8.0 — RifleProfileManager component with save/load/delete, localStorage persistence layer*
 - [x] **Twist rate stability** — Miller stability factor with altitude/temp corrections, color-coded rating, twist rate recommendations (StabilityPanel UI)
   > *Cherry-picked in v0.5.1 — pure math + UI, no persistence dependencies*
-- [ ] **Barrel life tracking** — Round count, accuracy degradation estimates
+- [x] **Barrel life tracking** — Round count with +1/+10/+50/set/reset controls, estimated barrel life per cartridge (empirical data from Krieger/Bartlein), progress bar with condition rating (New/Good/Worn/End of life)
 - [x] **Multiple rifle support** — Switch between saved rifles via dropdown in control panel
   > *Completed in v0.8.0 — RifleProfileManager loads full config (cartridge, bullet, velocity, zero, barrel, scope) from saved profiles*
 
@@ -361,7 +361,7 @@
 - [ ] **True BC prediction** — ML model trained on community chrono data
 - [ ] **Load optimization AI** — Suggest optimal charge/seating for a given goal (accuracy vs. velocity)
 - [ ] **Barrel life prediction** — Model accuracy degradation from round count + cartridge heat
-- [ ] **Component substitution** — _"H4350 out of stock? Try Reloder 16: similar burn rate, 12 fps slower"_
+- [x] **Component substitution** — `findSimilarPowders()` scores by burn rate proximity (70%) + temp sensitivity match (30%), collapsible UI in Internal Ballistics panel with "Use" buttons to swap powder directly
 
 ---
 

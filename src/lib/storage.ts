@@ -27,6 +27,10 @@ export interface RifleProfile {
     maxWindageTravel: number;
   };
   notes: string;
+  /** Total rounds fired through this barrel */
+  roundCount?: number;
+  /** Estimated barrel life in rounds (based on cartridge overbore ratio) */
+  estimatedBarrelLife?: number;
   createdAt: string;
   updatedAt: string;
 }

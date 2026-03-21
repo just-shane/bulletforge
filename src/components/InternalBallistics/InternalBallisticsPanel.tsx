@@ -1,5 +1,5 @@
-import { useMemo } from "react";
-import { POWDERS } from "../../lib/powders.ts";
+import { useMemo, useState } from "react";
+import { POWDERS, findSimilarPowders } from "../../lib/powders.ts";
 import {
   CARTRIDGE_INTERNAL_DATA,
   POWDER_INTERNAL_DATA,
@@ -132,6 +132,114 @@ export function InternalBallisticsPanel({
           Freebore: {cartridgeData.freebore}"
         </div>
       )}
+
+      {/* Powder Substitution */}
+      <PowderSubstitutionPanel powderName={powderName} onPowderChange={onPowderChange} />
     </>
+  );
+}
+
+// ─── Powder Substitution Sub-Component ────────────────────────
+
+function PowderSubstitutionPanel({
+  powderName,
+  onPowderChange,
+}: {
+  powderName: string;
+  onPowderChange: (name: string) => void;
+}) {
+  const [expanded, setExpanded] = useState(false);
+  const substitutes = useMemo(() => findSimilarPowders(powderName, 5), [powderName]);
+
+  if (substitutes.length === 0) return null;
+
+  return (
+    <div className="mt-3">
+      <button
+        onClick={() => setExpanded(!expanded)}
+        className="flex items-center justify-between w-full text-left cursor-pointer"
+        style={{ background: "transparent", border: "none", padding: 0 }}
+      >
+        <span
+          className="text-[9px] tracking-[1.5px] font-mono uppercase"
+          style={{ color: "var(--c-accent)" }}
+        >
+          Powder Substitutes
+        </span>
+        <span className="text-[9px] font-mono" style={{ color: "var(--c-text-faint)" }}>
+          {expanded ? "\u25B4" : "\u25BE"}
+        </span>
+      </button>
+
+      {!expanded && (
+        <div className="text-[8px] font-mono mt-0.5" style={{ color: "var(--c-text-faint)" }}>
+          {substitutes.length} similar powder{substitutes.length !== 1 ? "s" : ""} found
+        </div>
+      )}
+
+      {expanded && (
+        <div className="mt-1.5 flex flex-col gap-1.5">
+          <div className="text-[8px] font-mono" style={{ color: "var(--c-text-faint)" }}>
+            {powderName} out of stock? These powders have similar burn rates. Always work up from minimum charge.
+          </div>
+          {substitutes.map((sub) => {
+            const hasInternalData = sub.powder.name in POWDER_INTERNAL_DATA;
+            return (
+              <div
+                key={sub.powder.name}
+                className="rounded-md p-2"
+                style={{ background: "var(--c-surface, var(--c-panel))", border: "1px solid var(--c-border)" }}
+              >
+                <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-mono font-bold" style={{ color: "var(--c-text)" }}>
+                      {sub.powder.name}
+                    </span>
+                    <span className="text-[8px] font-mono" style={{ color: "var(--c-text-faint)" }}>
+                      {sub.powder.manufacturer}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span
+                      className="text-[9px] font-mono font-bold"
+                      style={{
+                        color:
+                          sub.score >= 85
+                            ? "var(--c-success)"
+                            : sub.score >= 65
+                              ? "var(--c-warn)"
+                              : "var(--c-error, #e55)",
+                      }}
+                    >
+                      {sub.score}%
+                    </span>
+                    {hasInternalData && (
+                      <button
+                        onClick={() => onPowderChange(sub.powder.name)}
+                        className="text-[8px] font-mono px-1.5 py-0.5 rounded cursor-pointer"
+                        style={{
+                          background: "var(--c-accent-dim)",
+                          border: "1px solid var(--c-accent)",
+                          color: "var(--c-accent)",
+                        }}
+                      >
+                        Use
+                      </button>
+                    )}
+                  </div>
+                </div>
+                <div className="flex gap-3 text-[8px] font-mono mb-1" style={{ color: "var(--c-text-dim)" }}>
+                  <span>Burn rate: {sub.powder.burnRate} ({sub.burnRateDelta > 0 ? (sub.powder.burnRate > (POWDERS.find(p => p.name === powderName)?.burnRate ?? 0) ? "slower" : "faster") : "same"})</span>
+                  <span>Temp: {sub.powder.temperatureSensitivity}</span>
+                </div>
+                <div className="text-[8px] font-mono" style={{ color: "var(--c-text-faint)" }}>
+                  {sub.assessment}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
   );
 }

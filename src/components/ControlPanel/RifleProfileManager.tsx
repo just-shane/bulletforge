@@ -9,6 +9,7 @@ import {
 } from "../../lib/storage.ts";
 import { CARTRIDGES } from "../../lib/cartridges.ts";
 import { bulletsByCaliber } from "../../lib/bullets.ts";
+import { estimateBarrelLife, barrelCondition } from "../../lib/powders.ts";
 
 // ---------- Factory presets ----------
 interface RiflePreset {
@@ -205,6 +206,8 @@ export function RifleProfileManager() {
         maxWindageTravel: scope.maxWindageTravel,
       },
       notes: "",
+      roundCount: 0,
+      estimatedBarrelLife: estimateBarrelLife(cartridge.shortName),
       createdAt: now,
       updatedAt: now,
     };
@@ -471,6 +474,122 @@ export function RifleProfileManager() {
               </>
             )}
           </div>
+
+          {/* Barrel Life Tracking */}
+          {selectedId && (() => {
+            const profile = profiles.find((p) => p.id === selectedId);
+            if (!profile) return null;
+            const rounds = profile.roundCount ?? 0;
+            const life = profile.estimatedBarrelLife ?? estimateBarrelLife(profile.cartridgeShortName);
+            const condition = barrelCondition(rounds, life);
+
+            return (
+              <div
+                className="mt-3 rounded-md p-2"
+                style={{ background: "var(--c-surface, var(--c-panel))", border: "1px solid var(--c-border)" }}
+              >
+                <div className="text-[9px] uppercase tracking-[1.5px] font-mono mb-1.5" style={{ color: "var(--c-accent)" }}>
+                  Barrel Life
+                </div>
+
+                {/* Progress bar */}
+                <div className="w-full h-2 rounded-full overflow-hidden mb-1.5" style={{ background: "var(--c-border)" }}>
+                  <div
+                    className="h-full rounded-full transition-all"
+                    style={{
+                      width: `${Math.min(condition.percent, 100)}%`,
+                      background: condition.color,
+                    }}
+                  />
+                </div>
+
+                <div className="flex items-center justify-between text-[9px] font-mono mb-2">
+                  <span style={{ color: condition.color, fontWeight: "bold" }}>
+                    {condition.rating} — {condition.percent}%
+                  </span>
+                  <span style={{ color: "var(--c-text-dim)" }}>
+                    {rounds.toLocaleString()} / {life.toLocaleString()} rounds
+                  </span>
+                </div>
+
+                {/* Round count controls */}
+                <div className="flex gap-1 items-center">
+                  <button
+                    onClick={() => {
+                      const updated = { ...profile, roundCount: rounds + 1, updatedAt: new Date().toISOString() };
+                      saveRifleProfile(updated);
+                      refreshProfiles();
+                    }}
+                    style={{ ...buttonStyle, fontSize: "9px", padding: "2px 6px" }}
+                    title="Add 1 round"
+                  >
+                    +1
+                  </button>
+                  <button
+                    onClick={() => {
+                      const updated = { ...profile, roundCount: rounds + 10, updatedAt: new Date().toISOString() };
+                      saveRifleProfile(updated);
+                      refreshProfiles();
+                    }}
+                    style={{ ...buttonStyle, fontSize: "9px", padding: "2px 6px" }}
+                    title="Add 10 rounds"
+                  >
+                    +10
+                  </button>
+                  <button
+                    onClick={() => {
+                      const updated = { ...profile, roundCount: rounds + 50, updatedAt: new Date().toISOString() };
+                      saveRifleProfile(updated);
+                      refreshProfiles();
+                    }}
+                    style={{ ...buttonStyle, fontSize: "9px", padding: "2px 6px" }}
+                    title="Add 50 rounds"
+                  >
+                    +50
+                  </button>
+                  <input
+                    type="number"
+                    defaultValue=""
+                    placeholder="Set"
+                    className="w-16 rounded text-[9px] font-mono px-1.5 py-0.5"
+                    style={{
+                      background: "var(--c-panel)",
+                      border: "1px solid var(--c-border)",
+                      color: "var(--c-text)",
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        const val = parseInt((e.target as HTMLInputElement).value);
+                        if (!isNaN(val) && val >= 0) {
+                          const updated = { ...profile, roundCount: val, updatedAt: new Date().toISOString() };
+                          saveRifleProfile(updated);
+                          refreshProfiles();
+                          (e.target as HTMLInputElement).value = "";
+                        }
+                      }
+                    }}
+                  />
+                  {rounds > 0 && (
+                    <button
+                      onClick={() => {
+                        const updated = { ...profile, roundCount: 0, updatedAt: new Date().toISOString() };
+                        saveRifleProfile(updated);
+                        refreshProfiles();
+                      }}
+                      style={{ ...buttonStyle, fontSize: "9px", padding: "2px 6px", color: "var(--c-text-faint)" }}
+                      title="Reset round count"
+                    >
+                      Reset
+                    </button>
+                  )}
+                </div>
+
+                <div className="text-[8px] font-mono mt-1.5" style={{ color: "var(--c-text-faint)" }}>
+                  Estimated life for {profile.cartridgeShortName} based on match-grade accuracy standards. Hunting accuracy typically lasts 50-100% longer.
+                </div>
+              </div>
+            );
+          })()}
         </div>
       )}
     </div>
