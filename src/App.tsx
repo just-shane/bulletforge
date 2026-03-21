@@ -2,7 +2,7 @@ import { useEffect, useMemo } from "react";
 import { useBallisticsStore } from "./store/store.ts";
 import { trajectory, kineticEnergy } from "./lib/ballistics.ts";
 import type { TrajectoryConfig } from "./lib/ballistics.ts";
-import { buildConfig, simulateInternal } from "./lib/internal-ballistics.ts";
+import { buildConfig, simulateInternal, CARTRIDGE_INTERNAL_DATA } from "./lib/internal-ballistics.ts";
 import { Header } from "./components/Layout/Header.tsx";
 import { StatsBar } from "./components/StatsBar/StatsBar.tsx";
 import { ControlPanel } from "./components/ControlPanel/ControlPanel.tsx";
@@ -11,6 +11,10 @@ import { TrajectoryTable } from "./components/Trajectory/TrajectoryTable.tsx";
 import { InternalBallisticsPanel } from "./components/InternalBallistics/InternalBallisticsPanel.tsx";
 import { InternalBallisticsStats } from "./components/InternalBallistics/InternalBallisticsStats.tsx";
 import { PressureCurveChart } from "./components/InternalBallistics/PressureCurveChart.tsx";
+import { BarrelLengthChart } from "./components/InternalBallistics/BarrelLengthChart.tsx";
+import { BurnRateComparisonChart } from "./components/InternalBallistics/BurnRateComparisonChart.tsx";
+import { TempComparisonPanel } from "./components/InternalBallistics/TempComparisonPanel.tsx";
+import { SafeLoadIndicator } from "./components/InternalBallistics/SafeLoadIndicator.tsx";
 import { LoadDevelopmentTab } from "./components/LoadDevelopment/LoadDevelopmentTab.tsx";
 
 export default function App() {
@@ -83,18 +87,15 @@ export default function App() {
     );
   }, [config, setTrajectoryResults]);
 
+  // Build internal ballistics config (memoized for use in render + simulation)
+  const ibConfig = useMemo(
+    () => buildConfig(cartridge.shortName, powderName, chargeWeight, bullet.weight, bullet.diameter, barrelLength),
+    [cartridge.shortName, powderName, chargeWeight, bullet.weight, bullet.diameter, barrelLength],
+  );
+
   // Compute internal ballistics when parameters change
   useEffect(() => {
     if (activeTab !== "internal") return;
-
-    const ibConfig = buildConfig(
-      cartridge.shortName,
-      powderName,
-      chargeWeight,
-      bullet.weight,
-      bullet.diameter,
-      barrelLength,
-    );
 
     if (ibConfig) {
       const result = simulateInternal(ibConfig);
@@ -102,7 +103,10 @@ export default function App() {
     } else {
       setInternalResult(null);
     }
-  }, [activeTab, cartridge.shortName, powderName, chargeWeight, bullet.weight, bullet.diameter, barrelLength, setInternalResult]);
+  }, [activeTab, ibConfig, setInternalResult]);
+
+  // Charge range for safe load indicator
+  const chargeRange = CARTRIDGE_INTERNAL_DATA[cartridge.shortName]?.typicalChargeRange;
 
   const muzzleEnergy = kineticEnergy(bullet.weight, muzzleVelocity);
 
@@ -230,6 +234,48 @@ export default function App() {
                       burnCompletePosition={internalResult.burnCompletePosition}
                     />
                   </div>
+
+                  {/* Safe load indicator */}
+                  {chargeRange && (
+                    <div className="mb-4">
+                      <SafeLoadIndicator
+                        chargeWeight={chargeWeight}
+                        minCharge={chargeRange.min}
+                        maxCharge={chargeRange.max}
+                        saamiPercent={(internalResult.peakPressure / cartridge.maxPressure) * 100}
+                      />
+                    </div>
+                  )}
+
+                  {/* Barrel length optimization */}
+                  {ibConfig && (
+                    <div className="mb-4">
+                      <BarrelLengthChart config={ibConfig} />
+                    </div>
+                  )}
+
+                  {/* Burn rate comparison */}
+                  <div className="mb-4">
+                    <BurnRateComparisonChart
+                      cartridgeShortName={cartridge.shortName}
+                      currentPowder={powderName}
+                      chargeWeight={chargeWeight}
+                      bulletWeight={bullet.weight}
+                      bulletDiameter={bullet.diameter}
+                      barrelLength={barrelLength}
+                    />
+                  </div>
+
+                  {/* Temperature comparison */}
+                  {ibConfig && (
+                    <div className="mb-4">
+                      <TempComparisonPanel
+                        config={ibConfig}
+                        powderName={powderName}
+                        saamiMaxPressure={cartridge.maxPressure}
+                      />
+                    </div>
+                  )}
 
                   {/* Load summary */}
                   <div

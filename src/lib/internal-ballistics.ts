@@ -183,6 +183,8 @@ export interface PowderInternalData {
   energyContent: number;
   /** Ratio of specific heats (gamma) */
   gasSpecificHeat: number;
+  /** Temperature sensitivity: velocity shift in fps per degree F. Positive = faster when hot. Typical range 0.5-2.0 fps/°F. */
+  tempSensitivity: number;
 }
 
 /**
@@ -217,6 +219,7 @@ export const POWDER_INTERNAL_DATA: Record<string, PowderInternalData> = {
     grainFormFactor: 3,
     energyContent: 1380000,
     gasSpecificHeat: 1.24,
+    tempSensitivity: 1.5,
   },
   "H335": {
     burnRateCoeff: 1.10,
@@ -227,6 +230,7 @@ export const POWDER_INTERNAL_DATA: Record<string, PowderInternalData> = {
     grainFormFactor: 3,
     energyContent: 1400000,
     gasSpecificHeat: 1.24,
+    tempSensitivity: 1.3,
   },
   "BL-C(2)": {
     burnRateCoeff: 0.95,
@@ -237,6 +241,7 @@ export const POWDER_INTERNAL_DATA: Record<string, PowderInternalData> = {
     grainFormFactor: 3,
     energyContent: 1390000,
     gasSpecificHeat: 1.24,
+    tempSensitivity: 1.4,
   },
   "CFE 223": {
     burnRateCoeff: 0.85,
@@ -247,6 +252,7 @@ export const POWDER_INTERNAL_DATA: Record<string, PowderInternalData> = {
     grainFormFactor: 3,
     energyContent: 1395000,
     gasSpecificHeat: 1.24,
+    tempSensitivity: 1.2,
   },
   "Varget": {
     burnRateCoeff: 1.30,
@@ -257,6 +263,7 @@ export const POWDER_INTERNAL_DATA: Record<string, PowderInternalData> = {
     grainFormFactor: 1,
     energyContent: 1410000,
     gasSpecificHeat: 1.23,
+    tempSensitivity: 0.6,
   },
   "H4350": {
     burnRateCoeff: 0.70,
@@ -267,6 +274,7 @@ export const POWDER_INTERNAL_DATA: Record<string, PowderInternalData> = {
     grainFormFactor: 1,
     energyContent: 1420000,
     gasSpecificHeat: 1.23,
+    tempSensitivity: 0.9,
   },
   "H4831": {
     burnRateCoeff: 0.48,
@@ -277,6 +285,7 @@ export const POWDER_INTERNAL_DATA: Record<string, PowderInternalData> = {
     grainFormFactor: 1,
     energyContent: 1430000,
     gasSpecificHeat: 1.22,
+    tempSensitivity: 0.8,
   },
   "H1000": {
     burnRateCoeff: 0.36,
@@ -287,6 +296,7 @@ export const POWDER_INTERNAL_DATA: Record<string, PowderInternalData> = {
     grainFormFactor: 1,
     energyContent: 1440000,
     gasSpecificHeat: 1.22,
+    tempSensitivity: 0.7,
   },
   "Retumbo": {
     burnRateCoeff: 0.30,
@@ -297,6 +307,7 @@ export const POWDER_INTERNAL_DATA: Record<string, PowderInternalData> = {
     grainFormFactor: 1,
     energyContent: 1450000,
     gasSpecificHeat: 1.22,
+    tempSensitivity: 0.7,
   },
 
   // --- Alliant ---
@@ -309,6 +320,7 @@ export const POWDER_INTERNAL_DATA: Record<string, PowderInternalData> = {
     grainFormFactor: 3,
     energyContent: 1400000,
     gasSpecificHeat: 1.23,
+    tempSensitivity: 1.1,
   },
   "Reloder 16": {
     burnRateCoeff: 0.72,
@@ -319,6 +331,7 @@ export const POWDER_INTERNAL_DATA: Record<string, PowderInternalData> = {
     grainFormFactor: 1,
     energyContent: 1415000,
     gasSpecificHeat: 1.23,
+    tempSensitivity: 0.7,
   },
   "Reloder 22": {
     burnRateCoeff: 0.45,
@@ -329,6 +342,7 @@ export const POWDER_INTERNAL_DATA: Record<string, PowderInternalData> = {
     grainFormFactor: 1,
     energyContent: 1435000,
     gasSpecificHeat: 1.22,
+    tempSensitivity: 1.1,
   },
   "Reloder 26": {
     burnRateCoeff: 0.34,
@@ -339,6 +353,7 @@ export const POWDER_INTERNAL_DATA: Record<string, PowderInternalData> = {
     grainFormFactor: 1,
     energyContent: 1445000,
     gasSpecificHeat: 1.22,
+    tempSensitivity: 0.8,
   },
 
   // --- Vihtavuori ---
@@ -351,6 +366,7 @@ export const POWDER_INTERNAL_DATA: Record<string, PowderInternalData> = {
     grainFormFactor: 1,
     energyContent: 1405000,
     gasSpecificHeat: 1.24,
+    tempSensitivity: 0.5,
   },
   "N150": {
     burnRateCoeff: 0.62,
@@ -361,6 +377,7 @@ export const POWDER_INTERNAL_DATA: Record<string, PowderInternalData> = {
     grainFormFactor: 1,
     energyContent: 1415000,
     gasSpecificHeat: 1.23,
+    tempSensitivity: 0.5,
   },
   "N160": {
     burnRateCoeff: 0.55,
@@ -371,6 +388,7 @@ export const POWDER_INTERNAL_DATA: Record<string, PowderInternalData> = {
     grainFormFactor: 1,
     energyContent: 1425000,
     gasSpecificHeat: 1.23,
+    tempSensitivity: 0.5,
   },
   "N165": {
     burnRateCoeff: 0.45,
@@ -381,6 +399,7 @@ export const POWDER_INTERNAL_DATA: Record<string, PowderInternalData> = {
     grainFormFactor: 1,
     energyContent: 1435000,
     gasSpecificHeat: 1.22,
+    tempSensitivity: 0.5,
   },
   "N550": {
     burnRateCoeff: 0.66,
@@ -391,6 +410,7 @@ export const POWDER_INTERNAL_DATA: Record<string, PowderInternalData> = {
     grainFormFactor: 1,
     energyContent: 1420000,
     gasSpecificHeat: 1.23,
+    tempSensitivity: 0.6,
   },
   "N570": {
     burnRateCoeff: 0.32,
@@ -401,6 +421,7 @@ export const POWDER_INTERNAL_DATA: Record<string, PowderInternalData> = {
     grainFormFactor: 1,
     energyContent: 1448000,
     gasSpecificHeat: 1.22,
+    tempSensitivity: 0.5,
   },
 
   // --- IMR ---
@@ -413,6 +434,7 @@ export const POWDER_INTERNAL_DATA: Record<string, PowderInternalData> = {
     grainFormFactor: 1,
     energyContent: 1405000,
     gasSpecificHeat: 1.23,
+    tempSensitivity: 1.2,
   },
   "IMR 4166": {
     burnRateCoeff: 1.00,
@@ -423,6 +445,7 @@ export const POWDER_INTERNAL_DATA: Record<string, PowderInternalData> = {
     grainFormFactor: 1,
     energyContent: 1410000,
     gasSpecificHeat: 1.23,
+    tempSensitivity: 1.1,
   },
   "IMR 4350": {
     burnRateCoeff: 0.68,
@@ -433,6 +456,7 @@ export const POWDER_INTERNAL_DATA: Record<string, PowderInternalData> = {
     grainFormFactor: 1,
     energyContent: 1420000,
     gasSpecificHeat: 1.23,
+    tempSensitivity: 1.0,
   },
   "IMR 4831": {
     burnRateCoeff: 0.47,
@@ -443,6 +467,7 @@ export const POWDER_INTERNAL_DATA: Record<string, PowderInternalData> = {
     grainFormFactor: 1,
     energyContent: 1430000,
     gasSpecificHeat: 1.22,
+    tempSensitivity: 0.9,
   },
   "IMR 7828": {
     burnRateCoeff: 0.36,
@@ -453,6 +478,7 @@ export const POWDER_INTERNAL_DATA: Record<string, PowderInternalData> = {
     grainFormFactor: 1,
     energyContent: 1440000,
     gasSpecificHeat: 1.22,
+    tempSensitivity: 0.8,
   },
 };
 
@@ -1026,6 +1052,146 @@ export function findMaxCharge(config: InternalBallisticsConfig): number {
   }
 
   return (lo + hi) / 2;
+}
+
+// ---------------------------------------------------------------------------
+// Temperature Sensitivity
+// ---------------------------------------------------------------------------
+
+/**
+ * Predict velocity shift due to ambient temperature change.
+ * Uses powder-specific temperature sensitivity coefficient.
+ *
+ * @param baseMV - Muzzle velocity at reference temperature (fps)
+ * @param powderName - Name of the powder
+ * @param refTemp - Reference temperature in degrees F (typically 59°F or 70°F)
+ * @param actualTemp - Actual ambient temperature in degrees F
+ * @returns Predicted muzzle velocity at the actual temperature (fps)
+ */
+export function tempAdjustedVelocity(
+  baseMV: number,
+  powderName: string,
+  refTemp: number,
+  actualTemp: number,
+): number {
+  const powder = POWDER_INTERNAL_DATA[powderName];
+  if (!powder) return baseMV;
+  const deltaT = actualTemp - refTemp;
+  return baseMV + powder.tempSensitivity * deltaT;
+}
+
+/**
+ * Compare a load at two different temperatures.
+ * Returns full simulation results for both conditions with velocity delta.
+ */
+export function compareLoadAtTemps(
+  config: InternalBallisticsConfig,
+  powderName: string,
+  coldTemp: number,
+  hotTemp: number,
+  refTemp: number = 59,
+): { cold: { temp: number; velocity: number; pressure: number }; hot: { temp: number; velocity: number; pressure: number }; velocityDelta: number; pressureDelta: number } {
+  const baseResult = simulateInternal(config);
+  const baseMV = baseResult.muzzleVelocity;
+  const basePeak = baseResult.peakPressure;
+
+  const powder = POWDER_INTERNAL_DATA[powderName];
+  const sensitivity = powder?.tempSensitivity ?? 1.0;
+
+  // Velocity scales linearly with temp
+  // Pressure scales approximately 1.5x the velocity sensitivity (empirical)
+  const coldDeltaT = coldTemp - refTemp;
+  const hotDeltaT = hotTemp - refTemp;
+
+  const coldMV = baseMV + sensitivity * coldDeltaT;
+  const hotMV = baseMV + sensitivity * hotDeltaT;
+
+  // Pressure change: roughly proportional to (velocity ratio)^2
+  const coldPressureRatio = (coldMV / baseMV) ** 2;
+  const hotPressureRatio = (hotMV / baseMV) ** 2;
+
+  return {
+    cold: { temp: coldTemp, velocity: Math.round(coldMV), pressure: Math.round(basePeak * coldPressureRatio) },
+    hot: { temp: hotTemp, velocity: Math.round(hotMV), pressure: Math.round(basePeak * hotPressureRatio) },
+    velocityDelta: Math.round(hotMV - coldMV),
+    pressureDelta: Math.round(basePeak * hotPressureRatio - basePeak * coldPressureRatio),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Powder Comparison
+// ---------------------------------------------------------------------------
+
+/**
+ * Compare multiple powders in the same cartridge/bullet combination.
+ * Returns simulation results for each powder at the same charge weight.
+ *
+ * @param cartridgeShortName - e.g. "6.5 CM"
+ * @param powderNames - Array of powder names to compare
+ * @param chargeWeight - Charge weight in grains (same for all)
+ * @param bulletWeight - Bullet weight in grains
+ * @param bulletDiameter - Bullet diameter in inches
+ * @param barrelLength - Barrel length in inches
+ * @returns Array of comparison results, null entries for powders that can't be configured
+ */
+export function comparePowders(
+  cartridgeShortName: string,
+  powderNames: string[],
+  chargeWeight: number,
+  bulletWeight: number,
+  bulletDiameter: number,
+  barrelLength?: number,
+): Array<{ powderName: string; result: InternalBallisticsResult } | null> {
+  return powderNames.map((name) => {
+    const config = buildConfig(cartridgeShortName, name, chargeWeight, bulletWeight, bulletDiameter, barrelLength);
+    if (!config) return null;
+    const result = simulateInternal(config);
+    return { powderName: name, result };
+  });
+}
+
+// ---------------------------------------------------------------------------
+// Optimal Barrel Length
+// ---------------------------------------------------------------------------
+
+/**
+ * Find the optimal barrel length — the point of diminishing returns
+ * where each additional inch of barrel yields less than the threshold
+ * fps gain (default: 10 fps/inch).
+ *
+ * @param config - Base configuration
+ * @param minLength - Minimum barrel length to test (default 16")
+ * @param maxLength - Maximum barrel length to test (default 30")
+ * @param threshold - Minimum fps/inch to consider worthwhile (default 10)
+ * @returns Optimal barrel length info
+ */
+export function findOptimalBarrelLength(
+  config: InternalBallisticsConfig,
+  minLength: number = 16,
+  maxLength: number = 30,
+  threshold: number = 10,
+): { optimalLength: number; data: Array<{ length: number; velocity: number; fpsPerInch: number }> } {
+  const lengths: number[] = [];
+  for (let l = minLength; l <= maxLength; l += 1) lengths.push(l);
+
+  const results = velocityForBarrelLength(config, lengths);
+
+  const data = results.map((r, i) => ({
+    length: r.barrelLength,
+    velocity: r.velocity,
+    fpsPerInch: i > 0 ? r.velocity - results[i - 1].velocity : 0,
+  }));
+
+  // Find where fps/inch drops below threshold
+  let optimalLength = maxLength;
+  for (let i = 1; i < data.length; i++) {
+    if (data[i].fpsPerInch < threshold) {
+      optimalLength = data[i - 1].length;
+      break;
+    }
+  }
+
+  return { optimalLength, data };
 }
 
 // ---------------------------------------------------------------------------

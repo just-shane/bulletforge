@@ -15,8 +15,9 @@
 | **v0.2.0** | Phase 2 | BulletForge logo, PWA manifest + service worker, OG image, CI/CD pipeline, .htaccess, SEO meta tags |
 | **v0.3.0** | Phase 3 | Internal ballistics engine (Nobel-Abel + Vieille), pressure curve chart, 22 powder profiles, 15 cartridge internal data, tabbed UI, safety warnings, 53 tests |
 | **v0.4.0** | Phase 4 | Load development tools — ladder test planner, ES/SD calculator, seating depth optimizer, OCW analysis, load recipe/session types, 15+ primer database, 73 tests |
+| **v0.4.1** | Phase 3 cleanup | Barrel length optimizer, burn rate comparison chart, temp sensitivity modeling, hot/cold comparison panel, safe load indicator, 85 tests |
 
-> **Current:** `v0.4.0` — defined in `src/lib/version.ts`
+> **Current:** `v0.4.1` — defined in `src/lib/version.ts`
 > **Versioning:** Major phases bump minor version. Patches for bugfixes.
 
 ---
@@ -124,30 +125,30 @@
 
 ### 📏 3.2 Barrel Length Effects
 - [x] **Velocity vs. barrel length** — `velocityForBarrelLength()` multi-simulation
-- [ ] **Optimal barrel length** — Point of diminishing returns for a given cartridge (UI)
-- [ ] **Compensator/brake effects** — Backpressure modeling for muzzle devices
+- [x] **Optimal barrel length** — `findOptimalBarrelLength()` with diminishing returns threshold + SVG chart with green/yellow/red fps/inch bars
+- [ ] **Compensator/brake effects** — Backpressure modeling for muzzle devices (deferred — requires gas dynamics extension)
 
 ### 🌡️ 3.3 Temperature Sensitivity
-- [ ] **Powder temp modeling** — Velocity shift per degree F for each powder
-- [ ] **Hot/cold load comparison** — Side-by-side: same load at 20°F vs. 100°F
-- [x] **Temp-stable powder recommendations** — Powder database has temp sensitivity ratings
+- [x] **Powder temp modeling** — `tempSensitivity` field on all 24 powders (fps/°F), `tempAdjustedVelocity()` function
+- [x] **Hot/cold load comparison** — `compareLoadAtTemps()` + interactive TempComparisonPanel with cold/hot sliders, side-by-side velocity/pressure/SAAMI%
+- [x] **Temp-stable powder recommendations** — Powder database has temp sensitivity ratings with color-coded assessment
 
 ### 📊 3.4 Visualization & UI
 - [x] **Pressure curve chart** — SVG: pressure vs. barrel travel with SAAMI max line, peak marker, burn complete marker
 - [x] **Internal ballistics tab** — Tabbed UI: External / Internal with shared cartridge/bullet selection
 - [x] **Stats dashboard** — Predicted MV, peak pressure, SAAMI %, efficiency, fill ratio, barrel time
 - [x] **Safety disclaimer** — Contextual warning on every internal ballistics view
-- [ ] **Burn rate comparison** — Overlay multiple powders for same cartridge
-- [ ] **Safe load indicator** — Green/yellow/red zone visual for charge weight slider
+- [x] **Burn rate comparison** — `comparePowders()` engine + overlay SVG chart with up to 4 powders, color-coded legend with peak pressure/MV
+- [x] **Safe load indicator** — Green/yellow/red gradient bar with position marker showing charge weight vs. SAAMI % zone
 
 ### 🗄️ 3.5 Databases
-- [x] **22 powder internal profiles** — Burn rate coefficients, pressure exponents, flame temps, densities, form factors
+- [x] **24 powder internal profiles** — Burn rate coefficients, pressure exponents, flame temps, densities, form factors, temp sensitivity
 - [x] **15 cartridge internal profiles** — Case capacities, bore areas, freebore, shot start pressures, charge ranges
 - [x] **`buildConfig()` convenience** — Assemble full config from cartridge + powder + bullet names
 
 ### 🧪 3.6 Testing
-- [x] **25 internal ballistics tests** — Database integrity, simulation fundamentals, known load validation, barrel length effects, safety features, physics sanity checks
-- [x] **53 total tests passing** — 28 external + 25 internal
+- [x] **37 internal ballistics tests** — Database integrity, simulation fundamentals, known load validation, barrel length effects, safety features, physics sanity, temp sensitivity, burn rate comparison, optimal barrel length
+- [x] **85 total tests passing** — 28 external + 37 internal + 20 load development
 
 ---
 
@@ -356,7 +357,7 @@
 
 ## 📈 Stats
 
-> **Test Suite:** 73 unit tests (Vitest) — 28 external + 25 internal ballistics + 20 load development
+> **Test Suite:** 85 unit tests (Vitest) — 28 external + 37 internal ballistics + 20 load development
 
 > **Stack:** React 19 · TypeScript · Vite · Zustand · Tailwind v4 · RK4 Ballistics Engine
 
