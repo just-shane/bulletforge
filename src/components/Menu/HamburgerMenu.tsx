@@ -10,6 +10,7 @@ export function HamburgerMenu() {
   const setTheme = useBallisticsStore((s) => s.setTheme);
   const setDocsOpen = useBallisticsStore((s) => s.setDocsOpen);
   const setEducationOpen = useBallisticsStore((s) => s.setEducationOpen);
+  const setGlossaryOpen = useBallisticsStore((s) => s.setGlossaryOpen);
   const panelRef = useRef<HTMLDivElement>(null);
 
   /* close on click-outside */
@@ -230,11 +231,8 @@ export function HamburgerMenu() {
                 border: "1px solid var(--c-border)",
               }}
             >
-              <span className="text-[11px]" style={{ color: "var(--c-text-dim)" }}>
+              <span className="text-[11px]" style={{ color: "var(--c-text)" }}>
                 Docs
-              </span>
-              <span className="text-[9px] ml-auto" style={{ color: "var(--c-text-faint)" }}>
-                Coming soon
               </span>
             </button>
             <button
@@ -245,11 +243,23 @@ export function HamburgerMenu() {
                 border: "1px solid var(--c-border)",
               }}
             >
-              <span className="text-[11px]" style={{ color: "var(--c-text-dim)" }}>
+              <span className="text-[11px]" style={{ color: "var(--c-text)" }}>
                 Education
               </span>
+            </button>
+            <button
+              onClick={() => { setGlossaryOpen(true); setMenuOpen(false); }}
+              className="flex items-center gap-2 px-2.5 py-2 rounded-md text-left cursor-pointer transition-all w-full"
+              style={{
+                background: "var(--c-surface)",
+                border: "1px solid var(--c-border)",
+              }}
+            >
+              <span className="text-[11px]" style={{ color: "var(--c-text)" }}>
+                Glossary
+              </span>
               <span className="text-[9px] ml-auto" style={{ color: "var(--c-text-faint)" }}>
-                Coming soon
+                50+ terms
               </span>
             </button>
           </div>

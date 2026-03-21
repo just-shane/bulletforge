@@ -24,8 +24,9 @@
 | **v0.8.0** | Batch C | Rifle profiles (localStorage), performance tracking (ES/SD trends), shareable URLs, export/print, localStorage persistence layer |
 | **v0.9.0** | Phase 7 | Chrono data import (LabRadar/MagnetoSpeed CSV), seed reference data (Ammolytics), barrel length validation, predicted vs. measured comparison |
 | **v0.9.1** | Phase 8.6 | ML training data ingestion pipeline — GRT XML parser, 115-record normalized corpus (48 projectiles, 12 powders, 48 calibers, 7 loads), typed query utilities |
+| **v0.9.2** | Docs & Education | Full Docs panel (4 sections), Education panel (cartridge guide, safari guide, ballistics 101, reloading safety), Glossary (53 terms, 7 categories, search + filter) |
 
-> **Current:** `v0.9.1` — defined in `src/lib/version.ts`
+> **Current:** `v0.9.2` — defined in `src/lib/version.ts`
 > **Versioning:** Major phases bump minor version. Patches for bugfixes.
 
 ---
@@ -393,22 +394,27 @@
 
 ---
 
-## 📚 Docs & Education *(stubbed in v0.5.2)*
+## 📚 Docs & Education *(v0.5.2 stubs → v0.9.2 built out)*
 
-> *Accessible from the hamburger settings menu. Panels stubbed, content TBD.*
+> *Accessible from the hamburger settings menu. Full modal panels with tabbed content.*
 
 ### 📖 Docs
-- [ ] **Getting started** — Quick walkthrough of the three tabs and what they do
-- [ ] **Engine details** — RK4 solver, drag models, atmospheric modeling explanation
-- [ ] **Data sources** — Where the cartridge/bullet/powder data comes from, accuracy notes
+- [x] **Getting started** — Quick walkthrough of the three tabs, rifle profiles, sharing
+- [x] **Engine details** — RK4 solver, drag models, atmospheric modeling, advanced corrections
+- [x] **Data sources** — Cartridge/bullet/powder provenance, ML training corpus, chrono reference data
+- [x] **Keyboard & tips** — Print, URL sharing, comparison mode, chrono import, themes
 - [ ] **API reference** — When Phase 8 API ships, document endpoints here
 
 ### 🎓 Education
-- [ ] **Ballistics 101** — External ballistics fundamentals (trajectory, BC, drag, wind)
-- [ ] **Internal ballistics** — How powder burns, pressure curves, SAAMI specs explained
-- [ ] **Reloading safety** — Required reading: pressure signs, working up loads, equipment
+- [x] **Cartridge guide** — All 15 cartridges with purpose, history, specs, and use-case tags
+- [x] **Safari & dangerous game** — Cartridge selection guide, species quick-reference table (Cape buffalo through impala), minimum legal calibers, bullet recommendations, MRC Tsavo callout
+- [x] **Ballistics 101** — BC explained, zero range, internal ballistics, density altitude, wind
+- [x] **Reloading safety** — Cardinal rules, pressure signs, BulletForge limitations disclaimer, essential equipment
 - [ ] **Long-range shooting** — Coriolis, density altitude, spin drift — when they matter and when they don't
 - [ ] **Load development guide** — Ladder tests, OCW, seating depth methodology walkthrough
+
+### 📘 Glossary
+- [x] **Full glossary** — 53 terms across 7 categories (External Ballistics, Internal Ballistics, Cartridge & Bullet, Optics & Sighting, Reloading, Measurement & Units, Safety), searchable with category filters and abbreviation badges
 
 ---
 

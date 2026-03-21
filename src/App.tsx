@@ -33,6 +33,9 @@ import { ShareExport, parseShareURL } from "./components/Trajectory/ShareExport.
 import { ChronoImport } from "./components/Trajectory/ChronoImport.tsx";
 import { CARTRIDGES } from "./lib/cartridges.ts";
 import { bulletsByCaliber } from "./lib/bullets.ts";
+import { DocsPanel } from "./components/Education/DocsPanel.tsx";
+import { EducationPanel } from "./components/Education/EducationPanel.tsx";
+import { GlossaryPanel } from "./components/Education/GlossaryPanel.tsx";
 
 export default function App() {
   const cartridge = useBallisticsStore((s) => s.cartridge);
@@ -573,6 +576,11 @@ export default function App() {
           </div>
         </main>
       </div>
+
+      {/* Modal panels */}
+      <DocsPanel />
+      <EducationPanel />
+      <GlossaryPanel />
     </ThemeProvider>
   );
 }
