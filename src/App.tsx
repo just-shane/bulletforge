@@ -575,6 +575,29 @@ export default function App() {
             )}
           </div>
         </main>
+
+        {/* Footer */}
+        <footer
+          className="flex items-center justify-center gap-1 px-6 py-3 text-[9px] font-mono"
+          style={{ borderTop: "1px solid var(--c-border)", color: "var(--c-text-faint)" }}
+        >
+          <span>BULLETFORGE.IO</span>
+          <span>&middot;</span>
+          <span>EST. 2026</span>
+          <span>&middot;</span>
+          <span>Made with</span>
+          <span style={{ color: "var(--c-accent)" }}>&hearts;</span>
+          <span>and served by</span>
+          <a
+            href="https://stclairhosting.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+            style={{ color: "var(--c-text-dim)" }}
+          >
+            stclairhosting.com
+          </a>
+        </footer>
       </div>
 
       {/* Modal panels */}

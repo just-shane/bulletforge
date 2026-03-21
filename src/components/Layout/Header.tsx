@@ -27,14 +27,7 @@ export function Header() {
         </div>
       </div>
 
-      <div className="flex items-center gap-2">
-        <div className="text-[9px] font-mono text-right leading-relaxed max-sm:hidden" style={{ color: "var(--c-text-faint)" }}>
-          BULLETFORGE.IO
-          <br />
-          EST. 2026
-        </div>
-        <HamburgerMenu />
-      </div>
+      <HamburgerMenu />
     </div>
   );
 }
