@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import type { TrajectoryPoint } from "../../lib/ballistics.ts";
-import { buildShareURL } from "./ShareExport.tsx";
+import { buildShareURL } from "../../lib/share.ts";
 import { generateQRSvg } from "../../lib/qr.ts";
 
 interface DOPECardProps {

@@ -50,7 +50,7 @@ export function CustomTurretDial() {
   const zeroRange = useBallisticsStore((s) => s.zeroRange);
 
   // Try to read scope from store; fall back to defaults if not yet available
-  const scope = useBallisticsStore((s) => (s as any).scope);
+  const scope = useBallisticsStore((s) => s.scope);
   const reticleUnit: "MIL" | "MOA" = scope?.reticleUnit ?? "MOA";
   const clickValue: number = scope?.clickValue ?? (reticleUnit === "MOA" ? 0.25 : 0.1);
 

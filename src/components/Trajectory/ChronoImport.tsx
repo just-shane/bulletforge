@@ -75,7 +75,7 @@ function parseLabRadar(raw: string): ParseResult {
 function parseMagnetoSpeed(raw: string): ParseResult {
   const lines = normalizeLines(raw);
   const seriesMap = new Map<number, number[]>();
-  let deviceInfo = "MagnetoSpeed";
+  const deviceInfo = "MagnetoSpeed";
 
   for (const line of lines) {
     // Match shot data rows: series, shot, speed, optional unit

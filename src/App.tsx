@@ -32,7 +32,8 @@ import { RifleProfileManager } from "./components/ControlPanel/RifleProfileManag
 import { TurretMatchTable } from "./components/Trajectory/TurretMatchTable.tsx";
 import { BDCOverlay } from "./components/Trajectory/BDCOverlay.tsx";
 import { CustomTurretDial } from "./components/Trajectory/CustomTurretDial.tsx";
-import { ShareExport, parseShareURL } from "./components/Trajectory/ShareExport.tsx";
+import { ShareExport } from "./components/Trajectory/ShareExport.tsx";
+import { parseShareURL } from "./lib/share.ts";
 import { ChronoImport } from "./components/Trajectory/ChronoImport.tsx";
 import { CARTRIDGES } from "./lib/cartridges.ts";
 import { bulletsByCaliber } from "./lib/bullets.ts";

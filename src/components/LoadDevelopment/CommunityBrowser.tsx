@@ -47,6 +47,7 @@ export function CommunityBrowser() {
 
   useEffect(() => {
     let cancelled = false;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- async data fetch requires setState in callback
     setLoading(true);
     fetchSharedLoads(cartridgeFilter || undefined, sort).then((data) => {
       if (!cancelled) {
