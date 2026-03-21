@@ -98,3 +98,11 @@ input[type="range"]:hover::-moz-range-thumb {
 body {
   transition: background-color 0.2s, color 0.2s;
 }
+
+/* ─── Print ────────────────────────────────────────────────────── */
+
+@media print {
+  .tip-button-no-print {
+    display: none !important;
+  }
+}
