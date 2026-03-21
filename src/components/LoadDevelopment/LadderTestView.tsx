@@ -13,7 +13,7 @@ export function LadderTestView({ plan, cartridgeName, powderName, bulletDescript
       {/* Header */}
       <div
         className="text-[10px] tracking-[2px] font-mono uppercase mb-3"
-        style={{ color: "#ef4444" }}
+        style={{ color: "var(--c-accent)" }}
       >
         Ladder Test Plan
       </div>
@@ -22,56 +22,56 @@ export function LadderTestView({ plan, cartridgeName, powderName, bulletDescript
       <div className="flex gap-2 flex-wrap mb-4">
         <div
           className="rounded-md px-3 py-2 flex-1 min-w-28"
-          style={{ background: "#141414", border: "1px solid #2a2a2a" }}
+          style={{ background: "var(--c-panel)", border: "1px solid var(--c-border)" }}
         >
-          <div className="text-[9px] uppercase tracking-[1.5px] font-mono mb-0.5 text-neutral-500">
+          <div className="text-[9px] uppercase tracking-[1.5px] font-mono mb-0.5" style={{ color: "var(--c-text-dim)" }}>
             Steps
           </div>
-          <span className="text-lg font-bold text-neutral-200">
+          <span className="text-lg font-bold" style={{ color: "var(--c-text)" }}>
             {plan.steps.length}
           </span>
         </div>
         <div
           className="rounded-md px-3 py-2 flex-1 min-w-28"
-          style={{ background: "#141414", border: "1px solid #2a2a2a" }}
+          style={{ background: "var(--c-panel)", border: "1px solid var(--c-border)" }}
         >
-          <div className="text-[9px] uppercase tracking-[1.5px] font-mono mb-0.5 text-neutral-500">
+          <div className="text-[9px] uppercase tracking-[1.5px] font-mono mb-0.5" style={{ color: "var(--c-text-dim)" }}>
             Total Rounds
           </div>
-          <span className="text-lg font-bold text-neutral-200">
+          <span className="text-lg font-bold" style={{ color: "var(--c-text)" }}>
             {plan.totalRounds}
           </span>
         </div>
         <div
           className="rounded-md px-3 py-2 flex-1 min-w-28"
-          style={{ background: "#141414", border: "1px solid #2a2a2a" }}
+          style={{ background: "var(--c-panel)", border: "1px solid var(--c-border)" }}
         >
-          <div className="text-[9px] uppercase tracking-[1.5px] font-mono mb-0.5 text-neutral-500">
+          <div className="text-[9px] uppercase tracking-[1.5px] font-mono mb-0.5" style={{ color: "var(--c-text-dim)" }}>
             Range
           </div>
-          <span className="text-lg font-bold text-neutral-200">
+          <span className="text-lg font-bold" style={{ color: "var(--c-text)" }}>
             {plan.startCharge}–{plan.maxCharge}
           </span>
-          <span className="text-[10px] font-mono text-neutral-500"> gr</span>
+          <span className="text-[10px] font-mono" style={{ color: "var(--c-text-dim)" }}> gr</span>
         </div>
         <div
           className="rounded-md px-3 py-2 flex-1 min-w-28"
-          style={{ background: "#141414", border: "1px solid #2a2a2a" }}
+          style={{ background: "var(--c-panel)", border: "1px solid var(--c-border)" }}
         >
-          <div className="text-[9px] uppercase tracking-[1.5px] font-mono mb-0.5 text-neutral-500">
+          <div className="text-[9px] uppercase tracking-[1.5px] font-mono mb-0.5" style={{ color: "var(--c-text-dim)" }}>
             Increment
           </div>
-          <span className="text-lg font-bold text-neutral-200">
+          <span className="text-lg font-bold" style={{ color: "var(--c-text)" }}>
             {plan.chargeIncrement}
           </span>
-          <span className="text-[10px] font-mono text-neutral-500"> gr</span>
+          <span className="text-[10px] font-mono" style={{ color: "var(--c-text-dim)" }}> gr</span>
         </div>
       </div>
 
       {/* Load info */}
       <div
-        className="rounded-md p-2 mb-4 text-[9px] font-mono text-neutral-500"
-        style={{ background: "#0f0f0f", border: "1px solid #1a1a1a" }}
+        className="rounded-md p-2 mb-4 text-[9px] font-mono"
+        style={{ background: "var(--c-surface)", border: "1px solid var(--c-surface)", color: "var(--c-text-dim)" }}
       >
         {cartridgeName} &middot; {bulletDescription} &middot; {powderName} &middot;
         {plan.roundsPerStep} rounds per step
@@ -80,17 +80,17 @@ export function LadderTestView({ plan, cartridgeName, powderName, bulletDescript
       {/* Step table */}
       <div
         className="rounded-md overflow-hidden"
-        style={{ border: "1px solid #2a2a2a" }}
+        style={{ border: "1px solid var(--c-border)" }}
       >
         <table className="w-full text-[10px] font-mono">
           <thead>
-            <tr style={{ background: "#141414" }}>
-              <th className="px-3 py-2 text-left text-neutral-500 font-normal">#</th>
-              <th className="px-3 py-2 text-right text-neutral-500 font-normal">Charge (gr)</th>
-              <th className="px-3 py-2 text-right text-neutral-500 font-normal">Pred. MV</th>
-              <th className="px-3 py-2 text-right text-neutral-500 font-normal">Pred. Pressure</th>
-              <th className="px-3 py-2 text-right text-neutral-500 font-normal">SAAMI %</th>
-              <th className="px-3 py-2 text-center text-neutral-500 font-normal">Status</th>
+            <tr style={{ background: "var(--c-panel)" }}>
+              <th className="px-3 py-2 text-left font-normal" style={{ color: "var(--c-text-dim)" }}>#</th>
+              <th className="px-3 py-2 text-right font-normal" style={{ color: "var(--c-text-dim)" }}>Charge (gr)</th>
+              <th className="px-3 py-2 text-right font-normal" style={{ color: "var(--c-text-dim)" }}>Pred. MV</th>
+              <th className="px-3 py-2 text-right font-normal" style={{ color: "var(--c-text-dim)" }}>Pred. Pressure</th>
+              <th className="px-3 py-2 text-right font-normal" style={{ color: "var(--c-text-dim)" }}>SAAMI %</th>
+              <th className="px-3 py-2 text-center font-normal" style={{ color: "var(--c-text-dim)" }}>Status</th>
             </tr>
           </thead>
           <tbody>
@@ -99,32 +99,32 @@ export function LadderTestView({ plan, cartridgeName, powderName, bulletDescript
                 key={step.stepNumber}
                 style={{
                   background: step.overPressure ? "rgba(239, 68, 68, 0.06)" : "transparent",
-                  borderTop: "1px solid #1a1a1a",
+                  borderTop: "1px solid var(--c-surface)",
                 }}
               >
-                <td className="px-3 py-1.5 text-neutral-500">{step.stepNumber}</td>
-                <td className="px-3 py-1.5 text-right text-neutral-200">
+                <td className="px-3 py-1.5" style={{ color: "var(--c-text-dim)" }}>{step.stepNumber}</td>
+                <td className="px-3 py-1.5 text-right" style={{ color: "var(--c-text)" }}>
                   {step.chargeWeight.toFixed(1)}
                 </td>
-                <td className="px-3 py-1.5 text-right text-neutral-200">
+                <td className="px-3 py-1.5 text-right" style={{ color: "var(--c-text)" }}>
                   {step.predictedVelocity.toFixed(0)} fps
                 </td>
-                <td className="px-3 py-1.5 text-right text-neutral-200">
+                <td className="px-3 py-1.5 text-right" style={{ color: "var(--c-text)" }}>
                   {(step.predictedPressure / 1000).toFixed(1)}k psi
                 </td>
                 <td
                   className="px-3 py-1.5 text-right"
                   style={{
-                    color: step.saamiPercent > 100 ? "#ef4444" : step.saamiPercent > 90 ? "#f59e0b" : "#a3a3a3",
+                    color: step.saamiPercent > 100 ? "var(--c-danger)" : step.saamiPercent > 90 ? "var(--c-warn)" : "var(--c-text-muted)",
                   }}
                 >
                   {step.saamiPercent.toFixed(1)}%
                 </td>
                 <td className="px-3 py-1.5 text-center">
                   {step.overPressure ? (
-                    <span style={{ color: "#ef4444" }}>⚠ OVER</span>
+                    <span style={{ color: "var(--c-danger)" }}>⚠ OVER</span>
                   ) : (
-                    <span style={{ color: "#22c55e" }}>OK</span>
+                    <span style={{ color: "var(--c-success)" }}>OK</span>
                   )}
                 </td>
               </tr>

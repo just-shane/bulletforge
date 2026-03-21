@@ -9,24 +9,24 @@ interface StatProps {
 }
 
 function Stat({ label, value, unit, warn, danger }: StatProps) {
-  const valueColor = danger ? "#ef4444" : warn ? "#f59e0b" : "#e5e5e5";
+  const valueColor = danger ? "var(--c-danger)" : warn ? "var(--c-warn)" : "var(--c-text)";
 
   return (
     <div
       className="rounded-md px-3 py-2 flex-1 min-w-28"
       style={{
-        background: "#141414",
-        border: `1px solid ${danger ? "#ef4444" : "#2a2a2a"}`,
+        background: "var(--c-panel)",
+        border: `1px solid ${danger ? "var(--c-danger)" : "var(--c-border)"}`,
       }}
     >
-      <div className="text-[9px] uppercase tracking-[1.5px] font-mono mb-0.5 text-neutral-500">
+      <div className="text-[9px] uppercase tracking-[1.5px] font-mono mb-0.5" style={{ color: "var(--c-text-dim)" }}>
         {label}
       </div>
       <div className="flex items-baseline gap-0.5">
         <span className="text-lg font-bold" style={{ color: valueColor }}>
           {value}
         </span>
-        <span className="text-[10px] font-mono text-neutral-500">
+        <span className="text-[10px] font-mono" style={{ color: "var(--c-text-dim)" }}>
           {unit}
         </span>
       </div>
@@ -97,14 +97,14 @@ export function InternalBallisticsStats({ result, saamiMaxPressure }: InternalBa
         />
       </div>
 
-      {/* Safety warning */}
+      {/* Safety warning — semantic danger, always red */}
       {result.overPressure && (
         <div
           className="mt-3 rounded-md px-3 py-2 text-[11px] font-mono"
           style={{
-            background: "rgba(239, 68, 68, 0.1)",
-            border: "1px solid #ef4444",
-            color: "#ef4444",
+            background: "var(--c-accent-dim)",
+            border: "1px solid var(--c-danger)",
+            color: "var(--c-danger)",
           }}
         >
           ⚠ OVER-PRESSURE WARNING — Peak pressure ({(result.peakPressure / 1000).toFixed(1)}k psi)
@@ -116,8 +116,8 @@ export function InternalBallisticsStats({ result, saamiMaxPressure }: InternalBa
 
       {/* Muzzle pressure info */}
       <div
-        className="mt-2 rounded-md px-3 py-1.5 text-[9px] font-mono text-neutral-500"
-        style={{ background: "#0f0f0f", border: "1px solid #1a1a1a" }}
+        className="mt-2 rounded-md px-3 py-1.5 text-[9px] font-mono"
+        style={{ background: "var(--c-surface)", border: "1px solid var(--c-surface)", color: "var(--c-text-dim)" }}
       >
         Peak at {result.peakPressurePosition.toFixed(1)}" from chamber &middot;
         Muzzle pressure: {(result.muzzlePressure / 1000).toFixed(1)}k psi &middot;

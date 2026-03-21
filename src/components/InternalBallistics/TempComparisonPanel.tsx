@@ -30,19 +30,19 @@ export function TempComparisonPanel({
   return (
     <div
       className="rounded-md p-4"
-      style={{ background: "#141414", border: "1px solid #2a2a2a" }}
+      style={{ background: "var(--c-panel)", border: "1px solid var(--c-border)" }}
     >
       <div
         className="text-[11px] font-mono tracking-[2px] uppercase mb-3"
-        style={{ color: "#ef4444" }}
+        style={{ color: "var(--c-accent)" }}
       >
         Temperature Comparison — {powderName}
       </div>
 
-      {/* Temp sliders */}
+      {/* Temp sliders — these use semantic blue/red for cold/hot, not theme accent */}
       <div className="flex gap-4 mb-4">
         <div className="flex-1">
-          <div className="text-[9px] font-mono text-blue-400 mb-1">
+          <div className="text-[9px] font-mono mb-1" style={{ color: "#60a5fa" }}>
             Cold: {coldTemp}°F
           </div>
           <input
@@ -51,12 +51,11 @@ export function TempComparisonPanel({
             max={50}
             value={coldTemp}
             onChange={(e) => setColdTemp(Number(e.target.value))}
-            className="w-full accent-blue-500"
-            style={{ height: 4 }}
+            className="w-full"
           />
         </div>
         <div className="flex-1">
-          <div className="text-[9px] font-mono text-red-400 mb-1">
+          <div className="text-[9px] font-mono mb-1" style={{ color: "#f87171" }}>
             Hot: {hotTemp}°F
           </div>
           <input
@@ -65,8 +64,7 @@ export function TempComparisonPanel({
             max={130}
             value={hotTemp}
             onChange={(e) => setHotTemp(Number(e.target.value))}
-            className="w-full accent-red-500"
-            style={{ height: 4 }}
+            className="w-full"
           />
         </div>
       </div>
@@ -76,25 +74,25 @@ export function TempComparisonPanel({
         {/* Cold */}
         <div
           className="rounded-md p-3"
-          style={{ background: "#0f0f0f", border: "1px solid #1e3a5f" }}
+          style={{ background: "var(--c-surface)", border: "1px solid #1e3a5f" }}
         >
-          <div className="text-[10px] font-mono text-blue-400 mb-2">
+          <div className="text-[10px] font-mono mb-2" style={{ color: "#60a5fa" }}>
             {coldTemp}°F — Cold
           </div>
           <div className="space-y-1.5">
             <div className="flex justify-between text-[10px] font-mono">
-              <span className="text-neutral-500">Velocity</span>
-              <span className="text-neutral-200">{comparison.cold.velocity} fps</span>
+              <span style={{ color: "var(--c-text-dim)" }}>Velocity</span>
+              <span style={{ color: "var(--c-text)" }}>{comparison.cold.velocity} fps</span>
             </div>
             <div className="flex justify-between text-[10px] font-mono">
-              <span className="text-neutral-500">Pressure</span>
-              <span className="text-neutral-200">
+              <span style={{ color: "var(--c-text-dim)" }}>Pressure</span>
+              <span style={{ color: "var(--c-text)" }}>
                 {(comparison.cold.pressure / 1000).toFixed(1)}k psi
               </span>
             </div>
             <div className="flex justify-between text-[10px] font-mono">
-              <span className="text-neutral-500">SAAMI</span>
-              <span style={{ color: coldSaamiPct > 100 ? "#ef4444" : coldSaamiPct > 90 ? "#f59e0b" : "#22c55e" }}>
+              <span style={{ color: "var(--c-text-dim)" }}>SAAMI</span>
+              <span style={{ color: coldSaamiPct > 100 ? "var(--c-danger)" : coldSaamiPct > 90 ? "var(--c-warn)" : "var(--c-success)" }}>
                 {coldSaamiPct.toFixed(1)}%
               </span>
             </div>
@@ -104,25 +102,25 @@ export function TempComparisonPanel({
         {/* Hot */}
         <div
           className="rounded-md p-3"
-          style={{ background: "#0f0f0f", border: "1px solid #5f1e1e" }}
+          style={{ background: "var(--c-surface)", border: "1px solid #5f1e1e" }}
         >
-          <div className="text-[10px] font-mono text-red-400 mb-2">
+          <div className="text-[10px] font-mono mb-2" style={{ color: "#f87171" }}>
             {hotTemp}°F — Hot
           </div>
           <div className="space-y-1.5">
             <div className="flex justify-between text-[10px] font-mono">
-              <span className="text-neutral-500">Velocity</span>
-              <span className="text-neutral-200">{comparison.hot.velocity} fps</span>
+              <span style={{ color: "var(--c-text-dim)" }}>Velocity</span>
+              <span style={{ color: "var(--c-text)" }}>{comparison.hot.velocity} fps</span>
             </div>
             <div className="flex justify-between text-[10px] font-mono">
-              <span className="text-neutral-500">Pressure</span>
-              <span className="text-neutral-200">
+              <span style={{ color: "var(--c-text-dim)" }}>Pressure</span>
+              <span style={{ color: "var(--c-text)" }}>
                 {(comparison.hot.pressure / 1000).toFixed(1)}k psi
               </span>
             </div>
             <div className="flex justify-between text-[10px] font-mono">
-              <span className="text-neutral-500">SAAMI</span>
-              <span style={{ color: hotSaamiPct > 100 ? "#ef4444" : hotSaamiPct > 90 ? "#f59e0b" : "#22c55e" }}>
+              <span style={{ color: "var(--c-text-dim)" }}>SAAMI</span>
+              <span style={{ color: hotSaamiPct > 100 ? "var(--c-danger)" : hotSaamiPct > 90 ? "var(--c-warn)" : "var(--c-success)" }}>
                 {hotSaamiPct.toFixed(1)}%
               </span>
             </div>
@@ -133,20 +131,20 @@ export function TempComparisonPanel({
       {/* Delta summary */}
       <div
         className="rounded-md px-3 py-2 text-[9px] font-mono"
-        style={{ background: "#0f0f0f", border: "1px solid #1a1a1a" }}
+        style={{ background: "var(--c-surface)", border: "1px solid var(--c-surface)" }}
       >
-        <div className="flex flex-wrap gap-x-4 gap-y-1 text-neutral-400">
+        <div className="flex flex-wrap gap-x-4 gap-y-1" style={{ color: "var(--c-text-muted)" }}>
           <span>
-            Delta: <span className="text-neutral-200">+{comparison.velocityDelta} fps</span> / <span className="text-neutral-200">+{(comparison.pressureDelta / 1000).toFixed(1)}k psi</span>
+            Delta: <span style={{ color: "var(--c-text)" }}>+{comparison.velocityDelta} fps</span> / <span style={{ color: "var(--c-text)" }}>+{(comparison.pressureDelta / 1000).toFixed(1)}k psi</span>
           </span>
           <span>
-            Temp sensitivity: <span className="text-neutral-200">{sensitivity.toFixed(1)} fps/°F</span>
+            Temp sensitivity: <span style={{ color: "var(--c-text)" }}>{sensitivity.toFixed(1)} fps/°F</span>
           </span>
           <span>
             Rating:{" "}
             <span
               style={{
-                color: sensitivity <= 0.6 ? "#22c55e" : sensitivity <= 1.0 ? "#f59e0b" : "#ef4444",
+                color: sensitivity <= 0.6 ? "var(--c-success)" : sensitivity <= 1.0 ? "var(--c-warn)" : "var(--c-danger)",
               }}
             >
               {sensitivity <= 0.6 ? "Temp-stable" : sensitivity <= 1.0 ? "Moderate" : "Temp-sensitive"}
@@ -155,14 +153,14 @@ export function TempComparisonPanel({
         </div>
       </div>
 
-      {/* Hot load warning */}
+      {/* Hot load warning — semantic danger */}
       {hotSaamiPct > 95 && (
         <div
           className="mt-2 rounded-md px-3 py-2 text-[9px] font-mono"
           style={{
-            background: "rgba(239, 68, 68, 0.08)",
-            border: "1px solid rgba(239, 68, 68, 0.3)",
-            color: "#ef4444",
+            background: "var(--c-accent-dim)",
+            border: "1px solid var(--c-danger)",
+            color: "var(--c-danger)",
           }}
         >
           Hot-weather load approaches SAAMI limit ({hotSaamiPct.toFixed(1)}%). Consider

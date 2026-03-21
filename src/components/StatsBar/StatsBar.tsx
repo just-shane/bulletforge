@@ -7,26 +7,26 @@ interface StatProps {
 }
 
 function Stat({ label, value, unit, accent, warn }: StatProps) {
-  const valueColor = warn ? "#f59e0b" : accent ? "#ef4444" : "#e5e5e5";
+  const valueColor = warn ? "var(--c-warn)" : accent ? "var(--c-accent)" : "var(--c-text)";
 
   return (
     <div
       className="rounded-md px-3 py-2 flex-1 min-w-30"
       style={{
-        background: "#141414",
-        border: "1px solid #2a2a2a",
+        background: "var(--c-panel)",
+        border: "1px solid var(--c-border)",
       }}
       role="status"
       aria-label={`${label}: ${value} ${unit}`}
     >
-      <div className="text-[9px] uppercase tracking-[1.5px] font-mono mb-0.5 text-neutral-500">
+      <div className="text-[9px] uppercase tracking-[1.5px] font-mono mb-0.5" style={{ color: "var(--c-text-dim)" }}>
         {label}
       </div>
       <div className="flex items-baseline gap-0.5">
         <span className="text-xl font-bold" style={{ color: valueColor }}>
           {value}
         </span>
-        <span className="text-[10px] font-mono text-neutral-500">
+        <span className="text-[10px] font-mono" style={{ color: "var(--c-text-dim)" }}>
           {unit}
         </span>
       </div>

@@ -15,10 +15,10 @@ interface BurnRateComparisonChartProps {
 }
 
 const COMPARISON_COLORS = [
-  "#ef4444", // red (current)
+  "var(--c-accent)", // current powder uses theme accent
   "#3b82f6", // blue
-  "#22c55e", // green
-  "#f59e0b", // amber
+  "var(--c-success)", // green
+  "var(--c-warn)", // amber
   "#8b5cf6", // violet
   "#ec4899", // pink
 ];
@@ -95,11 +95,11 @@ export function BurnRateComparisonChart({
   return (
     <div
       className="rounded-md p-4 overflow-x-auto"
-      style={{ background: "#141414", border: "1px solid #2a2a2a" }}
+      style={{ background: "var(--c-panel)", border: "1px solid var(--c-border)" }}
     >
       <div
         className="text-[11px] font-mono tracking-[2px] uppercase mb-3"
-        style={{ color: "#ef4444" }}
+        style={{ color: "var(--c-accent)" }}
       >
         Burn Rate Comparison — {chargeWeight}gr charge
       </div>
@@ -110,7 +110,7 @@ export function BurnRateComparisonChart({
             key={`xg-${x}`}
             x1={xScale(x)} y1={padding.top}
             x2={xScale(x)} y2={padding.top + plotH}
-            stroke="#1a1a1a" strokeWidth="0.5"
+            stroke="var(--c-chart-grid)" strokeWidth="0.5"
           />
         ))}
         {yTicks.map((y) => (
@@ -118,7 +118,7 @@ export function BurnRateComparisonChart({
             key={`yg-${y}`}
             x1={padding.left} y1={yScale(y)}
             x2={padding.left + plotW} y2={yScale(y)}
-            stroke="#1a1a1a" strokeWidth="0.5"
+            stroke="var(--c-chart-grid)" strokeWidth="0.5"
           />
         ))}
 
@@ -149,14 +149,14 @@ export function BurnRateComparisonChart({
           <text
             key={`xl-${x}`}
             x={xScale(x)} y={height - 8}
-            textAnchor="middle" fill="#525252" fontSize="9" fontFamily="monospace"
+            textAnchor="middle" fill="var(--c-chart-text)" fontSize="9" fontFamily="monospace"
           >
             {x}
           </text>
         ))}
         <text
           x={padding.left + plotW / 2} y={height}
-          textAnchor="middle" fill="#525252" fontSize="9" fontFamily="monospace"
+          textAnchor="middle" fill="var(--c-chart-text)" fontSize="9" fontFamily="monospace"
         >
           BARREL POSITION (IN)
         </text>
@@ -166,14 +166,14 @@ export function BurnRateComparisonChart({
           <text
             key={`yl-${y}`}
             x={padding.left - 8} y={yScale(y) + 3}
-            textAnchor="end" fill="#525252" fontSize="9" fontFamily="monospace"
+            textAnchor="end" fill="var(--c-chart-text)" fontSize="9" fontFamily="monospace"
           >
             {fmtPsi(y)}
           </text>
         ))}
         <text
           x={14} y={padding.top + plotH / 2}
-          textAnchor="middle" fill="#525252" fontSize="9" fontFamily="monospace"
+          textAnchor="middle" fill="var(--c-chart-text)" fontSize="9" fontFamily="monospace"
           transform={`rotate(-90, 14, ${padding.top + plotH / 2})`}
         >
           PRESSURE (PSI)
@@ -183,7 +183,7 @@ export function BurnRateComparisonChart({
       {/* Legend */}
       <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2">
         {validResults.map((r) => (
-          <div key={r.powderName} className="flex items-center gap-1.5 text-[9px] font-mono text-neutral-400">
+          <div key={r.powderName} className="flex items-center gap-1.5 text-[9px] font-mono" style={{ color: "var(--c-text-muted)" }}>
             <span
               className="inline-block w-3 h-0.5 rounded"
               style={{
@@ -191,10 +191,10 @@ export function BurnRateComparisonChart({
                 height: r.powderName === currentPowder ? 3 : 2,
               }}
             />
-            <span style={{ color: r.powderName === currentPowder ? "#e5e5e5" : undefined }}>
+            <span style={{ color: r.powderName === currentPowder ? "var(--c-text)" : undefined }}>
               {r.powderName}
             </span>
-            <span className="text-neutral-600">
+            <span style={{ color: "var(--c-text-faint)" }}>
               {(r.result.peakPressure / 1000).toFixed(1)}k psi / {r.result.muzzleVelocity.toFixed(0)} fps
             </span>
           </div>

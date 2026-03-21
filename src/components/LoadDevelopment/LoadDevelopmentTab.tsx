@@ -72,9 +72,9 @@ export function LoadDevelopmentTab() {
             onClick={() => setSubTab(tab.id)}
             className="px-3 py-1.5 rounded-md text-[10px] font-mono cursor-pointer transition-all"
             style={{
-              background: subTab === tab.id ? "rgba(239, 68, 68, 0.15)" : "#141414",
-              border: `1px solid ${subTab === tab.id ? "#ef4444" : "#2a2a2a"}`,
-              color: subTab === tab.id ? "#ef4444" : "#737373",
+              background: subTab === tab.id ? "var(--c-accent-dim)" : "var(--c-panel)",
+              border: `1px solid ${subTab === tab.id ? "var(--c-accent)" : "var(--c-border)"}`,
+              color: subTab === tab.id ? "var(--c-accent)" : "var(--c-text-dim)",
             }}
           >
             {tab.label}
@@ -93,7 +93,7 @@ export function LoadDevelopmentTab() {
       )}
 
       {subTab === "ladder" && !ladderPlan && (
-        <div className="text-neutral-600 font-mono text-sm py-8 text-center">
+        <div className="font-mono text-sm py-8 text-center" style={{ color: "var(--c-text-faint)" }}>
           Select a cartridge and powder to generate a ladder test plan
         </div>
       )}

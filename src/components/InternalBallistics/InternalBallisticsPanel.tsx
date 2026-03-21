@@ -51,22 +51,22 @@ export function InternalBallisticsPanel({
       {/* Section header */}
       <div
         className="text-[10px] tracking-[2px] font-mono uppercase mb-3 mt-4 pt-4"
-        style={{ color: "#ef4444", borderTop: "1px solid #2a2a2a" }}
+        style={{ color: "var(--c-accent)", borderTop: "1px solid var(--c-border)" }}
       >
         Internal Ballistics
       </div>
 
       {/* Powder Selection */}
       <div className="mb-4">
-        <div className="text-[11px] mb-1 text-neutral-400">Powder</div>
+        <div className="text-[11px] mb-1" style={{ color: "var(--c-text-muted)" }}>Powder</div>
         <select
           value={powderName}
           onChange={(e) => onPowderChange(e.target.value)}
           className="w-full rounded-md px-2 py-1.5 text-[11px] font-mono cursor-pointer"
           style={{
-            background: "#141414",
-            border: "1px solid #2a2a2a",
-            color: "#e5e5e5",
+            background: "var(--c-panel)",
+            border: "1px solid var(--c-border)",
+            color: "var(--c-text)",
           }}
         >
           {Object.entries(groupedPowders).map(([manufacturer, powders]) => (
@@ -80,7 +80,7 @@ export function InternalBallisticsPanel({
           ))}
         </select>
         {POWDERS.find((p) => p.name === powderName) && (
-          <div className="text-[9px] font-mono mt-1 px-1 text-neutral-500">
+          <div className="text-[9px] font-mono mt-1 px-1" style={{ color: "var(--c-text-dim)" }}>
             {POWDERS.find((p) => p.name === powderName)?.description}
           </div>
         )}
@@ -99,13 +99,13 @@ export function InternalBallisticsPanel({
       {fillWarning && (
         <div
           className="text-[9px] font-mono px-1 -mt-1 mb-2"
-          style={{ color: "#f59e0b" }}
+          style={{ color: "var(--c-warn)" }}
         >
           ⚠ Charge exceeds typical max for this cartridge
         </div>
       )}
       {cartridgeData && (
-        <div className="text-[9px] font-mono px-1 -mt-1 mb-3 text-neutral-600">
+        <div className="text-[9px] font-mono px-1 -mt-1 mb-3" style={{ color: "var(--c-text-faint)" }}>
           Typical: {chargeRange.min}–{chargeRange.max} gr
         </div>
       )}
@@ -124,8 +124,8 @@ export function InternalBallisticsPanel({
       {/* Case capacity info */}
       {cartridgeData && (
         <div
-          className="rounded-md p-2 mt-2 text-[9px] font-mono text-neutral-500"
-          style={{ background: "#0f0f0f", border: "1px solid #1a1a1a" }}
+          className="rounded-md p-2 mt-2 text-[9px] font-mono"
+          style={{ background: "var(--c-surface)", border: "1px solid var(--c-surface)", color: "var(--c-text-dim)" }}
         >
           Case: {cartridgeData.caseCapacity} gr H₂O &middot;
           Bore: {cartridgeData.boreDiameter}" &middot;

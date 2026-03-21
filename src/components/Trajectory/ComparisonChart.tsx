@@ -12,8 +12,8 @@ export function ComparisonChart({ pointsA, pointsB, labelA, labelB, zeroRange }:
   if (pointsA.length < 2 && pointsB.length < 2) {
     return (
       <div
-        className="rounded-md p-8 text-center text-[11px] font-mono text-neutral-500"
-        style={{ background: "#141414", border: "1px solid #2a2a2a" }}
+        className="rounded-md p-8 text-center text-[11px] font-mono"
+        style={{ background: "var(--c-panel)", border: "1px solid var(--c-border)", color: "var(--c-text-dim)" }}
       >
         No trajectory data
       </div>
@@ -36,8 +36,8 @@ export function ComparisonChart({ pointsA, pointsB, labelA, labelB, zeroRange }:
   if (maxRange === 0) {
     return (
       <div
-        className="rounded-md p-8 text-center text-[11px] font-mono text-neutral-500"
-        style={{ background: "#141414", border: "1px solid #2a2a2a" }}
+        className="rounded-md p-8 text-center text-[11px] font-mono"
+        style={{ background: "var(--c-panel)", border: "1px solid var(--c-border)", color: "var(--c-text-dim)" }}
       >
         No trajectory data
       </div>
@@ -80,9 +80,9 @@ export function ComparisonChart({ pointsA, pointsB, labelA, labelB, zeroRange }:
   return (
     <div
       className="rounded-md p-4 overflow-x-auto"
-      style={{ background: "#141414", border: "1px solid #2a2a2a" }}
+      style={{ background: "var(--c-panel)", border: "1px solid var(--c-border)" }}
     >
-      <div className="text-[11px] font-mono tracking-[2px] uppercase mb-3" style={{ color: "#ef4444" }}>
+      <div className="text-[11px] font-mono tracking-[2px] uppercase mb-3" style={{ color: "var(--c-accent)" }}>
         Trajectory Comparison
       </div>
       <svg
@@ -98,7 +98,7 @@ export function ComparisonChart({ pointsA, pointsB, labelA, labelB, zeroRange }:
             y1={padding.top}
             x2={xScale(r)}
             y2={padding.top + plotH}
-            stroke="#1a1a1a"
+            stroke="var(--c-chart-grid)"
             strokeWidth="0.5"
           />
         ))}
@@ -109,7 +109,7 @@ export function ComparisonChart({ pointsA, pointsB, labelA, labelB, zeroRange }:
             y1={yScale(d)}
             x2={padding.left + plotW}
             y2={yScale(d)}
-            stroke="#1a1a1a"
+            stroke="var(--c-chart-grid)"
             strokeWidth="0.5"
           />
         ))}
@@ -120,7 +120,7 @@ export function ComparisonChart({ pointsA, pointsB, labelA, labelB, zeroRange }:
           y1={zeroY}
           x2={padding.left + plotW}
           y2={zeroY}
-          stroke="#404040"
+          stroke="var(--c-border-light)"
           strokeWidth="1"
           strokeDasharray="4 4"
         />
@@ -130,7 +130,7 @@ export function ComparisonChart({ pointsA, pointsB, labelA, labelB, zeroRange }:
           <path
             d={pathA}
             fill="none"
-            stroke="#ef4444"
+            stroke="var(--c-chart-line)"
             strokeWidth="2"
             strokeLinejoin="round"
           />
@@ -154,7 +154,7 @@ export function ComparisonChart({ pointsA, pointsB, labelA, labelB, zeroRange }:
             y1={padding.top}
             x2={xScale(zeroRange)}
             y2={padding.top + plotH}
-            stroke="#525252"
+            stroke="var(--c-text-faint)"
             strokeWidth="1"
             strokeDasharray="3 3"
             opacity="0.5"
@@ -168,7 +168,7 @@ export function ComparisonChart({ pointsA, pointsB, labelA, labelB, zeroRange }:
             x={xScale(r)}
             y={height - 8}
             textAnchor="middle"
-            fill="#525252"
+            fill="var(--c-chart-text)"
             fontSize="9"
             fontFamily="monospace"
           >
@@ -179,7 +179,7 @@ export function ComparisonChart({ pointsA, pointsB, labelA, labelB, zeroRange }:
           x={padding.left + plotW / 2}
           y={height}
           textAnchor="middle"
-          fill="#525252"
+          fill="var(--c-chart-text)"
           fontSize="9"
           fontFamily="monospace"
         >
@@ -193,7 +193,7 @@ export function ComparisonChart({ pointsA, pointsB, labelA, labelB, zeroRange }:
             x={padding.left - 8}
             y={yScale(d) + 3}
             textAnchor="end"
-            fill="#525252"
+            fill="var(--c-chart-text)"
             fontSize="9"
             fontFamily="monospace"
           >
@@ -204,7 +204,7 @@ export function ComparisonChart({ pointsA, pointsB, labelA, labelB, zeroRange }:
           x={12}
           y={padding.top + plotH / 2}
           textAnchor="middle"
-          fill="#525252"
+          fill="var(--c-chart-text)"
           fontSize="9"
           fontFamily="monospace"
           transform={`rotate(-90, 12, ${padding.top + plotH / 2})`}
@@ -216,12 +216,12 @@ export function ComparisonChart({ pointsA, pointsB, labelA, labelB, zeroRange }:
       {/* Legend */}
       <div className="flex items-center gap-6 mt-3 px-1">
         <div className="flex items-center gap-2">
-          <div className="w-4 h-[2px]" style={{ background: "#ef4444" }} />
-          <span className="text-[10px] font-mono text-neutral-400">{labelA}</span>
+          <div className="w-4 h-[2px]" style={{ background: "var(--c-chart-line)" }} />
+          <span className="text-[10px] font-mono" style={{ color: "var(--c-text-muted)" }}>{labelA}</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-4 h-[2px]" style={{ background: "#3b82f6" }} />
-          <span className="text-[10px] font-mono text-neutral-400">{labelB}</span>
+          <span className="text-[10px] font-mono" style={{ color: "var(--c-text-muted)" }}>{labelB}</span>
         </div>
       </div>
     </div>

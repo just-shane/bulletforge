@@ -8,12 +8,12 @@ interface ComparisonTableProps {
 }
 
 function deltaColor(delta: number, positiveIsBetter: boolean): string {
-  if (Math.abs(delta) < 0.01) return "#d4d4d4";
+  if (Math.abs(delta) < 0.01) return "var(--c-text)";
   const aIsBetter = positiveIsBetter ? delta > 0 : delta < 0;
-  return aIsBetter ? "#22c55e" : "#ef4444";
+  return aIsBetter ? "var(--c-success)" : "var(--c-danger)";
 }
 
-export function ComparisonTable({ pointsA, pointsB, labelA, labelB }: ComparisonTableProps) {
+export function ComparisonTable({ pointsA, pointsB, labelA: _labelA, labelB: _labelB }: ComparisonTableProps) {
   // Build range lookup maps
   const mapA = new Map<number, TrajectoryPoint>();
   for (const p of pointsA) mapA.set(p.range, p);
@@ -38,41 +38,41 @@ export function ComparisonTable({ pointsA, pointsB, labelA, labelB }: Comparison
   if (displayRanges.length === 0) {
     return (
       <div
-        className="rounded-md p-8 text-center text-[11px] font-mono text-neutral-500"
-        style={{ background: "#141414", border: "1px solid #2a2a2a" }}
+        className="rounded-md p-8 text-center text-[11px] font-mono"
+        style={{ background: "var(--c-panel)", border: "1px solid var(--c-border)", color: "var(--c-text-dim)" }}
       >
         No comparison data — no matching ranges found
       </div>
     );
   }
 
-  const thClass = "px-2 py-2 text-[9px] uppercase tracking-wider font-normal text-neutral-500";
+  const thClass = "px-2 py-2 text-[9px] uppercase tracking-wider font-normal";
 
   return (
     <div
       className="rounded-md overflow-hidden"
-      style={{ background: "#141414", border: "1px solid #2a2a2a" }}
+      style={{ background: "var(--c-panel)", border: "1px solid var(--c-border)" }}
     >
-      <div className="text-[11px] font-mono tracking-[2px] uppercase px-4 pt-3 pb-2" style={{ color: "#ef4444" }}>
+      <div className="text-[11px] font-mono tracking-[2px] uppercase px-4 pt-3 pb-2" style={{ color: "var(--c-accent)" }}>
         Comparison Table
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-[10px] font-mono">
           <thead>
-            <tr style={{ borderBottom: "1px solid #2a2a2a" }}>
-              <th className={`${thClass} text-left`}>Range</th>
-              <th className={`${thClass} text-right`}>Drop A</th>
-              <th className={`${thClass} text-right`}>Drop B</th>
-              <th className={`${thClass} text-right`} style={{ color: "#a3a3a3" }}>&Delta; Drop</th>
-              <th className={`${thClass} text-right`}>Drift A</th>
-              <th className={`${thClass} text-right`}>Drift B</th>
-              <th className={`${thClass} text-right`} style={{ color: "#a3a3a3" }}>&Delta; Drift</th>
-              <th className={`${thClass} text-right`}>Vel A</th>
-              <th className={`${thClass} text-right`}>Vel B</th>
-              <th className={`${thClass} text-right`} style={{ color: "#a3a3a3" }}>&Delta; Vel</th>
-              <th className={`${thClass} text-right`}>Energy A</th>
-              <th className={`${thClass} text-right`}>Energy B</th>
-              <th className={`${thClass} text-right`} style={{ color: "#a3a3a3" }}>&Delta; Energy</th>
+            <tr style={{ borderBottom: "1px solid var(--c-border)" }}>
+              <th className={`${thClass} text-left`} style={{ color: "var(--c-text-dim)" }}>Range</th>
+              <th className={`${thClass} text-right`} style={{ color: "var(--c-text-dim)" }}>Drop A</th>
+              <th className={`${thClass} text-right`} style={{ color: "var(--c-text-dim)" }}>Drop B</th>
+              <th className={`${thClass} text-right`} style={{ color: "var(--c-text-muted)" }}>&Delta; Drop</th>
+              <th className={`${thClass} text-right`} style={{ color: "var(--c-text-dim)" }}>Drift A</th>
+              <th className={`${thClass} text-right`} style={{ color: "var(--c-text-dim)" }}>Drift B</th>
+              <th className={`${thClass} text-right`} style={{ color: "var(--c-text-muted)" }}>&Delta; Drift</th>
+              <th className={`${thClass} text-right`} style={{ color: "var(--c-text-dim)" }}>Vel A</th>
+              <th className={`${thClass} text-right`} style={{ color: "var(--c-text-dim)" }}>Vel B</th>
+              <th className={`${thClass} text-right`} style={{ color: "var(--c-text-muted)" }}>&Delta; Vel</th>
+              <th className={`${thClass} text-right`} style={{ color: "var(--c-text-dim)" }}>Energy A</th>
+              <th className={`${thClass} text-right`} style={{ color: "var(--c-text-dim)" }}>Energy B</th>
+              <th className={`${thClass} text-right`} style={{ color: "var(--c-text-muted)" }}>&Delta; Energy</th>
             </tr>
           </thead>
           <tbody>
@@ -85,10 +85,6 @@ export function ComparisonTable({ pointsA, pointsB, labelA, labelB }: Comparison
               const deltaVel = a.velocity - b.velocity;
               const deltaEnergy = a.energy - b.energy;
 
-              // For drop: less negative (higher value) is better, so positive delta = A is better
-              // For drift: less absolute drift is better — use abs comparison; positive delta means A has more drift
-              // For velocity: more is better, so positive delta = A is better
-              // For energy: more is better, so positive delta = A is better
               const dropColor = deltaColor(deltaDrop, true);
               const driftColor = deltaColor(Math.abs(a.driftInches) - Math.abs(b.driftInches), false);
               const velColor = deltaColor(deltaVel, true);
@@ -101,8 +97,8 @@ export function ComparisonTable({ pointsA, pointsB, labelA, labelB }: Comparison
                   key={range}
                   style={{
                     background: rowBg,
-                    borderBottom: "1px solid #1a1a1a",
-                    color: "#d4d4d4",
+                    borderBottom: "1px solid var(--c-surface)",
+                    color: "var(--c-text)",
                   }}
                 >
                   <td className="px-2 py-1.5 text-left font-medium">{range}</td>

@@ -37,14 +37,14 @@ export function StabilityPanel({
 
   const { stabilityFactor, rating, recommendation, minTwist, maxTwist } = result;
 
-  // Color coding
+  // Semantic color coding for stability zones
   const colorMap: Record<string, string> = {
-    "unstable": "#ef4444",
-    "marginal": "#f59e0b",
-    "stable": "#22c55e",
+    "unstable": "var(--c-danger)",
+    "marginal": "var(--c-warn)",
+    "stable": "var(--c-success)",
     "over-stabilized": "#3b82f6",
   };
-  const sgColor = colorMap[rating] || "#d4d4d4";
+  const sgColor = colorMap[rating] || "var(--c-text)";
 
   // Badge label
   const badgeMap: Record<string, string> = {
@@ -61,12 +61,12 @@ export function StabilityPanel({
   return (
     <div
       className="rounded-md overflow-hidden"
-      style={{ background: "#141414", border: "1px solid #2a2a2a" }}
+      style={{ background: "var(--c-panel)", border: "1px solid var(--c-border)" }}
     >
       <div className="px-4 pt-3 pb-2">
         <div
           className="text-[11px] font-mono tracking-[2px] uppercase"
-          style={{ color: "#ef4444" }}
+          style={{ color: "var(--c-accent)" }}
         >
           Twist Rate Stability
         </div>
@@ -90,11 +90,11 @@ export function StabilityPanel({
           </div>
         </div>
 
-        {/* Visual bar */}
+        {/* Visual bar — semantic safety colors */}
         <div className="mt-3 mb-3">
           <div
             className="relative h-2 rounded-full overflow-hidden"
-            style={{ background: "#0f0f0f" }}
+            style={{ background: "var(--c-surface)" }}
           >
             {/* Gradient zones */}
             <div
@@ -115,7 +115,7 @@ export function StabilityPanel({
               }}
             />
           </div>
-          <div className="flex justify-between mt-1 text-[8px] font-mono text-neutral-600">
+          <div className="flex justify-between mt-1 text-[8px] font-mono" style={{ color: "var(--c-text-faint)" }}>
             <span>0</span>
             <span>1.0</span>
             <span>1.5</span>
@@ -127,24 +127,24 @@ export function StabilityPanel({
         {/* Twist rate info */}
         <div
           className="flex items-center justify-center gap-3 py-2 text-[9px] font-mono"
-          style={{ borderTop: "1px solid #1a1a1a", borderBottom: "1px solid #1a1a1a" }}
+          style={{ borderTop: "1px solid var(--c-surface)", borderBottom: "1px solid var(--c-surface)" }}
         >
-          <span className="text-neutral-400">
-            Current: <span className="text-neutral-200">1:{twistRate}</span>
+          <span style={{ color: "var(--c-text-muted)" }}>
+            Current: <span style={{ color: "var(--c-text)" }}>1:{twistRate}</span>
           </span>
-          <span className="text-neutral-600">|</span>
-          <span className="text-neutral-400">
-            Recommended: <span className="text-neutral-200">1:{maxTwist} to 1:{minTwist}</span>
+          <span style={{ color: "var(--c-text-faint)" }}>|</span>
+          <span style={{ color: "var(--c-text-muted)" }}>
+            Recommended: <span style={{ color: "var(--c-text)" }}>1:{maxTwist} to 1:{minTwist}</span>
           </span>
         </div>
 
         {/* Recommendation */}
-        <div className="mt-2 text-[9px] font-mono text-neutral-400">
+        <div className="mt-2 text-[9px] font-mono" style={{ color: "var(--c-text-muted)" }}>
           {recommendation}
         </div>
 
         {/* Bullet length estimate */}
-        <div className="mt-2 text-[8px] font-mono text-neutral-600">
+        <div className="mt-2 text-[8px] font-mono" style={{ color: "var(--c-text-faint)" }}>
           Est. bullet length: {bulletLength.toFixed(3)}&Prime;
         </div>
       </div>

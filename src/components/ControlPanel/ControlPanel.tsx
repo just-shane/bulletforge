@@ -14,6 +14,7 @@ export function ControlPanel() {
   const zeroRange = useBallisticsStore((s) => s.zeroRange);
   const windSpeed = useBallisticsStore((s) => s.windSpeed);
   const windAngle = useBallisticsStore((s) => s.windAngle);
+  const shootingAngle = useBallisticsStore((s) => s.shootingAngle);
   const altitude = useBallisticsStore((s) => s.altitude);
   const temperature = useBallisticsStore((s) => s.temperature);
   const barometricPressure = useBallisticsStore((s) => s.barometricPressure);
@@ -25,6 +26,7 @@ export function ControlPanel() {
   const setZero = useBallisticsStore((s) => s.setZero);
   const setWindSpeed = useBallisticsStore((s) => s.setWindSpeed);
   const setWindAngle = useBallisticsStore((s) => s.setWindAngle);
+  const setShootingAngle = useBallisticsStore((s) => s.setShootingAngle);
   const setAltitude = useBallisticsStore((s) => s.setAltitude);
   const setTemperature = useBallisticsStore((s) => s.setTemperature);
   const setBarometricPressure = useBallisticsStore((s) => s.setBarometricPressure);
@@ -32,7 +34,7 @@ export function ControlPanel() {
   return (
     <>
       {/* Cartridge Selection */}
-      <div className="text-[10px] tracking-[2px] font-mono uppercase mb-3" style={{ color: "#ef4444" }}>
+      <div className="text-[10px] tracking-[2px] font-mono uppercase mb-3" style={{ color: "var(--c-accent)" }}>
         Cartridge
       </div>
       <div className="mb-4">
@@ -44,9 +46,9 @@ export function ControlPanel() {
           }}
           className="w-full rounded-md px-2 py-1.5 text-[11px] font-mono cursor-pointer"
           style={{
-            background: "#141414",
-            border: "1px solid #2a2a2a",
-            color: "#e5e5e5",
+            background: "var(--c-panel)",
+            border: "1px solid var(--c-border)",
+            color: "var(--c-text)",
           }}
         >
           {grouped.rifle.length > 0 && (
@@ -77,13 +79,13 @@ export function ControlPanel() {
             </optgroup>
           )}
         </select>
-        <div className="text-[9px] font-mono mt-1 px-1 text-neutral-500">
+        <div className="text-[9px] font-mono mt-1 px-1" style={{ color: "var(--c-text-dim)" }}>
           {cartridge.description}
         </div>
       </div>
 
       {/* Bullet Selection */}
-      <div className="text-[10px] tracking-[2px] font-mono uppercase mb-3" style={{ color: "#ef4444" }}>
+      <div className="text-[10px] tracking-[2px] font-mono uppercase mb-3" style={{ color: "var(--c-accent)" }}>
         Bullet
       </div>
       <div className="mb-4">
@@ -97,9 +99,9 @@ export function ControlPanel() {
           }}
           className="w-full rounded-md px-2 py-1.5 text-[11px] font-mono cursor-pointer"
           style={{
-            background: "#141414",
-            border: "1px solid #2a2a2a",
-            color: "#e5e5e5",
+            background: "var(--c-panel)",
+            border: "1px solid var(--c-border)",
+            color: "var(--c-text)",
           }}
         >
           {availableBullets.map((b) => (
@@ -108,13 +110,13 @@ export function ControlPanel() {
             </option>
           ))}
         </select>
-        <div className="text-[9px] font-mono mt-1 px-1 text-neutral-500">
+        <div className="text-[9px] font-mono mt-1 px-1" style={{ color: "var(--c-text-dim)" }}>
           BC G7: {bullet.bc_g7} &middot; BC G1: {bullet.bc_g1} &middot; SD: {bullet.sectionalDensity.toFixed(3)}
         </div>
       </div>
 
       {/* Muzzle Velocity */}
-      <div className="text-[10px] tracking-[2px] font-mono uppercase mb-3 mt-2" style={{ color: "#ef4444" }}>
+      <div className="text-[10px] tracking-[2px] font-mono uppercase mb-3 mt-2" style={{ color: "var(--c-accent)" }}>
         Ballistic Parameters
       </div>
 
@@ -140,7 +142,7 @@ export function ControlPanel() {
 
       {/* Zero Range */}
       <div className="mb-3">
-        <div className="text-[11px] mb-1 text-neutral-400">
+        <div className="text-[11px] mb-1" style={{ color: "var(--c-text-muted)" }}>
           Zero Range
         </div>
         <div className="flex gap-1 flex-wrap">
@@ -150,9 +152,9 @@ export function ControlPanel() {
               onClick={() => setZero(r)}
               className="px-2 py-1 rounded text-[9px] font-mono cursor-pointer transition-all"
               style={{
-                background: zeroRange === r ? "rgba(239,68,68,0.15)" : "#141414",
-                border: `1px solid ${zeroRange === r ? "#ef4444" : "#2a2a2a"}`,
-                color: zeroRange === r ? "#ef4444" : "#737373",
+                background: zeroRange === r ? "var(--c-accent-dim)" : "var(--c-panel)",
+                border: `1px solid ${zeroRange === r ? "var(--c-accent)" : "var(--c-border)"}`,
+                color: zeroRange === r ? "var(--c-accent)" : "var(--c-text-dim)",
               }}
             >
               {r}
@@ -162,7 +164,7 @@ export function ControlPanel() {
       </div>
 
       {/* Wind */}
-      <div className="text-[10px] tracking-[2px] font-mono uppercase mb-3 mt-4 pt-4" style={{ color: "#ef4444", borderTop: "1px solid #2a2a2a" }}>
+      <div className="text-[10px] tracking-[2px] font-mono uppercase mb-3 mt-4 pt-4" style={{ color: "var(--c-accent)", borderTop: "1px solid var(--c-border)" }}>
         Wind
       </div>
 
@@ -186,7 +188,7 @@ export function ControlPanel() {
         onChange={setWindAngle}
       />
 
-      <div className="text-[9px] font-mono mb-3 px-1 text-neutral-500">
+      <div className="text-[9px] font-mono mb-3 px-1" style={{ color: "var(--c-text-dim)" }}>
         {windAngle === 0 || windAngle === 360 ? "Headwind" :
          windAngle === 90 ? "Full cross (R)" :
          windAngle === 180 ? "Tailwind" :
@@ -194,8 +196,40 @@ export function ControlPanel() {
          `${windAngle}° from right`}
       </div>
 
+      {/* Angle */}
+      <div className="text-[10px] tracking-[2px] font-mono uppercase mb-3 mt-4 pt-4" style={{ color: "var(--c-accent)", borderTop: "1px solid var(--c-border)" }}>
+        Angle
+      </div>
+
+      <Slider
+        label="Shooting Angle"
+        value={shootingAngle}
+        min={-60}
+        max={60}
+        step={1}
+        unit="°"
+        onChange={setShootingAngle}
+      />
+
+      <div className="text-[9px] font-mono mb-1 px-1" style={{ color: "var(--c-text-faint)" }}>
+        Cosine: {Math.cos((Math.abs(shootingAngle) * Math.PI) / 180).toFixed(3)} ({((1 - Math.cos((Math.abs(shootingAngle) * Math.PI) / 180)) * 100).toFixed(1)}% correction)
+      </div>
+
+      {Math.abs(shootingAngle) > 15 && (
+        <div
+          className="text-[9px] font-mono rounded px-2 py-1 mb-3"
+          style={{
+            background: "var(--c-accent-glow)",
+            border: "1px solid var(--c-warn)",
+            color: "var(--c-warn)",
+          }}
+        >
+          ⚠ Cosine correction error increases above 15°. True ballistic solution may differ from Rifleman's Rule.
+        </div>
+      )}
+
       {/* Environment */}
-      <div className="text-[10px] tracking-[2px] font-mono uppercase mb-3 mt-4 pt-4" style={{ color: "#ef4444", borderTop: "1px solid #2a2a2a" }}>
+      <div className="text-[10px] tracking-[2px] font-mono uppercase mb-3 mt-4 pt-4" style={{ color: "var(--c-accent)", borderTop: "1px solid var(--c-border)" }}>
         Environment
       </div>
 
