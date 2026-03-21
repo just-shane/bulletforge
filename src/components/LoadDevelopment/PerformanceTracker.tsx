@@ -1,12 +1,16 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { useBallisticsStore } from "../../store/store.ts";
-import type { PerformanceRecord } from "../../lib/storage.ts";
+import type { PerformanceRecord, ConfigSnapshot, LoadCalibration } from "../../lib/storage.ts";
 import {
   savePerformanceRecord,
   deletePerformanceRecord,
   getPerformanceRecordsForLoad,
   generateId,
+  buildLoadKey,
+  getCalibrationForLoad,
+  saveLoadCalibration,
 } from "../../lib/storage.ts";
+import { refineBCFromVelocity, trajectory } from "../../lib/ballistics.ts";
 
 // ─── Helpers ──────────────────────────────────────────────────────
 
@@ -182,11 +186,24 @@ export function PerformanceTracker() {
   const bullet = useBallisticsStore((s) => s.bullet);
   const powderName = useBallisticsStore((s) => s.powderName);
   const chargeWeight = useBallisticsStore((s) => s.chargeWeight);
+  const muzzleVelocity = useBallisticsStore((s) => s.muzzleVelocity);
+  const barrelLength = useBallisticsStore((s) => s.barrelLength);
+  const sightHeight = useBallisticsStore((s) => s.sightHeight);
+  const zeroRange = useBallisticsStore((s) => s.zeroRange);
+  const altitude = useBallisticsStore((s) => s.altitude);
+  const temperature = useBallisticsStore((s) => s.temperature);
+  const barometricPressure = useBallisticsStore((s) => s.barometricPressure);
+  const humidity = useBallisticsStore((s) => s.humidity);
 
   const [collapsed, setCollapsed] = useState(false);
   const [velocityInput, setVelocityInput] = useState("");
   const [notes, setNotes] = useState("");
   const [records, setRecords] = useState<PerformanceRecord[]>([]);
+  const [calibration, setCalibration] = useState<LoadCalibration | null>(null);
+
+  // ─── Trajectory Verification State ─────────────────────────────
+  const [verifRange, setVerifRange] = useState("500");
+  const [verifDrop, setVerifDrop] = useState("");
 
   // Parsed velocities and live stats
   const parsed = useMemo(() => {
@@ -198,7 +215,7 @@ export function PerformanceTracker() {
 
   const liveStats = useMemo(() => calcStats(parsed), [parsed]);
 
-  // Load records for current load combo
+  // Load records for current load combo + calibration
   const refreshRecords = useCallback(() => {
     const recs = getPerformanceRecordsForLoad(
       cartridge.shortName,
@@ -210,7 +227,10 @@ export function PerformanceTracker() {
       (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
     );
     setRecords(recs);
-  }, [cartridge.shortName, bullet.name, powderName]);
+    setCalibration(
+      getCalibrationForLoad(cartridge.shortName, bullet.name, powderName, chargeWeight),
+    );
+  }, [cartridge.shortName, bullet.name, powderName, chargeWeight]);
 
   useEffect(() => {
     refreshRecords();
@@ -229,10 +249,28 @@ export function PerformanceTracker() {
     return { bestSd, avgSd, totalRounds };
   }, [records]);
 
-  // Save handler
+  // Save handler — captures config snapshot and updates load calibration
   const handleSave = useCallback(() => {
     if (parsed.length < 2) return;
-    const { es, sd } = calcStats(parsed);
+    const { avg, es, sd } = calcStats(parsed);
+
+    // Capture full config snapshot
+    const snapshot: ConfigSnapshot = {
+      cartridgeShortName: cartridge.shortName,
+      bulletName: bullet.name,
+      bulletManufacturer: bullet.manufacturer,
+      powderName,
+      chargeWeight,
+      muzzleVelocity,
+      barrelLength,
+      sightHeight,
+      zeroRange,
+      altitude,
+      temperature,
+      barometricPressure,
+      humidity,
+    };
+
     const record: PerformanceRecord = {
       id: generateId(),
       cartridgeShortName: cartridge.shortName,
@@ -244,12 +282,71 @@ export function PerformanceTracker() {
       sd: Math.round(sd * 10) / 10,
       date: new Date().toISOString(),
       notes,
+      conditions: { altitude, temperature, humidity },
+      configSnapshot: snapshot,
     };
     savePerformanceRecord(record);
+
+    // Update load calibration profile
+    const loadKey = buildLoadKey(cartridge.shortName, bullet.name, powderName, chargeWeight);
+    const existing = getCalibrationForLoad(cartridge.shortName, bullet.name, powderName, chargeWeight);
+
+    // Compute running average MV across all sessions including this one
+    const allRecs = getPerformanceRecordsForLoad(cartridge.shortName, bullet.name, powderName)
+      .filter((r) => r.chargeWeight === chargeWeight);
+    const allVelocities = [...allRecs.flatMap((r) => r.velocities), ...parsed];
+    const avgMV = allVelocities.reduce((a, b) => a + b, 0) / allVelocities.length;
+
+    const sdHistory = [...(existing?.sdHistory ?? []), Math.round(sd * 10) / 10];
+    const sessionCount = (existing?.sessionCount ?? 0) + 1;
+
+    // Auto-compute true BC if we have chrono data: use muzzle velocity vs. measured avg
+    // This approximates a near-muzzle measurement
+    let trueBC = existing?.trueBC;
+    let bcCorrectionFactor = existing?.bcCorrectionFactor;
+    if (avg > 0 && muzzleVelocity > 0 && Math.abs(avg - muzzleVelocity) > 5) {
+      try {
+        const bc = bullet.bc_G7 || bullet.bc_G1;
+        const dragModel = bullet.bc_G7 ? "G7" as const : "G1" as const;
+        if (bc) {
+          const result = refineBCFromVelocity(
+            muzzleVelocity, 0,
+            avg, 100,
+            bc, dragModel,
+            altitude, temperature, barometricPressure, humidity,
+          );
+          if (result.trueBC > 0 && result.correctionFactor > 0.5 && result.correctionFactor < 2.0) {
+            trueBC = Math.round(result.trueBC * 10000) / 10000;
+            bcCorrectionFactor = Math.round(result.correctionFactor * 1000) / 1000;
+          }
+        }
+      } catch {
+        // BC refinement failed — keep existing values
+      }
+    }
+
+    const cal: LoadCalibration = {
+      id: existing?.id ?? generateId(),
+      loadKey,
+      cartridgeShortName: cartridge.shortName,
+      bulletName: bullet.name,
+      powderName,
+      chargeWeight,
+      trueBC,
+      bcCorrectionFactor,
+      avgMeasuredMV: Math.round(avgMV),
+      sdHistory,
+      sessionCount,
+      verificationPoints: existing?.verificationPoints ?? [],
+      updatedAt: new Date().toISOString(),
+    };
+    saveLoadCalibration(cal);
+
     setVelocityInput("");
     setNotes("");
     refreshRecords();
-  }, [parsed, cartridge, bullet, powderName, chargeWeight, notes, refreshRecords]);
+  }, [parsed, cartridge, bullet, powderName, chargeWeight, muzzleVelocity, barrelLength,
+      sightHeight, zeroRange, altitude, temperature, barometricPressure, humidity, notes, refreshRecords]);
 
   // Delete handler
   const handleDelete = useCallback(
@@ -496,6 +593,251 @@ export function PerformanceTracker() {
               {powderName}. Enter velocities above to start tracking.
             </div>
           )}
+
+          {/* ─── Load Calibration Profile ─────────── */}
+          {calibration && (
+            <div className="mt-4">
+              <div
+                className="text-[10px] uppercase tracking-[2px] font-mono mb-2"
+                style={{ color: "var(--c-accent)" }}
+              >
+                Load Calibration
+              </div>
+              <div className="flex gap-2 mb-3 flex-wrap">
+                <MiniStat
+                  label="Measured MV"
+                  value={String(calibration.avgMeasuredMV)}
+                  unit="fps"
+                />
+                <MiniStat
+                  label="Sessions"
+                  value={String(calibration.sessionCount)}
+                  unit=""
+                />
+                {calibration.trueBC != null && (
+                  <MiniStat
+                    label="True BC"
+                    value={calibration.trueBC.toFixed(4)}
+                    unit={bullet.bc_G7 ? "G7" : "G1"}
+                    color={
+                      calibration.bcCorrectionFactor != null
+                        ? calibration.bcCorrectionFactor < 1
+                          ? "var(--c-warn)"
+                          : "var(--c-success)"
+                        : undefined
+                    }
+                  />
+                )}
+                {calibration.bcCorrectionFactor != null && (
+                  <MiniStat
+                    label="BC Factor"
+                    value={calibration.bcCorrectionFactor.toFixed(3)}
+                    unit="×"
+                    color={
+                      calibration.bcCorrectionFactor < 1
+                        ? "var(--c-warn)"
+                        : "var(--c-success)"
+                    }
+                  />
+                )}
+              </div>
+
+              {/* SD History sparkline */}
+              {calibration.sdHistory.length >= 2 && (
+                <div
+                  className="text-[9px] font-mono mb-2"
+                  style={{ color: "var(--c-text-dim)" }}
+                >
+                  SD History:{" "}
+                  {calibration.sdHistory.map((sd, i) => (
+                    <span key={i}>
+                      <span style={{ color: sdColor(sd) }}>{sd.toFixed(1)}</span>
+                      {i < calibration.sdHistory.length - 1 ? " → " : ""}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              {/* Trajectory Verification Points */}
+              {calibration.verificationPoints.length > 0 && (
+                <div
+                  className="rounded-md overflow-hidden mt-2"
+                  style={{ border: "1px solid var(--c-border)" }}
+                >
+                  <table className="w-full text-[10px] font-mono" style={{ borderCollapse: "collapse" }}>
+                    <thead>
+                      <tr
+                        style={{
+                          background: "var(--c-surface, var(--c-panel))",
+                          color: "var(--c-text-dim)",
+                        }}
+                      >
+                        <th className="text-left px-2 py-1.5">Range</th>
+                        <th className="text-right px-2 py-1.5">Actual</th>
+                        <th className="text-right px-2 py-1.5">Predicted</th>
+                        <th className="text-right px-2 py-1.5">Delta</th>
+                        <th className="text-left px-2 py-1.5">Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {calibration.verificationPoints.map((vp, i) => (
+                        <tr key={i} style={{ borderTop: "1px solid var(--c-border)", color: "var(--c-text)" }}>
+                          <td className="px-2 py-1.5">{vp.range} yds</td>
+                          <td className="text-right px-2 py-1.5">{vp.actualDropInches.toFixed(1)}"</td>
+                          <td className="text-right px-2 py-1.5">{vp.predictedDropInches?.toFixed(1) ?? "—"}"</td>
+                          <td
+                            className="text-right px-2 py-1.5 font-bold"
+                            style={{
+                              color:
+                                vp.deltaInches != null
+                                  ? Math.abs(vp.deltaInches) <= 1
+                                    ? "var(--c-success)"
+                                    : Math.abs(vp.deltaInches) <= 3
+                                      ? "var(--c-warn)"
+                                      : "var(--c-error, #e55)"
+                                  : "var(--c-text-dim)",
+                            }}
+                          >
+                            {vp.deltaInches != null ? `${vp.deltaInches > 0 ? "+" : ""}${vp.deltaInches.toFixed(1)}"` : "—"}
+                          </td>
+                          <td className="px-2 py-1.5" style={{ color: "var(--c-text-dim)" }}>{formatDate(vp.date)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* ─── Trajectory Verification Entry ──────── */}
+          <div className="mt-4">
+            <div
+              className="text-[10px] uppercase tracking-[2px] font-mono mb-2"
+              style={{ color: "var(--c-accent)" }}
+            >
+              Trajectory Verification
+            </div>
+            <div
+              className="text-[9px] font-mono mb-2"
+              style={{ color: "var(--c-text-dim)" }}
+            >
+              Enter actual drop at a known distance to compare against the model prediction.
+            </div>
+            <div className="flex gap-2 items-end flex-wrap">
+              <div className="flex-1 min-w-[80px]">
+                <div className="text-[9px] font-mono mb-1" style={{ color: "var(--c-text-muted)" }}>
+                  Range (yds)
+                </div>
+                <input
+                  type="number"
+                  value={verifRange}
+                  onChange={(e) => setVerifRange(e.target.value)}
+                  className="w-full rounded-md px-2 py-1.5 text-[10px] font-mono"
+                  style={{
+                    background: "var(--c-surface, var(--c-panel))",
+                    border: "1px solid var(--c-border)",
+                    color: "var(--c-text)",
+                  }}
+                />
+              </div>
+              <div className="flex-1 min-w-[80px]">
+                <div className="text-[9px] font-mono mb-1" style={{ color: "var(--c-text-muted)" }}>
+                  Actual Drop (inches)
+                </div>
+                <input
+                  type="number"
+                  value={verifDrop}
+                  onChange={(e) => setVerifDrop(e.target.value)}
+                  placeholder="-36.5"
+                  className="w-full rounded-md px-2 py-1.5 text-[10px] font-mono"
+                  style={{
+                    background: "var(--c-surface, var(--c-panel))",
+                    border: "1px solid var(--c-border)",
+                    color: "var(--c-text)",
+                  }}
+                />
+              </div>
+              <button
+                onClick={() => {
+                  const range = parseFloat(verifRange);
+                  const drop = parseFloat(verifDrop);
+                  if (isNaN(range) || isNaN(drop) || range <= 0) return;
+
+                  // Run trajectory prediction for this range
+                  const bc = bullet.bc_G7 || bullet.bc_G1;
+                  const dragModel = bullet.bc_G7 ? "G7" as const : "G1" as const;
+                  if (!bc) return;
+
+                  const result = trajectory({
+                    muzzleVelocity,
+                    bulletWeight: bullet.weight,
+                    bulletDiameter: bullet.diameter,
+                    bc,
+                    dragModel,
+                    sightHeight,
+                    zeroRange,
+                    windSpeed: 0,
+                    windAngle: 0,
+                    shootingAngle: 0,
+                    altitude,
+                    temperature,
+                    barometricPressure,
+                    humidity,
+                    maxRange: range + 50,
+                    stepSize: 25,
+                  });
+
+                  // Find closest point to the requested range
+                  const closest = result.points.reduce((best, p) =>
+                    Math.abs(p.range - range) < Math.abs(best.range - range) ? p : best,
+                  );
+                  const predicted = closest.dropInches;
+                  const delta = Math.round((drop - predicted) * 10) / 10;
+
+                  const vp = {
+                    range,
+                    actualDropInches: drop,
+                    predictedDropInches: Math.round(predicted * 10) / 10,
+                    deltaInches: delta,
+                    date: new Date().toISOString(),
+                  };
+
+                  // Update calibration
+                  const loadKey = buildLoadKey(cartridge.shortName, bullet.name, powderName, chargeWeight);
+                  const existing = getCalibrationForLoad(cartridge.shortName, bullet.name, powderName, chargeWeight);
+                  const cal: LoadCalibration = {
+                    id: existing?.id ?? generateId(),
+                    loadKey,
+                    cartridgeShortName: cartridge.shortName,
+                    bulletName: bullet.name,
+                    powderName,
+                    chargeWeight,
+                    trueBC: existing?.trueBC,
+                    bcCorrectionFactor: existing?.bcCorrectionFactor,
+                    avgMeasuredMV: existing?.avgMeasuredMV ?? muzzleVelocity,
+                    sdHistory: existing?.sdHistory ?? [],
+                    sessionCount: existing?.sessionCount ?? 0,
+                    verificationPoints: [...(existing?.verificationPoints ?? []), vp],
+                    updatedAt: new Date().toISOString(),
+                  };
+                  saveLoadCalibration(cal);
+                  setVerifDrop("");
+                  refreshRecords();
+                }}
+                disabled={!verifDrop || !verifRange}
+                className="px-3 py-1.5 rounded-md text-[10px] font-mono cursor-pointer transition-all shrink-0"
+                style={{
+                  background: verifDrop ? "var(--c-accent-dim)" : "var(--c-surface, var(--c-panel))",
+                  border: `1px solid ${verifDrop ? "var(--c-accent)" : "var(--c-border)"}`,
+                  color: verifDrop ? "var(--c-accent)" : "var(--c-text-dim)",
+                  opacity: verifDrop ? 1 : 0.5,
+                }}
+              >
+                Verify
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

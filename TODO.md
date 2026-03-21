@@ -290,19 +290,19 @@
   > *Completed in v0.8.0 — PerformanceTracker with localStorage persistence, filtered by load combo*
 - [x] **Device tags** — LabRadar, MagnetoSpeed, Caldwell, Garmin Xero C1
   > *Completed in v0.9.0 — device field on ChronoReference, auto-detected from CSV format*
-- [ ] **Setup snapshot** — Freeze full config at time of entry
+- [x] **Setup snapshot** — Freeze full config at time of entry (ConfigSnapshot on PerformanceRecord, captured automatically on save)
 
 ### 📊 7.2 Predicted vs. Actual
 - [x] **Velocity delta** — Predicted MV vs. actual MV, % error
   > *Completed in v0.9.0 — ChronoImport reference comparison with color-coded delta (green <25fps, yellow <50, red >50)*
-- [ ] **Trajectory verification** — Enter actual drops at distance, compare to model
+- [x] **Trajectory verification** — Enter actual drops at distance, compare to model with predicted vs. actual delta table, color-coded accuracy
 - [x] **BC refinement** — `refineBCFromVelocity()` RK4 binary search truing from two velocity measurements (BCTruingCalculator UI)
   > *Cherry-picked in v0.5.1 — pure math engine function + self-contained UI calculator*
 - [ ] **Environmental correlation** — Track how temp/altitude affect your specific load
 
 ### 🧠 7.3 Personal Calibration
-- [ ] **BC correction factor** — Auto-calculate true BC from chrono data
-- [ ] **Load-specific profiles** — Each load recipe gets its own calibration
+- [x] **BC correction factor** — Auto-calculate true BC from chrono data via `refineBCFromVelocity()`, stored on LoadCalibration profile
+- [x] **Load-specific profiles** — Each load recipe gets its own LoadCalibration (true BC, avg MV, SD history, session count, verification points)
 - [ ] **Confidence scoring** — `± X fps` uncertainty band that tightens with data
 - [ ] **Seasonal tracking** — How does this load perform summer vs. winter?
 

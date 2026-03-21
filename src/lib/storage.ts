@@ -31,6 +31,22 @@ export interface RifleProfile {
   updatedAt: string;
 }
 
+export interface ConfigSnapshot {
+  cartridgeShortName: string;
+  bulletName: string;
+  bulletManufacturer: string;
+  powderName: string;
+  chargeWeight: number;
+  muzzleVelocity: number;
+  barrelLength: number;
+  sightHeight: number;
+  zeroRange: number;
+  altitude: number;
+  temperature: number;
+  barometricPressure: number;
+  humidity: number;
+}
+
 export interface PerformanceRecord {
   id: string;
   rifleProfileId?: string;
@@ -48,6 +64,39 @@ export interface PerformanceRecord {
     temperature: number;
     humidity: number;
   };
+  /** Full config snapshot at time of recording (v0.9.3+) */
+  configSnapshot?: ConfigSnapshot;
+}
+
+export interface LoadCalibration {
+  id: string;
+  /** Composite key: cartridge|bullet|powder|charge */
+  loadKey: string;
+  cartridgeShortName: string;
+  bulletName: string;
+  powderName: string;
+  chargeWeight: number;
+  /** True BC computed from chrono data */
+  trueBC?: number;
+  /** Correction factor: trueBC / publishedBC */
+  bcCorrectionFactor?: number;
+  /** Average measured muzzle velocity across all sessions */
+  avgMeasuredMV: number;
+  /** SD history from each session */
+  sdHistory: number[];
+  /** Number of chrono sessions contributing */
+  sessionCount: number;
+  /** Trajectory verification points: actual drops at distance */
+  verificationPoints: TrajectoryVerificationPoint[];
+  updatedAt: string;
+}
+
+export interface TrajectoryVerificationPoint {
+  range: number;         // yards
+  actualDropInches: number;
+  predictedDropInches?: number;
+  deltaInches?: number;
+  date: string;
 }
 
 // ─── Storage Keys ──────────────────────────────────────────────────
@@ -55,6 +104,7 @@ export interface PerformanceRecord {
 const STORAGE_KEYS = {
   rifles: "bulletforge-rifles",
   performance: "bulletforge-performance",
+  calibrations: "bulletforge-calibrations",
 } as const;
 
 // ─── Generic CRUD Layer ────────────────────────────────────────────
@@ -161,4 +211,38 @@ export function getPerformanceRecordsForLoad(
       r.bulletName === bullet &&
       r.powderName === powder,
   );
+}
+
+// ─── Load Calibrations ──────────────────────────────────────────
+
+export function buildLoadKey(
+  cartridge: string,
+  bullet: string,
+  powder: string,
+  charge: number,
+): string {
+  return `${cartridge}|${bullet}|${powder}|${charge}`;
+}
+
+export function saveLoadCalibration(cal: LoadCalibration): void {
+  upsertItem(STORAGE_KEYS.calibrations, cal);
+}
+
+export function loadCalibrations(): LoadCalibration[] {
+  return readCollection<LoadCalibration>(STORAGE_KEYS.calibrations);
+}
+
+export function getCalibrationForLoad(
+  cartridge: string,
+  bullet: string,
+  powder: string,
+  charge: number,
+): LoadCalibration | null {
+  const key = buildLoadKey(cartridge, bullet, powder, charge);
+  const all = loadCalibrations();
+  return all.find((c) => c.loadKey === key) ?? null;
+}
+
+export function deleteLoadCalibration(id: string): void {
+  deleteItem(STORAGE_KEYS.calibrations, id);
 }
