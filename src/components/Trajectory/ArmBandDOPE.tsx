@@ -2,6 +2,8 @@ import { useState, useMemo } from "react";
 import { useBallisticsStore } from "../../store/store.ts";
 import { trajectory } from "../../lib/ballistics.ts";
 import type { TrajectoryConfig } from "../../lib/ballistics.ts";
+import { buildShareURL } from "./ShareExport.tsx";
+import { generateQRSvg } from "../../lib/qr.ts";
 
 export function ArmBandDOPE() {
   const bullet = useBallisticsStore((s) => s.bullet);
@@ -51,6 +53,25 @@ export function ArmBandDOPE() {
     day: "numeric",
     year: "numeric",
   });
+
+  // QR code for this exact setup
+  const qrSvg = useMemo(() => {
+    try {
+      const base = typeof window !== "undefined"
+        ? window.location.origin + window.location.pathname
+        : "https://bulletforge.io";
+      const url = buildShareURL(base, {
+        cartridge, bullet,
+        muzzleVelocity, sightHeight, zeroRange,
+        windSpeed: 10, windAngle: 90, shootingAngle,
+        altitude, temperature, barometricPressure, humidity,
+      });
+      return generateQRSvg(url, 2, 1);
+    } catch {
+      return null;
+    }
+  }, [cartridge, bullet, muzzleVelocity, sightHeight, zeroRange,
+      shootingAngle, altitude, temperature, barometricPressure, humidity]);
 
   return (
     <div
@@ -262,6 +283,29 @@ export function ArmBandDOPE() {
                 }}
               >
                 No data
+              </div>
+            )}
+
+            {/* QR Code */}
+            {qrSvg && (
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                  padding: "4px 6px",
+                  borderTop: "1px solid var(--c-border)",
+                }}
+              >
+                <div
+                  dangerouslySetInnerHTML={{ __html: qrSvg }}
+                  style={{ width: 40, height: 40, flexShrink: 0 }}
+                />
+                <div style={{ fontSize: 7, fontFamily: "monospace", color: "var(--c-text-dim)", lineHeight: 1.3 }}>
+                  Scan to load
+                  <br />
+                  in BulletForge
+                </div>
               </div>
             )}
           </div>

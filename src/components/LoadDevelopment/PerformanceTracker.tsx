@@ -11,6 +11,7 @@ import {
   saveLoadCalibration,
 } from "../../lib/storage.ts";
 import { refineBCFromVelocity, trajectory } from "../../lib/ballistics.ts";
+import { computeConfidence } from "../../lib/confidence.ts";
 
 // ─── Helpers ──────────────────────────────────────────────────────
 
@@ -657,6 +658,60 @@ export function PerformanceTracker() {
                   ))}
                 </div>
               )}
+
+              {/* Confidence Scoring */}
+              {records.length >= 1 && (() => {
+                const velocitySets = records
+                  .filter((r) => r.chargeWeight === chargeWeight)
+                  .map((r) => r.velocities);
+                const conf = computeConfidence(velocitySets, calibration.sdHistory);
+                if (!conf) return null;
+                return (
+                  <div
+                    className="rounded-md p-2 mb-3"
+                    style={{
+                      background: "var(--c-surface, var(--c-panel))",
+                      border: "1px solid var(--c-border)",
+                    }}
+                  >
+                    <div className="flex items-center justify-between mb-1.5">
+                      <div className="text-[9px] uppercase tracking-[1.5px] font-mono" style={{ color: "var(--c-text-dim)" }}>
+                        Confidence
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[10px] font-mono font-bold" style={{ color: conf.color }}>
+                          {conf.level}
+                        </span>
+                        <span className="text-[9px] font-mono" style={{ color: "var(--c-text-dim)" }}>
+                          ({conf.score}/100)
+                        </span>
+                      </div>
+                    </div>
+                    {/* Uncertainty band */}
+                    <div className="flex items-baseline gap-1 mb-1.5">
+                      <span className="text-lg font-bold font-mono" style={{ color: conf.color }}>
+                        ±{conf.uncertaintyFps}
+                      </span>
+                      <span className="text-[9px] font-mono" style={{ color: "var(--c-text-dim)" }}>
+                        fps (95% CI)
+                      </span>
+                    </div>
+                    {/* Progress bar */}
+                    <div className="h-1.5 rounded-full overflow-hidden mb-1.5" style={{ background: "var(--c-border)" }}>
+                      <div
+                        className="h-full rounded-full transition-all"
+                        style={{ width: `${conf.score}%`, background: conf.color }}
+                      />
+                    </div>
+                    {/* Details */}
+                    <div className="text-[8px] font-mono leading-relaxed" style={{ color: "var(--c-text-faint)" }}>
+                      {conf.description}
+                      <br />
+                      {conf.totalRounds} rounds across {conf.sessionCount} session{conf.sessionCount !== 1 ? "s" : ""} · Pooled SD: {conf.pooledSD} fps
+                    </div>
+                  </div>
+                );
+              })()}
 
               {/* Trajectory Verification Points */}
               {calibration.verificationPoints.length > 0 && (

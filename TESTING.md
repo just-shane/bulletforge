@@ -25,7 +25,8 @@ BulletForge uses **Vitest** with the `jsdom` environment for all tests. Tests li
 | `load-development.test.ts` | 20 | Load development tools — ES/SD calculator, ladder test planner, seating depth optimizer, OCW analysis, load recipes, primer database |
 | `powders.test.ts` | 30 | Powder database integrity, burn rate sorting, manufacturer filtering, powder substitution scoring, barrel life estimation, barrel condition assessment |
 | `storage.test.ts` | 35 | localStorage persistence layer — CRUD for rifle profiles, performance records, load calibrations; edge cases (corrupted data, upserts, filtering) |
-| **Total** | **176** | |
+| `confidence.test.ts` | 18 | Confidence scoring — uncertainty band behavior, score weighting, level assignment, output fields, edge cases |
+| **Total** | **194** | |
 
 ---
 
@@ -161,6 +162,16 @@ describe("trajectory", () => {
 | Load calibrations | 9 | CRUD, upsert, load lookup, delete, trueBC, sdHistory, verification points |
 | Edge cases | 4 | Corrupted JSON, non-array data, delete from empty, collection independence |
 
+### Confidence Scoring (`confidence.test.ts`)
+
+| Area | Tests | Key validations |
+|------|-------|-----------------|
+| Edge cases | 3 | Null with no data, null with <3 rounds, returns result at exactly 3 rounds |
+| Uncertainty band | 4 | More shots = tighter, lower SD = tighter, more sessions = tighter, always positive |
+| Confidence score | 3 | Score 0-100 range, more data = higher score, consistent SDs boost score |
+| Confidence levels | 4 | Low/Moderate for minimal data, High/Very High for abundant data, color strings, descriptions |
+| Output fields | 4 | Correct totalRounds, sessionCount, positive pooledSD, degrees of freedom |
+
 ---
 
 ## Adding New Tests
@@ -173,7 +184,7 @@ When adding a new computation function to `src/lib/`:
    - An **edge case** (zero, negative, empty, unknown input)
    - A **bounds check** (output is within physically reasonable range)
 3. For physics functions, validate against published reference data when available
-4. Run `npx vitest run` before committing — all 176 tests must pass
+4. Run `npx vitest run` before committing — all 194 tests must pass
 
 ---
 
