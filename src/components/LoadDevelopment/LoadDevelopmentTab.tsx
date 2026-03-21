@@ -5,8 +5,9 @@ import { LadderTestView } from "./LadderTestView.tsx";
 import { ESSdCalculator } from "./ESSdCalculator.tsx";
 import { SeatingDepthView } from "./SeatingDepthView.tsx";
 import { PerformanceTracker } from "./PerformanceTracker.tsx";
+import { CommunityBrowser } from "./CommunityBrowser.tsx";
 
-type LoadDevSubTab = "ladder" | "essd" | "seating" | "performance";
+type LoadDevSubTab = "ladder" | "essd" | "seating" | "performance" | "community";
 
 export function LoadDevelopmentTab() {
   const [subTab, setSubTab] = useState<LoadDevSubTab>("ladder");
@@ -62,6 +63,7 @@ export function LoadDevelopmentTab() {
     { id: "essd", label: "ES / SD Calc" },
     { id: "seating", label: "Seating Depth" },
     { id: "performance", label: "Performance" },
+    { id: "community", label: "Community" },
   ];
 
   return (
@@ -107,6 +109,8 @@ export function LoadDevelopmentTab() {
       )}
 
       {subTab === "performance" && <PerformanceTracker />}
+
+      {subTab === "community" && <CommunityBrowser />}
     </div>
   );
 }

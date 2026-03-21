@@ -3,8 +3,11 @@ import { useBallisticsStore } from "./store/store.ts";
 import { trajectory, kineticEnergy, densityAltitude } from "./lib/ballistics.ts";
 import type { TrajectoryConfig } from "./lib/ballistics.ts";
 import { buildConfig, simulateInternal, CARTRIDGE_INTERNAL_DATA } from "./lib/internal-ballistics.ts";
+import { onAuthStateChange } from "./lib/supabase.ts";
+import { syncOnLogin } from "./lib/storage.ts";
 import { ThemeProvider } from "./components/Layout/ThemeProvider.tsx";
 import { Header } from "./components/Layout/Header.tsx";
+import { AuthModal } from "./components/Auth/AuthModal.tsx";
 import { StatsBar } from "./components/StatsBar/StatsBar.tsx";
 import { ControlPanel } from "./components/ControlPanel/ControlPanel.tsx";
 import { TrajectoryChart } from "./components/Trajectory/TrajectoryChart.tsx";
@@ -170,6 +173,22 @@ export default function App() {
     // Clean URL without triggering reload
     window.history.replaceState({}, "", window.location.pathname);
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Auth state listener
+  useEffect(() => {
+    const { data: { subscription } } = onAuthStateChange((_event, session) => {
+      const user = session?.user ?? null;
+      useBallisticsStore.getState().setUser(user);
+      useBallisticsStore.getState().setAuthLoading(false);
+
+      if (user) {
+        syncOnLogin(user.id).catch((err) =>
+          console.warn("[BulletForge] Sync failed:", err),
+        );
+      }
+    });
+    return () => subscription.unsubscribe();
   }, []);
 
   // Build internal ballistics config (memoized for use in render + simulation)
@@ -601,6 +620,7 @@ export default function App() {
       </div>
 
       {/* Modal panels */}
+      <AuthModal />
       <DocsPanel />
       <EducationPanel />
       <GlossaryPanel />

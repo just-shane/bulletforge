@@ -13,6 +13,7 @@
   "dependencies": {
     "@plausible-analytics/tracker": "^0.4.4",
     "@sentry/react": "^10.45.0",
+    "@supabase/supabase-js": "^2.99.3",
     "@tailwindcss/vite": "^4.2.2",
     "qrcode-generator": "^2.0.4",
     "react": "^19.2.4",

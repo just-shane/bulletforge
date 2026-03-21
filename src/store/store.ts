@@ -5,6 +5,7 @@ import type { Bullet } from "../lib/bullets.ts";
 import type { InternalBallisticsResult } from "../lib/internal-ballistics.ts";
 import type { Theme } from "../lib/themes.ts";
 import type { ScopeProfile } from "../lib/optics.ts";
+import type { User } from "../lib/supabase.ts";
 import { CARTRIDGES } from "../lib/cartridges.ts";
 import { BULLETS, bulletsByCaliber } from "../lib/bullets.ts";
 import { CARTRIDGE_INTERNAL_DATA } from "../lib/internal-ballistics.ts";
@@ -64,6 +65,11 @@ export interface BallisticsStore {
   scope: ScopeProfile;
   currentMagnification: number;
 
+  // Auth
+  user: User | null;
+  authLoading: boolean;
+  authModalOpen: boolean;
+
   // Theme
   theme: Theme;
   menuOpen: boolean;
@@ -113,6 +119,11 @@ export interface BallisticsStore {
   // Actions — Optics
   setScope: (scope: ScopeProfile) => void;
   setCurrentMagnification: (mag: number) => void;
+
+  // Actions — Auth
+  setUser: (user: User | null) => void;
+  setAuthLoading: (loading: boolean) => void;
+  setAuthModalOpen: (open: boolean) => void;
 
   // Actions — Theme
   setTheme: (id: string) => void;
@@ -166,6 +177,11 @@ export const useBallisticsStore = create<BallisticsStore>((set) => ({
   // Optics
   scope: { ...DEFAULT_SCOPE },
   currentMagnification: 10,
+
+  // Auth
+  user: null,
+  authLoading: true,
+  authModalOpen: false,
 
   // Theme
   theme: getThemeById(loadThemeId()),
@@ -254,6 +270,11 @@ export const useBallisticsStore = create<BallisticsStore>((set) => ({
   // Optics actions
   setScope: (scope) => set({ scope }),
   setCurrentMagnification: (mag) => set({ currentMagnification: mag }),
+
+  // Auth actions
+  setUser: (user) => set({ user }),
+  setAuthLoading: (loading) => set({ authLoading: loading }),
+  setAuthModalOpen: (open) => set({ authModalOpen: open }),
 
   // Theme actions
   setTheme: (id) => {

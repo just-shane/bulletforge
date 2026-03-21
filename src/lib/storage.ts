@@ -1,6 +1,11 @@
-/* ─── BulletForge localStorage Persistence Layer ────────────────── */
-/* Bridges to future Supabase backend. All keys are namespaced     */
-/* under the `bulletforge-` prefix.                                 */
+/* ─── BulletForge Persistence Layer ──────────────────────────────── */
+/* localStorage-first with Supabase cloud sync when authenticated.   */
+/* All public APIs are unchanged — cloud sync is invisible to        */
+/* callers. Anonymous users get localStorage only; signed-in users    */
+/* get automatic cloud backup.                                       */
+
+import { supabase } from "./supabase.ts";
+import { useBallisticsStore } from "../store/store.ts";
 
 // ─── Interfaces ────────────────────────────────────────────────────
 
@@ -111,7 +116,7 @@ const STORAGE_KEYS = {
   calibrations: "bulletforge-calibrations",
 } as const;
 
-// ─── Generic CRUD Layer ────────────────────────────────────────────
+// ─── Generic localStorage CRUD ─────────────────────────────────────
 
 function readCollection<T>(key: string): T[] {
   try {
@@ -160,11 +165,9 @@ function getItem<T extends { id: string }>(key: string, id: string): T | null {
 // ─── UUID Generator ────────────────────────────────────────────────
 
 export function generateId(): string {
-  // crypto.randomUUID where available, fallback for older browsers
   if (typeof crypto !== "undefined" && crypto.randomUUID) {
     return crypto.randomUUID();
   }
-  // RFC-4122 v4 fallback
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
     const r = (Math.random() * 16) | 0;
     const v = c === "x" ? r : (r & 0x3) | 0x8;
@@ -172,10 +175,130 @@ export function generateId(): string {
   });
 }
 
+// ─── Cloud Sync Helpers ────────────────────────────────────────────
+
+function getCurrentUserId(): string | null {
+  return useBallisticsStore.getState().user?.id ?? null;
+}
+
+// camelCase → snake_case field mapping for Supabase tables
+const RIFLE_PROFILE_FIELDS: Record<string, string> = {
+  id: "id",
+  name: "name",
+  cartridgeShortName: "cartridge_short_name",
+  bulletName: "bullet_name",
+  bulletManufacturer: "bullet_manufacturer",
+  muzzleVelocity: "muzzle_velocity",
+  sightHeight: "sight_height",
+  zeroRange: "zero_range",
+  barrelLength: "barrel_length",
+  twistRate: "twist_rate",
+  twistDirection: "twist_direction",
+  scope: "scope",
+  notes: "notes",
+  roundCount: "round_count",
+  estimatedBarrelLife: "estimated_barrel_life",
+  createdAt: "created_at",
+  updatedAt: "updated_at",
+};
+
+const PERFORMANCE_RECORD_FIELDS: Record<string, string> = {
+  id: "id",
+  rifleProfileId: "rifle_profile_id",
+  cartridgeShortName: "cartridge_short_name",
+  bulletName: "bullet_name",
+  powderName: "powder_name",
+  chargeWeight: "charge_weight",
+  velocities: "velocities",
+  es: "es",
+  sd: "sd",
+  date: "date",
+  notes: "notes",
+  conditions: "conditions",
+  configSnapshot: "config_snapshot",
+};
+
+const LOAD_CALIBRATION_FIELDS: Record<string, string> = {
+  id: "id",
+  loadKey: "load_key",
+  cartridgeShortName: "cartridge_short_name",
+  bulletName: "bullet_name",
+  powderName: "powder_name",
+  chargeWeight: "charge_weight",
+  trueBC: "true_bc",
+  bcCorrectionFactor: "bc_correction_factor",
+  avgMeasuredMV: "avg_measured_mv",
+  sdHistory: "sd_history",
+  sessionCount: "session_count",
+  verificationPoints: "verification_points",
+  updatedAt: "updated_at",
+};
+
+function toSnakeCase(
+  obj: object,
+  fieldMap: Record<string, string>,
+): Record<string, unknown> {
+  const src = obj as Record<string, unknown>;
+  const result: Record<string, unknown> = {};
+  for (const [camel, snake] of Object.entries(fieldMap)) {
+    if (camel in src && src[camel] !== undefined) {
+      result[snake] = src[camel];
+    }
+  }
+  return result;
+}
+
+function toCamelCase<T>(
+  row: Record<string, unknown>,
+  fieldMap: Record<string, string>,
+): T {
+  const result: Record<string, unknown> = {};
+  // Build reverse map: snake → camel
+  for (const [camel, snake] of Object.entries(fieldMap)) {
+    if (snake in row) {
+      result[camel] = row[snake];
+    }
+  }
+  return result as T;
+}
+
+/** Fire-and-forget cloud upsert — never blocks the caller */
+function cloudUpsert(
+  table: string,
+  row: Record<string, unknown>,
+  userId: string,
+): void {
+  if (!supabase) return;
+  const payload = { ...row, user_id: userId };
+  supabase
+    .from(table)
+    .upsert(payload, { onConflict: "id" })
+    .then(({ error }) => {
+      if (error) console.warn(`[BulletForge] Cloud upsert to ${table} failed:`, error.message);
+    });
+}
+
+/** Fire-and-forget cloud delete */
+function cloudDelete(table: string, id: string, userId: string): void {
+  if (!supabase) return;
+  supabase
+    .from(table)
+    .delete()
+    .eq("id", id)
+    .eq("user_id", userId)
+    .then(({ error }) => {
+      if (error) console.warn(`[BulletForge] Cloud delete from ${table} failed:`, error.message);
+    });
+}
+
 // ─── Rifle Profiles ───────────────────────────────────────────────
 
 export function saveRifleProfile(profile: RifleProfile): void {
   upsertItem(STORAGE_KEYS.rifles, profile);
+  const userId = getCurrentUserId();
+  if (userId) {
+    cloudUpsert("rifle_profiles", toSnakeCase(profile, RIFLE_PROFILE_FIELDS), userId);
+  }
 }
 
 export function loadRifleProfiles(): RifleProfile[] {
@@ -184,6 +307,8 @@ export function loadRifleProfiles(): RifleProfile[] {
 
 export function deleteRifleProfile(id: string): void {
   deleteItem(STORAGE_KEYS.rifles, id);
+  const userId = getCurrentUserId();
+  if (userId) cloudDelete("rifle_profiles", id, userId);
 }
 
 export function getRifleProfile(id: string): RifleProfile | null {
@@ -194,6 +319,10 @@ export function getRifleProfile(id: string): RifleProfile | null {
 
 export function savePerformanceRecord(record: PerformanceRecord): void {
   upsertItem(STORAGE_KEYS.performance, record);
+  const userId = getCurrentUserId();
+  if (userId) {
+    cloudUpsert("performance_records", toSnakeCase(record, PERFORMANCE_RECORD_FIELDS), userId);
+  }
 }
 
 export function loadPerformanceRecords(): PerformanceRecord[] {
@@ -202,6 +331,8 @@ export function loadPerformanceRecords(): PerformanceRecord[] {
 
 export function deletePerformanceRecord(id: string): void {
   deleteItem(STORAGE_KEYS.performance, id);
+  const userId = getCurrentUserId();
+  if (userId) cloudDelete("performance_records", id, userId);
 }
 
 export function getPerformanceRecordsForLoad(
@@ -230,6 +361,10 @@ export function buildLoadKey(
 
 export function saveLoadCalibration(cal: LoadCalibration): void {
   upsertItem(STORAGE_KEYS.calibrations, cal);
+  const userId = getCurrentUserId();
+  if (userId) {
+    cloudUpsert("load_calibrations", toSnakeCase(cal, LOAD_CALIBRATION_FIELDS), userId);
+  }
 }
 
 export function loadCalibrations(): LoadCalibration[] {
@@ -249,4 +384,80 @@ export function getCalibrationForLoad(
 
 export function deleteLoadCalibration(id: string): void {
   deleteItem(STORAGE_KEYS.calibrations, id);
+  const userId = getCurrentUserId();
+  if (userId) cloudDelete("load_calibrations", id, userId);
+}
+
+// ─── Cloud Sync (called on sign-in) ──────────────────────────────
+
+/**
+ * Sync localStorage ↔ Supabase on sign-in.
+ * - Fetches cloud data and merges into localStorage (cloud wins on ID conflicts)
+ * - Pushes localStorage-only records to Supabase (anonymous → signed-in migration)
+ */
+export async function syncOnLogin(userId: string): Promise<void> {
+  if (!supabase) return;
+
+  await syncCollection<RifleProfile>(
+    "rifle_profiles",
+    STORAGE_KEYS.rifles,
+    RIFLE_PROFILE_FIELDS,
+    userId,
+  );
+  await syncCollection<PerformanceRecord>(
+    "performance_records",
+    STORAGE_KEYS.performance,
+    PERFORMANCE_RECORD_FIELDS,
+    userId,
+  );
+  await syncCollection<LoadCalibration>(
+    "load_calibrations",
+    STORAGE_KEYS.calibrations,
+    LOAD_CALIBRATION_FIELDS,
+    userId,
+  );
+
+  console.log("[BulletForge] Cloud sync complete");
+}
+
+async function syncCollection<T extends { id: string }>(
+  table: string,
+  localKey: string,
+  fieldMap: Record<string, string>,
+  userId: string,
+): Promise<void> {
+  if (!supabase) return;
+
+  // 1. Fetch all cloud records for this user
+  const { data: cloudRows, error } = await supabase
+    .from(table)
+    .select("*")
+    .eq("user_id", userId);
+
+  if (error) {
+    console.warn(`[BulletForge] Failed to fetch ${table} from cloud:`, error.message);
+    return;
+  }
+
+  const cloudItems = (cloudRows ?? []).map((row: Record<string, unknown>) =>
+    toCamelCase<T>(row, fieldMap),
+  );
+  const localItems = readCollection<T>(localKey);
+
+  // 2. Build merged set: cloud wins on ID conflicts
+  const mergedMap = new Map<string, T>();
+  for (const item of localItems) mergedMap.set(item.id, item);
+  for (const item of cloudItems) mergedMap.set(item.id, item); // cloud overwrites
+
+  const merged = Array.from(mergedMap.values());
+  writeCollection(localKey, merged);
+
+  // 3. Push local-only records to cloud
+  const cloudIds = new Set(cloudItems.map((i) => i.id));
+  const localOnly = localItems.filter((i) => !cloudIds.has(i.id));
+
+  for (const item of localOnly) {
+    const row = toSnakeCase(item, fieldMap);
+    cloudUpsert(table, row, userId);
+  }
 }
