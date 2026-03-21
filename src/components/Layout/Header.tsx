@@ -1,6 +1,5 @@
 import { APP_NAME, APP_SUBTITLE, APP_VERSION } from "../../lib/version.ts";
 import { HamburgerMenu } from "../Menu/HamburgerMenu.tsx";
-import { ThemedLogo } from "./ThemedLogo.tsx";
 
 export function Header() {
   return (
@@ -13,7 +12,17 @@ export function Header() {
         className="flex items-center gap-3 no-underline"
         style={{ textDecoration: "none" }}
       >
-        <ThemedLogo size={56} />
+        <div
+          className="rounded-md flex items-center justify-center font-bold text-sm shrink-0"
+          style={{
+            width: 40,
+            height: 40,
+            background: "linear-gradient(135deg, var(--c-logo-from), var(--c-logo-to))",
+            color: "#fff",
+          }}
+        >
+          BF
+        </div>
         <div>
           <div className="text-base font-bold tracking-tight" style={{ color: "var(--c-text)" }}>
             {APP_NAME}
