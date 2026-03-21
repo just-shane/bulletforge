@@ -127,42 +127,7 @@
 >
 > QuickLOAD charges $150 and looks like Windows 98. We did better.
 
-### 🔥 3.1 Pressure Curve Engine
-- [x] **Burn rate simulation** — Nobel-Abel EOS + Vieille's burn rate law, 1µs Euler integration
-- [x] **Pressure vs. barrel position** — Full curve: peak pressure, muzzle pressure, position tracking
-- [x] **SAAMI pressure limits** — Over-pressure warning at 90% SAAMI MAP with visual alerts
-- [x] **Powder charge optimizer** — `findMaxCharge()` binary search for SAAMI max charge
-- [x] **Case fill percentage** — Volume calculation from case capacity and powder density
-- [x] **Thermodynamic efficiency** — % of powder energy converted to bullet KE
-- [x] **Burn completion tracking** — Flag if powder burns completely before muzzle exit
-
-### 📏 3.2 Barrel Length Effects
-- [x] **Velocity vs. barrel length** — `velocityForBarrelLength()` multi-simulation
-- [x] **Optimal barrel length** — `findOptimalBarrelLength()` with diminishing returns threshold + SVG chart with green/yellow/red fps/inch bars
-- [ ] **Compensator/brake effects** — Backpressure modeling for muzzle devices
-  > **Deferred (v0.4.1):** Requires extending the Nobel-Abel engine with gas dynamics at the muzzle — modeling backpressure from brakes/comps needs an expansion chamber model with port geometry, baffle count, and exit cone angles. Non-trivial physics extension with limited reloading value (doesn't change load data, only dwell time). Revisit if users request it or when the engine gets a gas system model for semi-auto port pressure tuning.
-
-### 🌡️ 3.3 Temperature Sensitivity
-- [x] **Powder temp modeling** — `tempSensitivity` field on all 24 powders (fps/°F), `tempAdjustedVelocity()` function
-- [x] **Hot/cold load comparison** — `compareLoadAtTemps()` + interactive TempComparisonPanel with cold/hot sliders, side-by-side velocity/pressure/SAAMI%
-- [x] **Temp-stable powder recommendations** — Powder database has temp sensitivity ratings with color-coded assessment
-
-### 📊 3.4 Visualization & UI
-- [x] **Pressure curve chart** — SVG: pressure vs. barrel travel with SAAMI max line, peak marker, burn complete marker
-- [x] **Internal ballistics tab** — Tabbed UI: External / Internal with shared cartridge/bullet selection
-- [x] **Stats dashboard** — Predicted MV, peak pressure, SAAMI %, efficiency, fill ratio, barrel time
-- [x] **Safety disclaimer** — Contextual warning on every internal ballistics view
-- [x] **Burn rate comparison** — `comparePowders()` engine + overlay SVG chart with up to 4 powders, color-coded legend with peak pressure/MV
-- [x] **Safe load indicator** — Green/yellow/red gradient bar with position marker showing charge weight vs. SAAMI % zone
-
-### 🗄️ 3.5 Databases
-- [x] **24 powder internal profiles** — Burn rate coefficients, pressure exponents, flame temps, densities, form factors, temp sensitivity
-- [x] **15 cartridge internal profiles** — Case capacities, bore areas, freebore, shot start pressures, charge ranges
-- [x] **`buildConfig()` convenience** — Assemble full config from cartridge + powder + bullet names
-
-### 🧪 3.6 Testing
-- [x] **37 internal ballistics tests** — Database integrity, simulation fundamentals, known load validation, barrel length effects, safety features, physics sanity, temp sensitivity, burn rate comparison, optimal barrel length
-- [x] **85 total tests passing** — 28 external + 37 internal + 20 load development
+*All Phase 3 items complete. Remaining deferred item (compensator/brake modeling) moved to Phase 5.*
 
 ---
 
@@ -220,6 +185,8 @@
 - [x] **Aerodynamic jump** — `aerodynamicJump()` crosswind-induced vertical shift, shown in trajectory points
 - [ ] **Magnus effect** — Spin-induced drift in crosswind
   > **Deferred (v0.5.0):** Magnus effect is a third-order correction that requires the full 6-DOF (six degrees of freedom) projectile model — spin rate decay, yaw of repose, and dynamic stability tracking per time step. The point-mass solver can't model it accurately. Revisit if/when we upgrade to a 6-DOF engine. At typical rifle ranges (<1500 yds), Magnus is sub-MOA and masked by other uncertainties.
+- [ ] **Compensator/brake effects** — Backpressure modeling for muzzle devices *(moved from Phase 3)*
+  > **Deferred (v0.4.1):** Requires extending the Nobel-Abel engine with gas dynamics at the muzzle — modeling backpressure from brakes/comps needs an expansion chamber model with port geometry, baffle count, and exit cone angles. Non-trivial physics extension with limited reloading value (doesn't change load data, only dwell time). Revisit if users request it or when the engine gets a gas system model for semi-auto port pressure tuning.
 - [x] **Eötvös effect** — Earth rotation velocity correction integrated into Coriolis function (vertical component)
 
 ### 🏔️ 5.2 Environment
@@ -384,10 +351,10 @@
 - [ ] **Rokslide** — Western hunting forum, long-range hunting crowd
 
 ### 💰 9.2 Monetization
+- [ ] **Tip button** — Floating button (bottom corner) that expands to show: GitHub Sponsors (preferred/primary), Ko-fi, Buy Me a Coffee. Persistent but unobtrusive. GitHub Sponsors gets top placement and visual emphasis.
 - [ ] **Free tier** — Full external ballistics, basic trajectory, limited saves
 - [ ] **Pro tier ($5/mo or $40/yr)** — Internal ballistics, load logbook, unlimited saves, DOPE cards, comparison mode, custom turrets
 - [ ] **Stripe integration** — Payment processing
-- [ ] **Ko-fi / Patreon** — Donation option for those who want to support
 - [ ] **Affiliate revenue** — Midway USA, Brownells, Graf & Sons component links
 - [ ] **API access** — Pro tier includes API access for custom integrations
 
@@ -410,6 +377,12 @@
 - [x] **Data sources** — Cartridge/bullet/powder provenance, ML training corpus, chrono reference data
 - [x] **Keyboard & tips** — Print, URL sharing, comparison mode, chrono import, themes
 - [ ] **API reference** — When Phase 8 API ships, document endpoints here
+
+### 🛠️ Developer Docs
+- [ ] **Developer Docs menu item** — Add "Developer Docs" section to hamburger settings menu
+- [ ] **Architecture overview** — RK4 engine, Nobel-Abel solver, Zustand store, localStorage↔Supabase sync pattern
+- [ ] **Contributing guide** — How to add cartridges, bullets, powders to the database
+- [ ] **API integration** — How to use the BulletForge API (when Phase 8 ships)
 
 ### 🎓 Education
 - [x] **Cartridge guide** — All 15 cartridges with purpose, history, specs, and use-case tags
