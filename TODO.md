@@ -298,13 +298,13 @@
 - [x] **Trajectory verification** — Enter actual drops at distance, compare to model with predicted vs. actual delta table, color-coded accuracy
 - [x] **BC refinement** — `refineBCFromVelocity()` RK4 binary search truing from two velocity measurements (BCTruingCalculator UI)
   > *Cherry-picked in v0.5.1 — pure math engine function + self-contained UI calculator*
-- [ ] **Environmental correlation** — Track how temp/altitude affect your specific load
+- [x] **Environmental correlation** — Temperature band analysis (Cold/Cool/Mild/Warm/Hot) with avg velocity and SD per band, altitude comparison with velocity delta, velocity shift summary
 
 ### 🧠 7.3 Personal Calibration
 - [x] **BC correction factor** — Auto-calculate true BC from chrono data via `refineBCFromVelocity()`, stored on LoadCalibration profile
 - [x] **Load-specific profiles** — Each load recipe gets its own LoadCalibration (true BC, avg MV, SD history, session count, verification points)
 - [ ] **Confidence scoring** — `± X fps` uncertainty band that tightens with data
-- [ ] **Seasonal tracking** — How does this load perform summer vs. winter?
+- [x] **Seasonal tracking** — Color-coded seasonal velocity bars (Winter/Spring/Summer/Fall), SD per season, total seasonal spread with powder stability assessment
 
 ### 🌐 7.4 Community Learning *(requires backend)*
 - [ ] **Anonymous aggregation** — Opt-in upload of load data + chrono results
