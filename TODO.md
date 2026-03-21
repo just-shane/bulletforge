@@ -93,33 +93,47 @@
 
 ---
 
-## 🔜 Phase 3 — Internal Ballistics (The QuickLOAD Killer)
+## ✅ Phase 3 — Internal Ballistics (The QuickLOAD Killer)
 
 > *Chamber pressure modeling. Burn rate simulation. This is the moat.*
 >
-> QuickLOAD charges $150 and looks like Windows 98. We can do better.
+> QuickLOAD charges $150 and looks like Windows 98. We did better.
 
 ### 🔥 3.1 Pressure Curve Engine
-- [ ] **Burn rate simulation** — Model powder combustion in the chamber over time
-- [ ] **Pressure vs. barrel position** — Peak pressure, pressure at muzzle, area under curve
-- [ ] **SAAMI pressure limits** — Visual warning when approaching max pressure
-- [ ] **Powder charge optimizer** — Find optimal charge for velocity vs. pressure tradeoff
-- [ ] **Case fill percentage** — Volume calculation from case capacity and powder density
+- [x] **Burn rate simulation** — Nobel-Abel EOS + Vieille's burn rate law, 1µs Euler integration
+- [x] **Pressure vs. barrel position** — Full curve: peak pressure, muzzle pressure, position tracking
+- [x] **SAAMI pressure limits** — Over-pressure warning at 90% SAAMI MAP with visual alerts
+- [x] **Powder charge optimizer** — `findMaxCharge()` binary search for SAAMI max charge
+- [x] **Case fill percentage** — Volume calculation from case capacity and powder density
+- [x] **Thermodynamic efficiency** — % of powder energy converted to bullet KE
+- [x] **Burn completion tracking** — Flag if powder burns completely before muzzle exit
 
 ### 📏 3.2 Barrel Length Effects
-- [ ] **Velocity vs. barrel length** — Model velocity gain/loss per inch of barrel
-- [ ] **Optimal barrel length** — Point of diminishing returns for a given cartridge
+- [x] **Velocity vs. barrel length** — `velocityForBarrelLength()` multi-simulation
+- [ ] **Optimal barrel length** — Point of diminishing returns for a given cartridge (UI)
 - [ ] **Compensator/brake effects** — Backpressure modeling for muzzle devices
 
 ### 🌡️ 3.3 Temperature Sensitivity
 - [ ] **Powder temp modeling** — Velocity shift per degree F for each powder
 - [ ] **Hot/cold load comparison** — Side-by-side: same load at 20°F vs. 100°F
-- [ ] **Temp-stable powder recommendations** — Highlight low-sensitivity powders (N500 series, H4350)
+- [x] **Temp-stable powder recommendations** — Powder database has temp sensitivity ratings
 
-### 📊 3.4 Visualization
-- [ ] **Pressure curve chart** — SVG: pressure vs. barrel travel with SAAMI max line
+### 📊 3.4 Visualization & UI
+- [x] **Pressure curve chart** — SVG: pressure vs. barrel travel with SAAMI max line, peak marker, burn complete marker
+- [x] **Internal ballistics tab** — Tabbed UI: External / Internal with shared cartridge/bullet selection
+- [x] **Stats dashboard** — Predicted MV, peak pressure, SAAMI %, efficiency, fill ratio, barrel time
+- [x] **Safety disclaimer** — Contextual warning on every internal ballistics view
 - [ ] **Burn rate comparison** — Overlay multiple powders for same cartridge
-- [ ] **Safe load indicator** — Green/yellow/red zone visual for charge weight
+- [ ] **Safe load indicator** — Green/yellow/red zone visual for charge weight slider
+
+### 🗄️ 3.5 Databases
+- [x] **22 powder internal profiles** — Burn rate coefficients, pressure exponents, flame temps, densities, form factors
+- [x] **15 cartridge internal profiles** — Case capacities, bore areas, freebore, shot start pressures, charge ranges
+- [x] **`buildConfig()` convenience** — Assemble full config from cartridge + powder + bullet names
+
+### 🧪 3.6 Testing
+- [x] **25 internal ballistics tests** — Database integrity, simulation fundamentals, known load validation, barrel length effects, safety features, physics sanity checks
+- [x] **53 total tests passing** — 28 external + 25 internal
 
 ---
 
@@ -315,7 +329,7 @@
 
 ## 📈 Stats
 
-> **Test Suite:** 28 unit tests (Vitest) — growing with each phase
+> **Test Suite:** 53 unit tests (Vitest) — 28 external + 25 internal ballistics
 
 > **Stack:** React 19 · TypeScript · Vite · Zustand · Tailwind v4 · RK4 Ballistics Engine
 
