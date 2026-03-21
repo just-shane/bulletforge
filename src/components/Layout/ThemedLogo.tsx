@@ -19,6 +19,8 @@ export function ThemedLogo({ size = 40 }: { size?: number }) {
         if (cancelled) return;
         // Strip the embedded c2pa metadata (huge, not needed for display)
         let cleaned = raw.replace(/<metadata>[\s\S]*?<\/metadata>/, "");
+        // Strip the embedded background image (base64 JPEG, ~340KB)
+        cleaned = cleaned.replace(/<image[^>]*\/>/g, "");
         // Replace hardcoded fills with CSS custom properties
         cleaned = cleaned.replace(/fill="#e8872a"/gi, 'fill="var(--c-accent)"');
         cleaned = cleaned.replace(/fill="#a6a6a6"/gi, 'fill="var(--c-text-dim)"');

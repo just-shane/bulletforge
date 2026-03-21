@@ -13,7 +13,7 @@ export function Header() {
         className="flex items-center gap-3 no-underline"
         style={{ textDecoration: "none" }}
       >
-        <ThemedLogo size={44} />
+        <ThemedLogo size={56} />
         <div>
           <div className="text-base font-bold tracking-tight" style={{ color: "var(--c-text)" }}>
             {APP_NAME}
