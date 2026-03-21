@@ -273,7 +273,7 @@
   > *Completed in v0.6.0 — editable scenario labels, altitude, temperature per card*
 - [x] **Arm band format** — ArmBandDOPE compact strip for PRS/NRL competition (200px wide, 50-yard increments, 10mph wind holds)
   > *Completed in v0.6.0 — printable wrist card format with date stamp*
-- [ ] **QR code cards** — Scan to load exact setup in BulletForge
+- [x] **QR code cards** — QR codes on DOPE cards and Arm Band cards encode the exact BulletForge share URL, scannable to load the full config
 
 ---
 
@@ -303,7 +303,7 @@
 ### 🧠 7.3 Personal Calibration
 - [x] **BC correction factor** — Auto-calculate true BC from chrono data via `refineBCFromVelocity()`, stored on LoadCalibration profile
 - [x] **Load-specific profiles** — Each load recipe gets its own LoadCalibration (true BC, avg MV, SD history, session count, verification points)
-- [ ] **Confidence scoring** — `± X fps` uncertainty band that tightens with data
+- [x] **Confidence scoring** — `± X fps` 95% CI uncertainty band that tightens with data, confidence score (0-100), level rating, pooled SD, progress bar in Load Calibration dashboard
 - [x] **Seasonal tracking** — Color-coded seasonal velocity bars (Winter/Spring/Summer/Fall), SD per season, total seasonal spread with powder stability assessment
 
 ### 🌐 7.4 Community Learning *(requires backend)*
@@ -420,7 +420,7 @@
 
 ## 📈 Stats
 
-> **Test Suite:** 111 unit tests (Vitest) — 54 external + 37 internal ballistics + 20 load development
+> **Test Suite:** 194 unit tests (Vitest) — 54 external + 37 internal ballistics + 20 load development + 30 powders + 35 storage + 18 confidence
 
 > **Stack:** React 19 · TypeScript · Vite · Zustand · Tailwind v4 · RK4 Ballistics Engine
 

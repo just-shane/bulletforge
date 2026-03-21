@@ -1,32 +1,66 @@
+import { useMemo } from "react";
 import type { TrajectoryPoint } from "../../lib/ballistics.ts";
+import { buildShareURL } from "./ShareExport.tsx";
+import { generateQRSvg } from "../../lib/qr.ts";
 
 interface DOPECardProps {
   points: TrajectoryPoint[];
   cartridgeName: string;
   bulletName: string;
+  bulletManufacturer?: string;
   muzzleVelocity: number;
+  sightHeight?: number;
   zeroRange: number;
   windSpeed: number;
   windAngle: number;
+  shootingAngle?: number;
   altitude: number;
   temperature: number;
+  barometricPressure?: number;
+  humidity?: number;
 }
 
 export function DOPECard({
   points,
   cartridgeName,
   bulletName,
+  bulletManufacturer = "",
   muzzleVelocity,
+  sightHeight = 1.5,
   zeroRange,
   windSpeed,
   windAngle,
+  shootingAngle = 0,
   altitude,
   temperature,
+  barometricPressure = 29.92,
+  humidity = 50,
 }: DOPECardProps) {
   // Filter to key distances: every 100 yards from 100 to 1200 (or max range)
   const keyDistances = new Set<number>();
   for (let r = 100; r <= 1200; r += 100) keyDistances.add(r);
   const filtered = points.filter((p) => keyDistances.has(p.range));
+
+  // Generate QR code for this exact setup
+  const qrSvg = useMemo(() => {
+    try {
+      const base = typeof window !== "undefined"
+        ? window.location.origin + window.location.pathname
+        : "https://bulletforge.io";
+      const url = buildShareURL(base, {
+        cartridge: { shortName: cartridgeName },
+        bullet: { name: bulletName, manufacturer: bulletManufacturer },
+        muzzleVelocity, sightHeight, zeroRange,
+        windSpeed, windAngle, shootingAngle,
+        altitude, temperature, barometricPressure, humidity,
+      });
+      return generateQRSvg(url, 3, 2);
+    } catch {
+      return null;
+    }
+  }, [cartridgeName, bulletName, bulletManufacturer, muzzleVelocity, sightHeight,
+      zeroRange, windSpeed, windAngle, shootingAngle, altitude, temperature,
+      barometricPressure, humidity]);
 
   return (
     <div
@@ -181,6 +215,24 @@ export function DOPECard({
       {filtered.length === 0 && (
         <div className="px-4 py-6 text-center text-[11px] font-mono" style={{ color: "var(--c-text-dim)" }}>
           No data at 100-yard increments
+        </div>
+      )}
+
+      {/* QR Code — scan to load this exact setup */}
+      {qrSvg && (
+        <div
+          className="flex items-center gap-3 px-4 py-3"
+          style={{ borderTop: "1px solid var(--c-border)" }}
+        >
+          <div
+            dangerouslySetInnerHTML={{ __html: qrSvg }}
+            style={{ width: 64, height: 64, flexShrink: 0 }}
+          />
+          <div className="text-[8px] font-mono leading-relaxed" style={{ color: "var(--c-text-dim)" }}>
+            Scan to load this exact configuration in BulletForge.
+            <br />
+            <span style={{ color: "var(--c-text-faint)" }}>bulletforge.io</span>
+          </div>
         </div>
       )}
     </div>
