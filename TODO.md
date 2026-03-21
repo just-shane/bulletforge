@@ -18,15 +18,16 @@
 | **v0.4.1** | Phase 3 cleanup | Barrel length optimizer, burn rate comparison chart, temp sensitivity modeling, hot/cold comparison panel, safe load indicator, 85 tests |
 | **v0.5.0** | Phase 5 | Coriolis/Eötvös, aerodynamic jump, density altitude, station-to-absolute pressure, comparison mode with overlay chart + delta table, latitude/azimuth controls, 102 tests |
 | **v0.5.1** | Cherry-pick | Miller stability factor, BC truing calculator, DOPE card generator, stability panel UI — low-hanging fruit from Phases 6 & 7, 111 tests |
-| **v0.5.2** | Polish | 6-theme system (4 dark + 2 light) with hamburger settings menu, CSS variable theming, per-theme slider styling, Docs & Education stubs |
+| **v0.5.2** | Polish | 6-theme system (Gunmetal, Precision Optic, Range Day, Mil-Spec + Benchrest, Parchment) with hamburger settings menu, CSS variable theming, per-theme slider styling, Docs & Education stubs |
 | **v0.6.0** | Batch A | Steep angle warnings, ogive profiles on all bullets, multi-zero DOPE cards, arm band DOPE format, shooting angle slider |
 | **v0.7.0** | Batch B | Scope profile system, turret matching, BDC reticle overlay, custom turret dial builder, FFP/SFP holdover correction |
 | **v0.8.0** | Batch C | Rifle profiles (localStorage), performance tracking (ES/SD trends), shareable URLs, export/print, localStorage persistence layer |
 | **v0.9.0** | Phase 7 | Chrono data import (LabRadar/MagnetoSpeed CSV), seed reference data (Ammolytics), barrel length validation, predicted vs. measured comparison |
 | **v0.9.1** | Phase 8.6 | ML training data ingestion pipeline — GRT XML parser, 115-record normalized corpus (48 projectiles, 12 powders, 48 calibers, 7 loads), typed query utilities |
 | **v0.9.2** | Docs & Education | Full Docs panel (4 sections), Education panel (cartridge guide, safari guide, ballistics 101, reloading safety), Glossary (53 terms, 7 categories, search + filter) |
+| **v0.9.3** | Pre-launch polish | TODO audit & accuracy pass, fixed stale theme names, updated build size claim (165KB gzipped), visual/UX audit across all tabs + 6 themes + mobile, verified data completeness (60 bullets, 24 powders, 15 cartridges), error handling & edge case testing |
 
-> **Current:** `v0.9.2` — defined in `src/lib/version.ts`
+> **Current:** `v0.9.3` — defined in `src/lib/version.ts`
 > **Versioning:** Major phases bump minor version. Patches for bugfixes.
 
 ---
@@ -79,7 +80,7 @@
 
 ### 🧪 1.5 Testing & Build
 - [x] **28 unit tests** — KE, momentum, drag interpolation, air density, trajectory accuracy, wind, altitude effects
-- [x] **Production build** — 99KB gzipped, Vite + React 19 + TypeScript
+- [x] **Production build** — ~165KB gzipped (grew from initial 99KB as features expanded), Vite + React 19 + TypeScript
 - [x] **Sentry + Plausible** — Wired up (needs production DSN/account)
 
 ---
