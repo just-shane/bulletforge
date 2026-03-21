@@ -230,3 +230,116 @@ export function powdersByBurnRate(): Powder[] {
 export function powdersByManufacturer(manufacturer: string): Powder[] {
   return POWDERS.filter((p) => p.manufacturer === manufacturer);
 }
+
+// ─── Component Substitution ────────────────────────────────────
+
+export interface PowderSubstitution {
+  powder: Powder;
+  /** Overall similarity score (0-100, higher is better) */
+  score: number;
+  /** Burn rate proximity score (0-100) */
+  burnRateScore: number;
+  /** Temperature sensitivity match score (0-100) */
+  tempScore: number;
+  /** Burn rate difference (absolute) */
+  burnRateDelta: number;
+  /** Human-readable assessment */
+  assessment: string;
+}
+
+/**
+ * Find similar powders that could substitute for the given powder.
+ * Scores by burn rate proximity (70%) and temperature sensitivity match (30%).
+ * Returns up to `limit` results sorted by score, excluding the input powder.
+ */
+export function findSimilarPowders(
+  currentPowder: string,
+  limit: number = 5,
+): PowderSubstitution[] {
+  const current = POWDERS.find((p) => p.name === currentPowder);
+  if (!current) return [];
+
+  const tempMap: Record<TemperatureSensitivity, number> = {
+    low: 0,
+    medium: 1,
+    high: 2,
+  };
+
+  return POWDERS
+    .filter((p) => p.name !== currentPowder && p.type === current.type)
+    .map((p) => {
+      // Burn rate proximity: perfect match = 100, 30+ difference = 0
+      const burnRateDelta = Math.abs(p.burnRate - current.burnRate);
+      const burnRateScore = Math.max(0, 100 - (burnRateDelta / 30) * 100);
+
+      // Temperature sensitivity: same = 100, 1 step off = 50, 2 steps = 0
+      const tempDelta = Math.abs(tempMap[p.temperatureSensitivity] - tempMap[current.temperatureSensitivity]);
+      const tempScore = tempDelta === 0 ? 100 : tempDelta === 1 ? 50 : 0;
+
+      // Weighted: 70% burn rate, 30% temp sensitivity
+      const score = Math.round(burnRateScore * 0.7 + tempScore * 0.3);
+
+      // Assessment
+      let assessment: string;
+      if (score >= 85) assessment = "Excellent substitute — very similar burn rate and characteristics";
+      else if (score >= 65) assessment = "Good substitute — close burn rate, may need minor charge adjustment";
+      else if (score >= 45) assessment = "Possible substitute — noticeable burn rate difference, work up carefully";
+      else assessment = "Poor match — significant differences, treat as a new load development";
+
+      return { powder: p, score, burnRateScore: Math.round(burnRateScore), tempScore, burnRateDelta, assessment };
+    })
+    .filter((s) => s.score >= 30)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit);
+}
+
+// ─── Barrel Life Estimation ────────────────────────────────────
+
+/**
+ * Empirical barrel life estimates based on cartridge characteristics.
+ * Uses overbore ratio (case capacity / bore area) and cartridge category.
+ * These are conservative estimates for match-grade accuracy standards.
+ *
+ * Reference data from competitive shooters and barrel makers (Krieger, Bartlein).
+ */
+const BARREL_LIFE_TABLE: Record<string, number> = {
+  ".22 LR":        50000,   // Rimfire, minimal throat erosion
+  ".223 Rem":       5000,   // Moderate overbore, fast powders
+  "6mm ARC":        3000,   // High-performance 6mm, fast erosion
+  ".243 Win":       3000,   // Hot 6mm, notorious barrel burner
+  "6.5 CM":         3000,   // Moderate overbore, good barrel life
+  "6.5 PRC":        2000,   // Short-action magnum, more powder
+  ".270 Win":       3000,   // Classic, moderate barrel life
+  "7mm Rem Mag":    2000,   // Magnum, heavier erosion
+  ".308 Win":       5000,   // Efficient case, excellent barrel life
+  ".30-06":         4000,   // Classic, good barrel life
+  ".300 Win Mag":   2000,   // Hot .30 cal magnum
+  ".300 PRC":       1500,   // Very hot .30 cal
+  ".338 Lapua":     2500,   // Large bore, moderate overbore
+  ".375 H&H":      3000,   // Large bore, efficient case
+  ".50 BMG":        5000,   // Massive bore, thick barrel
+};
+
+/**
+ * Estimate barrel life for a given cartridge.
+ * Returns estimated round count for match-grade accuracy (sub-MOA).
+ * Hunting accuracy (1.5 MOA) typically lasts 50-100% longer.
+ */
+export function estimateBarrelLife(cartridgeShortName: string): number {
+  return BARREL_LIFE_TABLE[cartridgeShortName] ?? 3000;
+}
+
+/**
+ * Get barrel condition assessment based on round count vs estimated life.
+ */
+export function barrelCondition(
+  roundCount: number,
+  estimatedLife: number,
+): { percent: number; rating: string; color: string } {
+  const percent = Math.round((roundCount / estimatedLife) * 100);
+  if (percent < 50) return { percent, rating: "New", color: "var(--c-success)" };
+  if (percent < 75) return { percent, rating: "Good", color: "var(--c-success)" };
+  if (percent < 90) return { percent, rating: "Worn", color: "var(--c-warn)" };
+  if (percent < 100) return { percent, rating: "End of life", color: "var(--c-error, #e55)" };
+  return { percent, rating: "Past life", color: "var(--c-error, #e55)" };
+}
