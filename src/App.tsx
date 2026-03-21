@@ -236,6 +236,20 @@ export default function App() {
             style={{ borderRight: "1px solid var(--c-border)" }}
           >
             <div className="p-5">
+              {/* Rifle Profiles — top of panel */}
+              {activeTab === "external" && (
+                <div className="mb-4 pb-4" style={{ borderBottom: "1px solid var(--c-border)" }}>
+                  <RifleProfileManager />
+                </div>
+              )}
+
+              {/* Optics / Scope config */}
+              {activeTab === "external" && (
+                <div className="mb-4 pb-4" style={{ borderBottom: "1px solid var(--c-border)" }}>
+                  <ScopeConfig />
+                </div>
+              )}
+
               <ControlPanel />
 
               {activeTab === "external" && (
@@ -289,22 +303,6 @@ export default function App() {
                         onChange={(e) => setAzimuth(Number(e.target.value))}
                         className="w-full"
                       />
-                    </div>
-
-                    {/* Optics / Scope config */}
-                    <div
-                      className="mt-4 pt-4 mb-4"
-                      style={{ borderTop: "1px solid var(--c-border)" }}
-                    >
-                      <ScopeConfig />
-                    </div>
-
-                    {/* Rifle Profiles */}
-                    <div
-                      className="mt-4 pt-4 mb-4"
-                      style={{ borderTop: "1px solid var(--c-border)" }}
-                    >
-                      <RifleProfileManager />
                     </div>
 
                     {/* Comparison button */}

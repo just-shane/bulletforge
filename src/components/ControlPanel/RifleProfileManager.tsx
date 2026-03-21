@@ -10,6 +10,35 @@ import {
 import { CARTRIDGES } from "../../lib/cartridges.ts";
 import { bulletsByCaliber } from "../../lib/bullets.ts";
 
+// ---------- Factory presets ----------
+interface RiflePreset {
+  name: string;
+  cartridgeShortName: string;
+  bulletName: string;
+  bulletManufacturer: string;
+  muzzleVelocity: number;
+  sightHeight: number;
+  zeroRange: number;
+  barrelLength: number;
+  twistRate: number;
+  twistDirection: "right" | "left";
+}
+
+const RIFLE_PRESETS: RiflePreset[] = [
+  {
+    name: "Montana Rifle Co. X3 — 6.5 CM",
+    cartridgeShortName: "6.5 CM",
+    bulletName: "140gr ELD-M",
+    bulletManufacturer: "Hornady",
+    muzzleVelocity: 2710,
+    sightHeight: 1.5,
+    zeroRange: 100,
+    barrelLength: 24,
+    twistRate: 8,
+    twistDirection: "right",
+  },
+];
+
 export function RifleProfileManager() {
   const [expanded, setExpanded] = useState(false);
   const [profiles, setProfiles] = useState<RifleProfile[]>([]);
@@ -141,6 +170,31 @@ export function RifleProfileManager() {
     }
   }
 
+  function handleLoadPreset(index: number) {
+    if (index < 0 || index >= RIFLE_PRESETS.length) return;
+    const preset = RIFLE_PRESETS[index];
+
+    const matchedCartridge = CARTRIDGES.find(
+      (c) => c.shortName === preset.cartridgeShortName
+    );
+    if (matchedCartridge) {
+      setCartridge(matchedCartridge);
+      const bullets = bulletsByCaliber(matchedCartridge.bulletDiameter);
+      const matchedBullet = bullets.find(
+        (b) =>
+          b.name === preset.bulletName &&
+          b.manufacturer === preset.bulletManufacturer
+      );
+      if (matchedBullet) setBullet(matchedBullet);
+    }
+
+    setVelocity(preset.muzzleVelocity);
+    setSightHeight(preset.sightHeight);
+    setZero(preset.zeroRange);
+    setBarrelLength(preset.barrelLength);
+    setSelectedId("");
+  }
+
   function handleNameKeyDown(e: React.KeyboardEvent) {
     if (e.key === "Enter") {
       handleSave();
@@ -171,13 +225,7 @@ export function RifleProfileManager() {
   };
 
   return (
-    <div
-      style={{
-        borderTop: "1px solid var(--c-border)",
-        paddingTop: "12px",
-        marginTop: "16px",
-      }}
-    >
+    <div>
       {/* Header / toggle */}
       <button
         onClick={() => setExpanded(!expanded)}
@@ -216,8 +264,33 @@ export function RifleProfileManager() {
 
       {expanded && (
         <div className="mt-2">
-          {/* Profile dropdown */}
+          {/* Factory presets */}
           <div className="mb-2">
+            <div className="text-[9px] font-mono mb-0.5" style={{ color: "var(--c-text-muted)" }}>
+              Factory Preset
+            </div>
+            <select
+              defaultValue={-1}
+              onChange={(e) => handleLoadPreset(Number(e.target.value))}
+              className="w-full rounded text-[10px] font-mono px-2 py-1 cursor-pointer"
+              style={{
+                background: "var(--c-surface, var(--c-panel))",
+                border: "1px solid var(--c-border)",
+                color: "var(--c-text)",
+              }}
+            >
+              <option value={-1}>Select a rifle...</option>
+              {RIFLE_PRESETS.map((p, i) => (
+                <option key={i} value={i}>{p.name}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* User saved profiles */}
+          <div className="mb-2">
+            <div className="text-[9px] font-mono mb-0.5" style={{ color: "var(--c-text-muted)" }}>
+              Saved Profile
+            </div>
             <select
               value={selectedId}
               onChange={(e) => handleLoad(e.target.value)}
