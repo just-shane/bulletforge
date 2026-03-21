@@ -243,3 +243,6 @@ function PowderSubstitutionPanel({
     </div>
   );
 }
+
+
+export default InternalBallisticsPanel;

@@ -203,3 +203,6 @@ export function BurnRateComparisonChart({
     </div>
   );
 }
+
+
+export default BurnRateComparisonChart;

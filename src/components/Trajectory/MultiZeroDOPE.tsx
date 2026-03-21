@@ -291,3 +291,6 @@ export function MultiZeroDOPE() {
     </div>
   );
 }
+
+
+export default MultiZeroDOPE;

@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, lazy, Suspense } from "react";
 import { useBallisticsStore } from "./store/store.ts";
 import { trajectory, kineticEnergy, densityAltitude } from "./lib/ballistics.ts";
 import type { TrajectoryConfig } from "./lib/ballistics.ts";
@@ -7,39 +7,47 @@ import { onAuthStateChange } from "./lib/supabase.ts";
 import { syncOnLogin } from "./lib/storage.ts";
 import { ThemeProvider } from "./components/Layout/ThemeProvider.tsx";
 import { Header } from "./components/Layout/Header.tsx";
-import { AuthModal } from "./components/Auth/AuthModal.tsx";
 import { StatsBar } from "./components/StatsBar/StatsBar.tsx";
 import { ControlPanel } from "./components/ControlPanel/ControlPanel.tsx";
 import { TrajectoryChart } from "./components/Trajectory/TrajectoryChart.tsx";
 import { TrajectoryTable } from "./components/Trajectory/TrajectoryTable.tsx";
-import { InternalBallisticsPanel } from "./components/InternalBallistics/InternalBallisticsPanel.tsx";
-import { InternalBallisticsStats } from "./components/InternalBallistics/InternalBallisticsStats.tsx";
-import { PressureCurveChart } from "./components/InternalBallistics/PressureCurveChart.tsx";
-import { BarrelLengthChart } from "./components/InternalBallistics/BarrelLengthChart.tsx";
-import { BurnRateComparisonChart } from "./components/InternalBallistics/BurnRateComparisonChart.tsx";
-import { TempComparisonPanel } from "./components/InternalBallistics/TempComparisonPanel.tsx";
-import { SafeLoadIndicator } from "./components/InternalBallistics/SafeLoadIndicator.tsx";
 import { ComparisonChart } from "./components/Trajectory/ComparisonChart.tsx";
 import { ComparisonTable } from "./components/Trajectory/ComparisonTable.tsx";
 import { DOPECard } from "./components/Trajectory/DOPECard.tsx";
 import { StabilityPanel } from "./components/Trajectory/StabilityPanel.tsx";
-import { BCTruingCalculator } from "./components/Trajectory/BCTruingCalculator.tsx";
-import { MultiZeroDOPE } from "./components/Trajectory/MultiZeroDOPE.tsx";
-import { ArmBandDOPE } from "./components/Trajectory/ArmBandDOPE.tsx";
-import { LoadDevelopmentTab } from "./components/LoadDevelopment/LoadDevelopmentTab.tsx";
+import { ShareExport } from "./components/Trajectory/ShareExport.tsx";
+import { parseShareURL } from "./lib/share.ts";
 import { ScopeConfig } from "./components/ControlPanel/ScopeConfig.tsx";
 import { RifleProfileManager } from "./components/ControlPanel/RifleProfileManager.tsx";
 import { TurretMatchTable } from "./components/Trajectory/TurretMatchTable.tsx";
-import { BDCOverlay } from "./components/Trajectory/BDCOverlay.tsx";
-import { CustomTurretDial } from "./components/Trajectory/CustomTurretDial.tsx";
-import { ShareExport } from "./components/Trajectory/ShareExport.tsx";
-import { parseShareURL } from "./lib/share.ts";
-import { ChronoImport } from "./components/Trajectory/ChronoImport.tsx";
 import { CARTRIDGES } from "./lib/cartridges.ts";
 import { bulletsByCaliber } from "./lib/bullets.ts";
-import { DocsPanel } from "./components/Education/DocsPanel.tsx";
-import { EducationPanel } from "./components/Education/EducationPanel.tsx";
-import { GlossaryPanel } from "./components/Education/GlossaryPanel.tsx";
+
+// Lazy-loaded: Internal Ballistics tab
+const InternalBallisticsPanel = lazy(() => import("./components/InternalBallistics/InternalBallisticsPanel.tsx"));
+const InternalBallisticsStats = lazy(() => import("./components/InternalBallistics/InternalBallisticsStats.tsx"));
+const PressureCurveChart = lazy(() => import("./components/InternalBallistics/PressureCurveChart.tsx"));
+const BarrelLengthChart = lazy(() => import("./components/InternalBallistics/BarrelLengthChart.tsx"));
+const BurnRateComparisonChart = lazy(() => import("./components/InternalBallistics/BurnRateComparisonChart.tsx"));
+const TempComparisonPanel = lazy(() => import("./components/InternalBallistics/TempComparisonPanel.tsx"));
+const SafeLoadIndicator = lazy(() => import("./components/InternalBallistics/SafeLoadIndicator.tsx"));
+
+// Lazy-loaded: Load Development tab
+const LoadDevelopmentTab = lazy(() => import("./components/LoadDevelopment/LoadDevelopmentTab.tsx"));
+
+// Lazy-loaded: External tab below-the-fold
+const BCTruingCalculator = lazy(() => import("./components/Trajectory/BCTruingCalculator.tsx"));
+const ChronoImport = lazy(() => import("./components/Trajectory/ChronoImport.tsx"));
+const MultiZeroDOPE = lazy(() => import("./components/Trajectory/MultiZeroDOPE.tsx"));
+const ArmBandDOPE = lazy(() => import("./components/Trajectory/ArmBandDOPE.tsx"));
+const CustomTurretDial = lazy(() => import("./components/Trajectory/CustomTurretDial.tsx"));
+const BDCOverlay = lazy(() => import("./components/Trajectory/BDCOverlay.tsx"));
+
+// Lazy-loaded: Modals (opened on demand)
+const AuthModal = lazy(() => import("./components/Auth/AuthModal.tsx"));
+const DocsPanel = lazy(() => import("./components/Education/DocsPanel.tsx"));
+const EducationPanel = lazy(() => import("./components/Education/EducationPanel.tsx"));
+const GlossaryPanel = lazy(() => import("./components/Education/GlossaryPanel.tsx"));
 
 export default function App() {
   const cartridge = useBallisticsStore((s) => s.cartridge);
@@ -365,6 +373,7 @@ export default function App() {
 
           {/* Right Panel: Visualizations */}
           <div className="flex-1 p-5 min-w-0 overflow-y-auto max-h-[calc(100vh-105px)]">
+            <Suspense fallback={<div className="flex items-center justify-center h-64 font-mono text-sm" style={{ color: "var(--c-text-faint)" }}>Loading...</div>}>
             {activeTab === "loaddev" ? (
                 <LoadDevelopmentTab />
             ) : activeTab === "external" ? (
@@ -593,6 +602,7 @@ export default function App() {
                 )}
               </>
             )}
+            </Suspense>
           </div>
         </main>
 
@@ -621,10 +631,12 @@ export default function App() {
       </div>
 
       {/* Modal panels */}
-      <AuthModal />
-      <DocsPanel />
-      <EducationPanel />
-      <GlossaryPanel />
+      <Suspense fallback={null}>
+        <AuthModal />
+        <DocsPanel />
+        <EducationPanel />
+        <GlossaryPanel />
+      </Suspense>
     </ThemeProvider>
   );
 }

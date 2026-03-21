@@ -88,3 +88,6 @@ export function SafeLoadIndicator({
     </div>
   );
 }
+
+
+export default SafeLoadIndicator;

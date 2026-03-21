@@ -232,3 +232,6 @@ export function PressureCurveChart({
     </div>
   );
 }
+
+
+export default PressureCurveChart;

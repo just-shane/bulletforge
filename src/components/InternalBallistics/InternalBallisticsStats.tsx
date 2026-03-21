@@ -128,3 +128,6 @@ export function InternalBallisticsStats({ result, saamiMaxPressure }: InternalBa
     </div>
   );
 }
+
+
+export default InternalBallisticsStats;

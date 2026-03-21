@@ -253,3 +253,6 @@ export function AuthModal() {
     </div>
   );
 }
+
+
+export default AuthModal;

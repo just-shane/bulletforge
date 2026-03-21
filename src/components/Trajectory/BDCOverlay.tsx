@@ -275,3 +275,6 @@ export function BDCOverlay() {
     </div>
   );
 }
+
+
+export default BDCOverlay;
