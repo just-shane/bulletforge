@@ -19,6 +19,7 @@ import { ShareExport } from "./components/Trajectory/ShareExport.tsx";
 import { parseShareURL } from "./lib/share.ts";
 import { ScopeConfig } from "./components/ControlPanel/ScopeConfig.tsx";
 import { RifleProfileManager } from "./components/ControlPanel/RifleProfileManager.tsx";
+import { TipButton } from "./components/Layout/TipButton.tsx";
 import { TurretMatchTable } from "./components/Trajectory/TurretMatchTable.tsx";
 import { CARTRIDGES } from "./lib/cartridges.ts";
 import { bulletsByCaliber } from "./lib/bullets.ts";
@@ -629,6 +630,8 @@ export default function App() {
           </a>
         </footer>
       </div>
+
+      <TipButton />
 
       {/* Modal panels */}
       <Suspense fallback={null}>

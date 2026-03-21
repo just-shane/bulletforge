@@ -262,6 +262,25 @@ export function HamburgerMenu() {
                 50+ terms
               </span>
             </button>
+
+            <a
+              href="https://github.com/just-shane/bulletforge"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMenuOpen(false)}
+              className="flex items-center gap-2 px-2.5 py-2 rounded-md text-left cursor-pointer transition-all w-full no-underline"
+              style={{
+                background: "var(--c-surface)",
+                border: "1px solid var(--c-border)",
+              }}
+            >
+              <span className="text-[11px]" style={{ color: "var(--c-text)" }}>
+                Developer Docs
+              </span>
+              <span className="text-[9px] ml-auto" style={{ color: "var(--c-text-faint)" }}>
+                GitHub
+              </span>
+            </a>
           </div>
 
           {/* Footer */}
