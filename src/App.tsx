@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { useBallisticsStore } from "./store/store.ts";
-import { trajectory, kineticEnergy } from "./lib/ballistics.ts";
+import { trajectory, kineticEnergy, densityAltitude } from "./lib/ballistics.ts";
 import type { TrajectoryConfig } from "./lib/ballistics.ts";
 import { buildConfig, simulateInternal, CARTRIDGE_INTERNAL_DATA } from "./lib/internal-ballistics.ts";
 import { Header } from "./components/Layout/Header.tsx";
@@ -15,6 +15,11 @@ import { BarrelLengthChart } from "./components/InternalBallistics/BarrelLengthC
 import { BurnRateComparisonChart } from "./components/InternalBallistics/BurnRateComparisonChart.tsx";
 import { TempComparisonPanel } from "./components/InternalBallistics/TempComparisonPanel.tsx";
 import { SafeLoadIndicator } from "./components/InternalBallistics/SafeLoadIndicator.tsx";
+import { ComparisonChart } from "./components/Trajectory/ComparisonChart.tsx";
+import { ComparisonTable } from "./components/Trajectory/ComparisonTable.tsx";
+import { DOPECard } from "./components/Trajectory/DOPECard.tsx";
+import { StabilityPanel } from "./components/Trajectory/StabilityPanel.tsx";
+import { BCTruingCalculator } from "./components/Trajectory/BCTruingCalculator.tsx";
 import { LoadDevelopmentTab } from "./components/LoadDevelopment/LoadDevelopmentTab.tsx";
 
 export default function App() {
@@ -34,6 +39,19 @@ export default function App() {
   const maxOrdinate = useBallisticsStore((s) => s.maxOrdinate);
   const transonicRange = useBallisticsStore((s) => s.transonicRange);
   const setTrajectoryResults = useBallisticsStore((s) => s.setTrajectoryResults);
+
+  // Comparison mode
+  const comparisonEnabled = useBallisticsStore((s) => s.comparisonEnabled);
+  const comparisonResults = useBallisticsStore((s) => s.comparisonResults);
+  const comparisonLabel = useBallisticsStore((s) => s.comparisonLabel);
+  const snapshotForComparison = useBallisticsStore((s) => s.snapshotForComparison);
+  const clearComparison = useBallisticsStore((s) => s.clearComparison);
+
+  // Advanced ballistics
+  const latitude = useBallisticsStore((s) => s.latitude);
+  const azimuth = useBallisticsStore((s) => s.azimuth);
+  const setLatitude = useBallisticsStore((s) => s.setLatitude);
+  const setAzimuth = useBallisticsStore((s) => s.setAzimuth);
 
   // Internal ballistics state
   const activeTab = useBallisticsStore((s) => s.activeTab);
@@ -66,6 +84,8 @@ export default function App() {
       humidity,
       twistRate: 8,
       twistDirection: "right" as const,
+      latitude,
+      azimuth,
       maxRange: 1200,
       stepSize: 25,
     }),
@@ -73,6 +93,7 @@ export default function App() {
       muzzleVelocity, bullet, sightHeight, zeroRange,
       windSpeed, windAngle, shootingAngle,
       altitude, temperature, barometricPressure, humidity,
+      latitude, azimuth,
     ]
   );
 
@@ -109,6 +130,11 @@ export default function App() {
   const chargeRange = CARTRIDGE_INTERNAL_DATA[cartridge.shortName]?.typicalChargeRange;
 
   const muzzleEnergy = kineticEnergy(bullet.weight, muzzleVelocity);
+  const da = useMemo(
+    () => densityAltitude(altitude, temperature, barometricPressure, humidity),
+    [altitude, temperature, barometricPressure, humidity],
+  );
+  const currentLabel = `${cartridge.shortName} ${bullet.name} @ ${muzzleVelocity} fps`;
 
   return (
     <div className="min-h-screen bg-neutral-950">
@@ -163,6 +189,82 @@ export default function App() {
           <div className="p-5">
             <ControlPanel />
 
+            {activeTab === "external" && (
+              <>
+                {/* Density Altitude */}
+                <div
+                  className="mt-4 pt-4"
+                  style={{ borderTop: "1px solid #2a2a2a" }}
+                >
+                  <div
+                    className="text-[10px] tracking-[2px] font-mono uppercase mb-3"
+                    style={{ color: "#ef4444" }}
+                  >
+                    Advanced
+                  </div>
+                  <div
+                    className="rounded-md px-3 py-2 mb-3 text-[10px] font-mono"
+                    style={{ background: "#0f0f0f", border: "1px solid #1a1a1a" }}
+                  >
+                    <span className="text-neutral-500">Density Alt: </span>
+                    <span className="text-neutral-200">{da.toLocaleString()} ft</span>
+                  </div>
+
+                  {/* Latitude */}
+                  <div className="mb-2">
+                    <div className="flex justify-between text-[10px] font-mono text-neutral-400 mb-0.5">
+                      <span>Latitude</span>
+                      <span>{latitude}°</span>
+                    </div>
+                    <input
+                      type="range"
+                      min={-90}
+                      max={90}
+                      value={latitude}
+                      onChange={(e) => setLatitude(Number(e.target.value))}
+                      className="w-full"
+                      style={{ accentColor: "#ef4444", height: 4 }}
+                    />
+                  </div>
+
+                  {/* Azimuth */}
+                  <div className="mb-3">
+                    <div className="flex justify-between text-[10px] font-mono text-neutral-400 mb-0.5">
+                      <span>Azimuth (fire direction)</span>
+                      <span>{azimuth}°</span>
+                    </div>
+                    <input
+                      type="range"
+                      min={0}
+                      max={359}
+                      value={azimuth}
+                      onChange={(e) => setAzimuth(Number(e.target.value))}
+                      className="w-full"
+                      style={{ accentColor: "#ef4444", height: 4 }}
+                    />
+                  </div>
+
+                  {/* Comparison button */}
+                  <button
+                    onClick={comparisonEnabled ? clearComparison : snapshotForComparison}
+                    className="w-full rounded-md px-3 py-2 text-[10px] font-mono tracking-wide cursor-pointer transition-colors"
+                    style={{
+                      background: comparisonEnabled ? "rgba(239, 68, 68, 0.1)" : "#141414",
+                      border: `1px solid ${comparisonEnabled ? "#ef4444" : "#2a2a2a"}`,
+                      color: comparisonEnabled ? "#ef4444" : "#a3a3a3",
+                    }}
+                  >
+                    {comparisonEnabled ? "✕ Clear Comparison" : "⇄ Snapshot for Comparison"}
+                  </button>
+                  {comparisonEnabled && (
+                    <div className="text-[9px] font-mono text-neutral-600 mt-1 px-1">
+                      Comparing: {comparisonLabel}
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
+
             {(activeTab === "internal" || activeTab === "loaddev") && (
               <InternalBallisticsPanel
                 cartridgeShortName={cartridge.shortName}
@@ -199,6 +301,29 @@ export default function App() {
                 <TrajectoryTable points={trajectoryResults} zeroRange={zeroRange} />
               </div>
 
+              {/* Comparison mode */}
+              {comparisonEnabled && comparisonResults.length > 0 && (
+                <>
+                  <div className="mb-4">
+                    <ComparisonChart
+                      pointsA={comparisonResults}
+                      pointsB={trajectoryResults}
+                      labelA={comparisonLabel}
+                      labelB={currentLabel}
+                      zeroRange={zeroRange}
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <ComparisonTable
+                      pointsA={comparisonResults}
+                      pointsB={trajectoryResults}
+                      labelA={comparisonLabel}
+                      labelB={currentLabel}
+                    />
+                  </div>
+                </>
+              )}
+
               {/* Cartridge info */}
               <div
                 className="rounded-md p-4 text-[10px] font-mono text-neutral-500"
@@ -213,6 +338,40 @@ export default function App() {
                 BC (G7): {bullet.bc_g7} / BC (G1): {bullet.bc_g1}
                 {" "}&middot;{" "}
                 SAAMI MAP: {cartridge.maxPressure.toLocaleString()} psi
+                {" "}&middot;{" "}
+                DA: {da.toLocaleString()} ft
+              </div>
+
+              {/* Stability Panel */}
+              <div className="mt-4 mb-4">
+                <StabilityPanel
+                  bulletWeight={bullet.weight}
+                  bulletDiameter={bullet.diameter}
+                  twistRate={8}
+                  altitude={altitude}
+                  temperature={temperature}
+                  pressure={barometricPressure}
+                />
+              </div>
+
+              {/* DOPE Card */}
+              <div className="mb-4">
+                <DOPECard
+                  points={trajectoryResults}
+                  cartridgeName={cartridge.name}
+                  bulletName={`${bullet.manufacturer} ${bullet.name}`}
+                  muzzleVelocity={muzzleVelocity}
+                  zeroRange={zeroRange}
+                  windSpeed={windSpeed}
+                  windAngle={windAngle}
+                  altitude={altitude}
+                  temperature={temperature}
+                />
+              </div>
+
+              {/* BC Truing Calculator */}
+              <div className="mb-4">
+                <BCTruingCalculator />
               </div>
             </>
           ) : (

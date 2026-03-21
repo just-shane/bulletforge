@@ -47,6 +47,15 @@ export interface BallisticsStore {
   // Internal ballistics results
   internalResult: InternalBallisticsResult | null;
 
+  // Comparison mode
+  comparisonEnabled: boolean;
+  comparisonResults: TrajectoryPoint[];
+  comparisonLabel: string;
+
+  // Advanced ballistics
+  latitude: number;          // degrees (for Coriolis)
+  azimuth: number;           // degrees (direction of fire)
+
   // UI state
   activeTab: AppTab;
   glossaryOpen: boolean;
@@ -78,6 +87,15 @@ export interface BallisticsStore {
   setChargeWeight: (weight: number) => void;
   setBarrelLength: (length: number) => void;
   setInternalResult: (result: InternalBallisticsResult | null) => void;
+
+  // Actions — Comparison
+  setComparisonEnabled: (enabled: boolean) => void;
+  snapshotForComparison: () => void;
+  clearComparison: () => void;
+
+  // Actions — Advanced
+  setLatitude: (lat: number) => void;
+  setAzimuth: (az: number) => void;
 
   // Actions — UI
   setActiveTab: (tab: AppTab) => void;
@@ -113,6 +131,15 @@ export const useBallisticsStore = create<BallisticsStore>((set) => ({
   barrelLength: defaultCartridgeInternal?.typicalBarrelLength ?? 24,
 
   internalResult: null,
+
+  // Comparison
+  comparisonEnabled: false,
+  comparisonResults: [],
+  comparisonLabel: "",
+
+  // Advanced ballistics
+  latitude: 45,
+  azimuth: 0,
 
   // UI
   activeTab: "external",
@@ -175,6 +202,23 @@ export const useBallisticsStore = create<BallisticsStore>((set) => ({
   setBarrelLength: (length) => set({ barrelLength: length, internalResult: null }),
 
   setInternalResult: (result) => set({ internalResult: result }),
+
+  // Comparison actions
+  setComparisonEnabled: (enabled) => set({ comparisonEnabled: enabled }),
+
+  snapshotForComparison: () =>
+    set((state) => ({
+      comparisonResults: [...state.trajectoryResults],
+      comparisonLabel: `${state.cartridge.shortName} ${state.bullet.name} @ ${state.muzzleVelocity} fps`,
+      comparisonEnabled: true,
+    })),
+
+  clearComparison: () =>
+    set({ comparisonResults: [], comparisonLabel: "", comparisonEnabled: false }),
+
+  // Advanced ballistics actions
+  setLatitude: (lat) => set({ latitude: lat }),
+  setAzimuth: (az) => set({ azimuth: az }),
 
   // UI actions
   setActiveTab: (tab) => set({ activeTab: tab }),
