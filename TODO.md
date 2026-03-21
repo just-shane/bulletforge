@@ -21,8 +21,9 @@
 | **v0.5.2** | Polish | 6-theme system (4 dark + 2 light) with hamburger settings menu, CSS variable theming, per-theme slider styling, Docs & Education stubs |
 | **v0.6.0** | Batch A | Steep angle warnings, ogive profiles on all bullets, multi-zero DOPE cards, arm band DOPE format, shooting angle slider |
 | **v0.7.0** | Batch B | Scope profile system, turret matching, BDC reticle overlay, custom turret dial builder, FFP/SFP holdover correction |
+| **v0.8.0** | Batch C | Rifle profiles (localStorage), performance tracking (ES/SD trends), shareable URLs, export/print, localStorage persistence layer |
 
-> **Current:** `v0.7.0` — defined in `src/lib/version.ts`
+> **Current:** `v0.8.0` — defined in `src/lib/version.ts`
 > **Versioning:** Major phases bump minor version. Patches for bugfixes.
 
 ---
@@ -184,10 +185,10 @@
 ### 📋 4.4 Load Logbook
 - [x] **Load recipes** — `createLoadRecipe()` with full component data, dimensions, performance, notes
 - [x] **Session notes** — `createRangeSession()` with date, location, conditions, shot strings, groups
-- [ ] **Performance tracking** — ES/SD trends over time for a given load (needs persistence/UI)
-  > **Deferred (v0.4.0):** Tracking ES/SD trends across sessions requires persistent storage — either localStorage for MVP or Supabase for cross-device sync. Blocked on deciding the persistence strategy (Phase 7 introduces Supabase for chrono calibration, so it makes sense to batch all persistence work together rather than build a localStorage bridge that gets replaced).
-- [ ] **Export/share** — Print-friendly load cards, share links (needs UI)
-  > **Deferred (v0.4.0):** Load card export needs a print-optimized layout (CSS @media print or canvas-to-PNG) and shareable URLs (which need either URL-encoded state or a backend for short links). Both depend on having a live deployment and persistence layer. Natural fit for Phase 7/8 when we have Supabase and the site is public.
+- [x] **Performance tracking** — ES/SD trends over time for a given load, SVG trend charts, localStorage persistence
+  > *Completed in v0.8.0 — PerformanceTracker component with velocity entry, history table, SD trend chart, summary stats. localStorage CRUD layer bridges to future Supabase.*
+- [x] **Export/share** — Print-friendly load cards, shareable URL links with config state
+  > *Completed in v0.8.0 — ShareExport component with URL-encoded state params, clipboard copy, print button. URL hydration on mount restores shared configs.*
 
 ### 🗄️ 4.5 Primer Database
 - [x] **15+ primers** — CCI, Federal, Remington, Winchester — small/large rifle, magnum, match
@@ -244,11 +245,13 @@
 > *Twist rate. Scope turret matching. DOPE cards.*
 
 ### 🔫 6.1 Rifle Profiles
-- [ ] **Rifle database** — Save rifle configs: caliber, barrel length, twist rate, sight height
+- [x] **Rifle database** — Save rifle configs to localStorage: cartridge, bullet, barrel length, twist rate, sight height, scope profile
+  > *Completed in v0.8.0 — RifleProfileManager component with save/load/delete, localStorage persistence layer*
 - [x] **Twist rate stability** — Miller stability factor with altitude/temp corrections, color-coded rating, twist rate recommendations (StabilityPanel UI)
   > *Cherry-picked in v0.5.1 — pure math + UI, no persistence dependencies*
 - [ ] **Barrel life tracking** — Round count, accuracy degradation estimates
-- [ ] **Multiple rifle support** — Switch between saved rifles
+- [x] **Multiple rifle support** — Switch between saved rifles via dropdown in control panel
+  > *Completed in v0.8.0 — RifleProfileManager loads full config (cartridge, bullet, velocity, zero, barrel, scope) from saved profiles*
 
 ### 🔭 6.2 Optic Integration
 - [x] **Turret matching** — TurretMatchTable with drop/drift clicks, cumulative elevation tracking, scope travel warnings

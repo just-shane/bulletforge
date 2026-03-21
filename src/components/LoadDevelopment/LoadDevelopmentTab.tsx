@@ -4,8 +4,9 @@ import { generateLadderTest, generateSeatingDepthTest } from "../../lib/load-dev
 import { LadderTestView } from "./LadderTestView.tsx";
 import { ESSdCalculator } from "./ESSdCalculator.tsx";
 import { SeatingDepthView } from "./SeatingDepthView.tsx";
+import { PerformanceTracker } from "./PerformanceTracker.tsx";
 
-type LoadDevSubTab = "ladder" | "essd" | "seating";
+type LoadDevSubTab = "ladder" | "essd" | "seating" | "performance";
 
 export function LoadDevelopmentTab() {
   const [subTab, setSubTab] = useState<LoadDevSubTab>("ladder");
@@ -60,6 +61,7 @@ export function LoadDevelopmentTab() {
     { id: "ladder", label: "Ladder Test" },
     { id: "essd", label: "ES / SD Calc" },
     { id: "seating", label: "Seating Depth" },
+    { id: "performance", label: "Performance" },
   ];
 
   return (
@@ -103,6 +105,8 @@ export function LoadDevelopmentTab() {
       {subTab === "seating" && seatingPlan && (
         <SeatingDepthView plan={seatingPlan} />
       )}
+
+      {subTab === "performance" && <PerformanceTracker />}
     </div>
   );
 }

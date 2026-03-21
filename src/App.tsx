@@ -25,9 +25,13 @@ import { MultiZeroDOPE } from "./components/Trajectory/MultiZeroDOPE.tsx";
 import { ArmBandDOPE } from "./components/Trajectory/ArmBandDOPE.tsx";
 import { LoadDevelopmentTab } from "./components/LoadDevelopment/LoadDevelopmentTab.tsx";
 import { ScopeConfig } from "./components/ControlPanel/ScopeConfig.tsx";
+import { RifleProfileManager } from "./components/ControlPanel/RifleProfileManager.tsx";
 import { TurretMatchTable } from "./components/Trajectory/TurretMatchTable.tsx";
 import { BDCOverlay } from "./components/Trajectory/BDCOverlay.tsx";
 import { CustomTurretDial } from "./components/Trajectory/CustomTurretDial.tsx";
+import { ShareExport, parseShareURL } from "./components/Trajectory/ShareExport.tsx";
+import { CARTRIDGES } from "./lib/cartridges.ts";
+import { bulletsByCaliber } from "./lib/bullets.ts";
 
 export default function App() {
   const cartridge = useBallisticsStore((s) => s.cartridge);
@@ -72,6 +76,19 @@ export default function App() {
   const setBarrelLength = useBallisticsStore((s) => s.setBarrelLength);
   const setInternalResult = useBallisticsStore((s) => s.setInternalResult);
 
+  // Store setters for URL hydration
+  const setCartridge = useBallisticsStore((s) => s.setCartridge);
+  const setBullet = useBallisticsStore((s) => s.setBullet);
+  const setVelocity = useBallisticsStore((s) => s.setVelocity);
+  const setSightHeight = useBallisticsStore((s) => s.setSightHeight);
+  const setZero = useBallisticsStore((s) => s.setZero);
+  const setWindSpeed = useBallisticsStore((s) => s.setWindSpeed);
+  const setWindAngle = useBallisticsStore((s) => s.setWindAngle);
+  const setShootingAngle = useBallisticsStore((s) => s.setShootingAngle);
+  const setAltitude = useBallisticsStore((s) => s.setAltitude);
+  const setTemperature = useBallisticsStore((s) => s.setTemperature);
+  const setBarometricPressure = useBallisticsStore((s) => s.setBarometricPressure);
+
   // Build trajectory config from store state
   const config: TrajectoryConfig = useMemo(
     () => ({
@@ -114,6 +131,42 @@ export default function App() {
       result.subsonicRange
     );
   }, [config, setTrajectoryResults]);
+
+  // Hydrate state from share URL on mount
+  useEffect(() => {
+    const shared = parseShareURL(window.location.search);
+    if (!shared) return;
+
+    // Find matching cartridge
+    if (shared.cartridgeShortName) {
+      const cart = CARTRIDGES.find((c) => c.shortName === shared.cartridgeShortName);
+      if (cart) {
+        setCartridge(cart);
+        // Find matching bullet
+        if (shared.bulletName && shared.bulletManufacturer) {
+          const bullets = bulletsByCaliber(cart.bulletDiameter);
+          const match = bullets.find(
+            (b) => b.name === shared.bulletName && b.manufacturer === shared.bulletManufacturer
+          );
+          if (match) setBullet(match);
+        }
+      }
+    }
+
+    if (shared.muzzleVelocity != null) setVelocity(shared.muzzleVelocity);
+    if (shared.sightHeight != null) setSightHeight(shared.sightHeight);
+    if (shared.zeroRange != null) setZero(shared.zeroRange);
+    if (shared.windSpeed != null) setWindSpeed(shared.windSpeed);
+    if (shared.windAngle != null) setWindAngle(shared.windAngle);
+    if (shared.shootingAngle != null) setShootingAngle(shared.shootingAngle);
+    if (shared.altitude != null) setAltitude(shared.altitude);
+    if (shared.temperature != null) setTemperature(shared.temperature);
+    if (shared.barometricPressure != null) setBarometricPressure(shared.barometricPressure);
+
+    // Clean URL without triggering reload
+    window.history.replaceState({}, "", window.location.pathname);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Build internal ballistics config (memoized for use in render + simulation)
   const ibConfig = useMemo(
@@ -243,6 +296,14 @@ export default function App() {
                       style={{ borderTop: "1px solid var(--c-border)" }}
                     >
                       <ScopeConfig />
+                    </div>
+
+                    {/* Rifle Profiles */}
+                    <div
+                      className="mt-4 pt-4 mb-4"
+                      style={{ borderTop: "1px solid var(--c-border)" }}
+                    >
+                      <RifleProfileManager />
                     </div>
 
                     {/* Comparison button */}
@@ -398,6 +459,11 @@ export default function App() {
                 {/* BC Truing Calculator */}
                 <div className="mb-4">
                   <BCTruingCalculator />
+                </div>
+
+                {/* Share & Export */}
+                <div className="mb-4">
+                  <ShareExport />
                 </div>
               </>
             ) : (
