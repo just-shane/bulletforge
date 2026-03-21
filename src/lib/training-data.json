@@ -1,0 +1,5698 @@
+{
+  "meta": {
+    "source": "GRT Community Discord (zen/grt_databases)",
+    "sourceUrl": "https://github.com/zen/grt_databases",
+    "license": "CC0-1.0",
+    "disclaimer": "Community-contributed data. Measurements must be verified independently. BulletForge does not guarantee accuracy.",
+    "parsedAt": "2026-03-21T05:23:01.146Z",
+    "counts": {
+      "projectiles": 48,
+      "powders": 12,
+      "calibers": 48,
+      "loads": 7
+    }
+  },
+  "projectiles": [
+    {
+      "manufacturer": "Lehigh Defense",
+      "productName": "Controlled Chaos",
+      "caliber": ".224",
+      "grooveDiameter": {
+        "mm": 5.69,
+        "in": 0.22402
+      },
+      "length": {
+        "mm": 23.62,
+        "in": 0.92992
+      },
+      "mass": {
+        "gr": 62
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 5.65,
+        "in": 0.22244
+      },
+      "tailDiameterB": {
+        "mm": 5.21,
+        "in": 0.20512
+      },
+      "tailHeight": {
+        "mm": 2.24,
+        "in": 0.08819
+      },
+      "tailType": 2,
+      "g1bc": 0.282,
+      "g7bc": 0,
+      "ubcsCode": "H2H1B1C1N2",
+      "createdDate": "2023-03-17",
+      "createdBy": "grtuser",
+      "description": "Copper Monolithic",
+      "_source": "224_62gr_Lehigh_Controlled_Chaos_by_Sunsetsdawn_2023.03.19.projectile"
+    },
+    {
+      "manufacturer": "Sako",
+      "productName": "Powerhead Blade",
+      "caliber": ".308",
+      "grooveDiameter": {
+        "mm": 7.82,
+        "in": 0.30787
+      },
+      "length": {
+        "mm": 35.94,
+        "in": 1.41496
+      },
+      "mass": {
+        "gr": 162.3
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 7.82,
+        "in": 0.30787
+      },
+      "tailDiameterB": {
+        "mm": 7.01,
+        "in": 0.27598
+      },
+      "tailHeight": {
+        "mm": 3,
+        "in": 0.11811
+      },
+      "tailType": 2,
+      "g1bc": 0.4,
+      "g7bc": 0,
+      "ubcsCode": "H2B1B1C1N2",
+      "createdDate": "2022-06-27",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "308_Sako_163gr_Powerhead_Blade_by_Joghurt_2022.06.27.projectile"
+    },
+    {
+      "manufacturer": "Lapua",
+      "productName": "Scenar GB528",
+      "caliber": ".338",
+      "grooveDiameter": {
+        "mm": 8.59,
+        "in": 0.33819
+      },
+      "length": {
+        "mm": 44.4,
+        "in": 1.74803
+      },
+      "mass": {
+        "gr": 300.5
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 8.59,
+        "in": 0.33819
+      },
+      "tailDiameterB": {
+        "mm": 7.1,
+        "in": 0.27953
+      },
+      "tailHeight": {
+        "mm": 6.2,
+        "in": 0.24409
+      },
+      "tailType": 2,
+      "g1bc": 0.736,
+      "g7bc": 0.368,
+      "ubcsCode": "T0H1B2S4N4",
+      "createdDate": "2022-05-28",
+      "createdBy": "Barney",
+      "description": "",
+      "_source": "338LM_Lapua_Scenar_300gr_GB528_by_Barney_2022.05.28.projectile"
+    },
+    {
+      "manufacturer": "Sierra",
+      "productName": "38 213 Matchking Long Range HPBT 5 (Bulk)",
+      "caliber": ".338",
+      "grooveDiameter": {
+        "mm": 8.59,
+        "in": 0.33819
+      },
+      "length": {
+        "mm": 43.61,
+        "in": 1.71693
+      },
+      "mass": {
+        "gr": 299
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 8.58,
+        "in": 0.3378
+      },
+      "tailDiameterB": {
+        "mm": 6.97,
+        "in": 0.27441
+      },
+      "tailHeight": {
+        "mm": 6.74,
+        "in": 0.26535
+      },
+      "tailType": 2,
+      "g1bc": 0.755,
+      "g7bc": 0,
+      "ubcsCode": "S1H1B2S4N4",
+      "createdDate": "2021-10-26",
+      "createdBy": "Barney",
+      "description": "created 4/2020",
+      "_source": "338_LM_Sierra_Matchking_300gr_Long_Range_HPBT5_Bulk_38_213_by_Barney_2022.06.26.projectile"
+    },
+    {
+      "manufacturer": "Lehigh",
+      "productName": "353gr ELR Bullet",
+      "caliber": ".375",
+      "grooveDiameter": {
+        "mm": 9.52,
+        "in": 0.3748
+      },
+      "length": {
+        "mm": 54.73,
+        "in": 2.15472
+      },
+      "mass": {
+        "gr": 352.6
+      },
+      "engravingPressure": {
+        "bar": 300,
+        "psi": 4351.14
+      },
+      "tailDiameterA": {
+        "mm": 8.03,
+        "in": 0.31614
+      },
+      "tailDiameterB": {
+        "mm": 9.51,
+        "in": 0.37441
+      },
+      "tailHeight": {
+        "mm": 7.8,
+        "in": 0.30709
+      },
+      "tailType": 2,
+      "g1bc": 1.023,
+      "g7bc": 0,
+      "ubcsCode": "S0F1B2D1C2",
+      "createdDate": "2022-05-28",
+      "createdBy": "Barney",
+      "description": "",
+      "_source": "375CT_Lehigh_353gr_ELR_Bullet_by_Barney_2022.05.28.projectile"
+    },
+    {
+      "manufacturer": "Lehigh",
+      "productName": "380gr ELR Bullet",
+      "caliber": ".375",
+      "grooveDiameter": {
+        "mm": 9.52,
+        "in": 0.3748
+      },
+      "length": {
+        "mm": 58.23,
+        "in": 2.29252
+      },
+      "mass": {
+        "gr": 379.6
+      },
+      "engravingPressure": {
+        "bar": 560,
+        "psi": 8122.13
+      },
+      "tailDiameterA": {
+        "mm": 8.03,
+        "in": 0.31614
+      },
+      "tailDiameterB": {
+        "mm": 9.51,
+        "in": 0.37441
+      },
+      "tailHeight": {
+        "mm": 7.8,
+        "in": 0.30709
+      },
+      "tailType": 2,
+      "g1bc": 1.145,
+      "g7bc": 0,
+      "ubcsCode": "S0F1B2D1C2",
+      "createdDate": "2021-10-26",
+      "createdBy": "Barney",
+      "description": "Own measurements...",
+      "_source": "375CT_Lehigh_380gr_ELR_Bullet_by_Barney_2022.05.28.projectile"
+    },
+    {
+      "manufacturer": "Hornady",
+      "productName": "BTHP 263355",
+      "caliber": ".264",
+      "grooveDiameter": {
+        "mm": 6.71,
+        "in": 0.26417
+      },
+      "length": {
+        "mm": 33.96,
+        "in": 1.33701
+      },
+      "mass": {
+        "gr": 139.8
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 6.71,
+        "in": 0.26417
+      },
+      "tailDiameterB": {
+        "mm": 5.66,
+        "in": 0.22283
+      },
+      "tailHeight": {
+        "mm": 3.86,
+        "in": 0.15197
+      },
+      "tailType": 2,
+      "g1bc": 0.58,
+      "g7bc": 0.475,
+      "ubcsCode": "T0H1B2S4N4",
+      "createdDate": "2022-05-28",
+      "createdBy": "Barney",
+      "description": "",
+      "_source": "6.5CM_Hornady_140gr_BTHP_263355_by_Barney_2022.05.28.projectile"
+    },
+    {
+      "manufacturer": "Sierra",
+      "productName": "38 213 Matchking Long Range HPBT 5 (Bulk)",
+      "caliber": ".338",
+      "grooveDiameter": {
+        "mm": 8.59,
+        "in": 0.33819
+      },
+      "length": {
+        "mm": 43.61,
+        "in": 1.71693
+      },
+      "mass": {
+        "gr": 299
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 8.58,
+        "in": 0.3378
+      },
+      "tailDiameterB": {
+        "mm": 6.97,
+        "in": 0.27441
+      },
+      "tailHeight": {
+        "mm": 6.74,
+        "in": 0.26535
+      },
+      "tailType": 2,
+      "g1bc": 0.755,
+      "g7bc": 0,
+      "ubcsCode": "S1H1B2S4N4",
+      "createdDate": "2020-08-27",
+      "createdBy": "Barney",
+      "description": "created 4/2020",
+      "_source": "7-62x54R_311_Sierra_174gr_Matchking_Long_Range_HPBT_500_Bulk_by_Barney_2022.05.28.projectile"
+    },
+    {
+      "manufacturer": "Berger",
+      "productName": "LRHT",
+      "caliber": ".224",
+      "grooveDiameter": {
+        "mm": 5.69,
+        "in": 0.22402
+      },
+      "length": {
+        "mm": 29.74,
+        "in": 1.17087
+      },
+      "mass": {
+        "gr": 85.5
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 4.83,
+        "in": 0.19016
+      },
+      "tailDiameterB": {
+        "mm": 5.59,
+        "in": 0.22008
+      },
+      "tailHeight": {
+        "mm": 3.56,
+        "in": 0.14016
+      },
+      "tailType": 2,
+      "g1bc": 0.524,
+      "g7bc": 0.268,
+      "ubcsCode": "T0H1B2S4N1",
+      "createdDate": "2022-12-31",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "85.5_Berger_LRHT_by_Mat_Legolas_2023.03.06.projectile"
+    },
+    {
+      "manufacturer": "Badlands",
+      "productName": "125gr .264 BD-2",
+      "caliber": ".264",
+      "grooveDiameter": {
+        "mm": 6.71,
+        "in": 0.26417
+      },
+      "length": {
+        "mm": 37.21,
+        "in": 1.46496
+      },
+      "mass": {
+        "gr": 125
+      },
+      "engravingPressure": {
+        "bar": 150,
+        "psi": 2175.57
+      },
+      "tailDiameterA": {
+        "mm": 0,
+        "in": 0
+      },
+      "tailDiameterB": {
+        "mm": 0,
+        "in": 0
+      },
+      "tailHeight": {
+        "mm": 0,
+        "in": 0
+      },
+      "tailType": 0,
+      "g1bc": 0.59,
+      "g7bc": 0.302,
+      "ubcsCode": "",
+      "createdDate": "2022-08-19",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "Badlands_125gr_.264_BD-2_by_z987k_2023.06.01.projectile"
+    },
+    {
+      "manufacturer": "Badlands",
+      "productName": "140gr 277 SBD-2",
+      "caliber": ".277",
+      "grooveDiameter": {
+        "mm": 7.04,
+        "in": 0.27717
+      },
+      "length": {
+        "mm": 39.71,
+        "in": 1.56339
+      },
+      "mass": {
+        "gr": 140
+      },
+      "engravingPressure": {
+        "bar": 150,
+        "psi": 2175.57
+      },
+      "tailDiameterA": {
+        "mm": 7.01,
+        "in": 0.27598
+      },
+      "tailDiameterB": {
+        "mm": 5.84,
+        "in": 0.22992
+      },
+      "tailHeight": {
+        "mm": 7.19,
+        "in": 0.28307
+      },
+      "tailType": 2,
+      "g1bc": 0.65,
+      "g7bc": 0.333,
+      "ubcsCode": "H2B1B1D1N2",
+      "createdDate": "2022-08-19",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "Badlands_140gr_277_SBD-2_by_z987k_2023.06.01.projectile"
+    },
+    {
+      "manufacturer": "Barnes",
+      "productName": "LRX BT 30479",
+      "caliber": ".257",
+      "grooveDiameter": {
+        "mm": 6.53,
+        "in": 0.25709
+      },
+      "length": {
+        "mm": 30.7,
+        "in": 1.20866
+      },
+      "mass": {
+        "gr": 101
+      },
+      "engravingPressure": {
+        "bar": 350,
+        "psi": 5076.33
+      },
+      "tailDiameterA": {
+        "mm": 6.5,
+        "in": 0.25591
+      },
+      "tailDiameterB": {
+        "mm": 5.8,
+        "in": 0.22835
+      },
+      "tailHeight": {
+        "mm": 3.6,
+        "in": 0.14173
+      },
+      "tailType": 2,
+      "g1bc": 0.4,
+      "g7bc": 0,
+      "ubcsCode": "",
+      "createdDate": "2022-05-28",
+      "createdBy": "Z",
+      "description": "",
+      "_source": "Barnes_LRX_BT_30479_by_10kyler00_2022.05.29.projectile"
+    },
+    {
+      "manufacturer": "Berger",
+      "productName": "Long Range Hybrid Target",
+      "caliber": ".264",
+      "grooveDiameter": {
+        "mm": 6.71,
+        "in": 0.26417
+      },
+      "length": {
+        "mm": 38.46,
+        "in": 1.51417
+      },
+      "mass": {
+        "gr": 153.5
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 6.7,
+        "in": 0.26378
+      },
+      "tailDiameterB": {
+        "mm": 5.7,
+        "in": 0.22441
+      },
+      "tailHeight": {
+        "mm": 4.39,
+        "in": 0.17283
+      },
+      "tailType": 2,
+      "g1bc": 0.694,
+      "g7bc": 0.356,
+      "ubcsCode": "T??1B2S4N1",
+      "createdDate": "2021-12-29",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "Berger_153_Long_Range_Hybrid_Target_by_Charlie_2022.07.29.projectile"
+    },
+    {
+      "manufacturer": "Berger",
+      "productName": "200.20X Hybrid 30417",
+      "caliber": ".308",
+      "grooveDiameter": {
+        "mm": 7.82,
+        "in": 0.30787
+      },
+      "length": {
+        "mm": 38.3,
+        "in": 1.50787
+      },
+      "mass": {
+        "gr": 200
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 7.82,
+        "in": 0.30787
+      },
+      "tailDiameterB": {
+        "mm": 6.5,
+        "in": 0.25591
+      },
+      "tailHeight": {
+        "mm": 5.77,
+        "in": 0.22717
+      },
+      "tailType": 2,
+      "g1bc": 0.64,
+      "g7bc": 0.328,
+      "ubcsCode": "",
+      "createdDate": "2022-10-27",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "Berger_200.20X_Hybrid_30417_by_Charlie_2022.12.18.projectile"
+    },
+    {
+      "manufacturer": "Berger",
+      "productName": "EOL",
+      "caliber": ".264",
+      "grooveDiameter": {
+        "mm": 6.71,
+        "in": 0.26417
+      },
+      "length": {
+        "mm": 38.4,
+        "in": 1.51181
+      },
+      "mass": {
+        "gr": 156
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 6.7,
+        "in": 0.26378
+      },
+      "tailDiameterB": {
+        "mm": 5.7,
+        "in": 0.22441
+      },
+      "tailHeight": {
+        "mm": 4.39,
+        "in": 0.17283
+      },
+      "tailType": 2,
+      "g1bc": 0.679,
+      "g7bc": 0.347,
+      "ubcsCode": "T??1B2S4N1",
+      "createdDate": "2021-12-29",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "Berger_EOL_by_chrismack12_2021.12.30.projectile"
+    },
+    {
+      "manufacturer": "Berger",
+      "productName": "EOL Elite Hunt 26550",
+      "caliber": ".264",
+      "grooveDiameter": {
+        "mm": 6.71,
+        "in": 0.26417
+      },
+      "length": {
+        "mm": 38.4,
+        "in": 1.51181
+      },
+      "mass": {
+        "gr": 156
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 6.7,
+        "in": 0.26378
+      },
+      "tailDiameterB": {
+        "mm": 5.3,
+        "in": 0.20866
+      },
+      "tailHeight": {
+        "mm": 4.8,
+        "in": 0.18898
+      },
+      "tailType": 2,
+      "g1bc": 0.679,
+      "g7bc": 0.347,
+      "ubcsCode": "",
+      "createdDate": "2021-11-22",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "Berger_EOL_Elite_Hunt_26550_by_Charlie_2022.05.27.projectile"
+    },
+    {
+      "manufacturer": "Berger",
+      "productName": "Hybrid Target 24585",
+      "caliber": ".257",
+      "grooveDiameter": {
+        "mm": 6.53,
+        "in": 0.25709
+      },
+      "length": {
+        "mm": 35.97,
+        "in": 1.41614
+      },
+      "mass": {
+        "gr": 135
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 6.5,
+        "in": 0.25591
+      },
+      "tailDiameterB": {
+        "mm": 5.5,
+        "in": 0.21654
+      },
+      "tailHeight": {
+        "mm": 5.49,
+        "in": 0.21614
+      },
+      "tailType": 2,
+      "g1bc": 0.65,
+      "g7bc": 0.334,
+      "ubcsCode": "",
+      "createdDate": "2023-07-12",
+      "createdBy": "grtuser",
+      "description": "Directly from the Berger website.",
+      "_source": "Berger_Hybrid_Target_24585_by_Charlie_2023.07.13.projectile"
+    },
+    {
+      "manufacturer": "Berger",
+      "productName": "Long Range Hybrid Target Copy1",
+      "caliber": ".264",
+      "grooveDiameter": {
+        "mm": 6.71,
+        "in": 0.26417
+      },
+      "length": {
+        "mm": 38.46,
+        "in": 1.51417
+      },
+      "mass": {
+        "gr": 153.5
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 6.7,
+        "in": 0.26378
+      },
+      "tailDiameterB": {
+        "mm": 5.7,
+        "in": 0.22441
+      },
+      "tailHeight": {
+        "mm": 4.39,
+        "in": 0.17283
+      },
+      "tailType": 2,
+      "g1bc": 0.694,
+      "g7bc": 0.356,
+      "ubcsCode": "T??1B2S4N1",
+      "createdDate": "2021-12-29",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "Berger_Long_Range_Hybrid_153.5_by_chrismack12_2021.12.30.projectile"
+    },
+    {
+      "manufacturer": "Berry's Bullets",
+      "productName": ".458 SOCOM Round Shoulder",
+      "caliber": ".458",
+      "grooveDiameter": {
+        "mm": 11.63,
+        "in": 0.45787
+      },
+      "length": {
+        "mm": 22.83,
+        "in": 0.89882
+      },
+      "mass": {
+        "gr": 350
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 0,
+        "in": 0
+      },
+      "tailDiameterB": {
+        "mm": 0,
+        "in": 0
+      },
+      "tailHeight": {
+        "mm": 0,
+        "in": 0
+      },
+      "tailType": 0,
+      "g1bc": 0,
+      "g7bc": 0,
+      "ubcsCode": "S0T2F2S4N4",
+      "createdDate": "2022-12-29",
+      "createdBy": "Airwolf",
+      "description": "https://www.berrysmfg.com/product/458-socom-458-350gr-rs",
+      "_source": "Berrys.Bullets.458.SOCOM.Round.Shoulder.350gr_by_Airwolf_2022.12.29.projectile"
+    },
+    {
+      "manufacturer": "Berry's Bullets",
+      "productName": "Spire Point",
+      "caliber": ".308",
+      "grooveDiameter": {
+        "mm": 7.82,
+        "in": 0.30787
+      },
+      "length": {
+        "mm": 34.29,
+        "in": 1.35
+      },
+      "mass": {
+        "gr": 220
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 0,
+        "in": 0
+      },
+      "tailDiameterB": {
+        "mm": 0,
+        "in": 0
+      },
+      "tailHeight": {
+        "mm": 0,
+        "in": 0
+      },
+      "tailType": 0,
+      "g1bc": 0,
+      "g7bc": 0,
+      "ubcsCode": "S0T1F2S4N4",
+      "createdDate": "2022-11-21",
+      "createdBy": "Airwolf",
+      "description": "https://www.berrysmfg.com/product/300-aac-blkout-309-220gr-sp\r\rBullet O.A.L.: 1.350\"\rCartridge Name: 300 AAC Blackout \rCartridge O.A.L.: 2.150\"\rMax Velocity: 1300 fps\r\rBerry's Superior Plated Bullets are the finest bonded copper-jacketed bullets available today. Starting with a swaged lead core, they are electroplated with copper to their final weight, leaving no lead exposure. They are then re-struck to precise specifications, ensuring a solid bond, and providing consistency with every round. Indoor range safe and unbelievably accurate, Berry's Superior Plated Bullets® are the choice of shooters everywhere.\r\rTHESE BULLETS ARE NOT RECOMMENDED FOR BARRELS WITH A FASTER TWIST RATE THAN 1:7\".",
+      "_source": "Berrys.Spire.Point.220gr.300.blackout_by_Airwolf_2022.11.29.projectile"
+    },
+    {
+      "manufacturer": "Cutting Edge",
+      "productName": "MTH",
+      "caliber": ".264",
+      "grooveDiameter": {
+        "mm": 6.71,
+        "in": 0.26417
+      },
+      "length": {
+        "mm": 33.35,
+        "in": 1.31299
+      },
+      "mass": {
+        "gr": 120
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 6.71,
+        "in": 0.26417
+      },
+      "tailDiameterB": {
+        "mm": 5.59,
+        "in": 0.22008
+      },
+      "tailHeight": {
+        "mm": 5.13,
+        "in": 0.20197
+      },
+      "tailType": 2,
+      "g1bc": 0.49,
+      "g7bc": 0.246,
+      "ubcsCode": "",
+      "createdDate": "2022-04-29",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "Cutting_Edge_.264_120_MTH_by_Sierra1_2022.06.26.projectile"
+    },
+    {
+      "manufacturer": "Federal",
+      "productName": "HST",
+      "caliber": ".355",
+      "grooveDiameter": {
+        "mm": 9.02,
+        "in": 0.35512
+      },
+      "length": {
+        "mm": 15.11,
+        "in": 0.59488
+      },
+      "mass": {
+        "gr": 124.2
+      },
+      "engravingPressure": {
+        "bar": 150,
+        "psi": 2175.57
+      },
+      "tailDiameterA": {
+        "mm": 0,
+        "in": 0
+      },
+      "tailDiameterB": {
+        "mm": 0,
+        "in": 0
+      },
+      "tailHeight": {
+        "mm": 0,
+        "in": 0
+      },
+      "tailType": 0,
+      "g1bc": 0.149,
+      "g7bc": 0,
+      "ubcsCode": "D2H2F2C4N4",
+      "createdDate": "2023-04-19",
+      "createdBy": "Zachary Jones",
+      "description": "American Reloading pulldowns from March 2023. Measurement sample size of 20 bullets.",
+      "_source": "Federal_HST_124_by_Zak_2023.06.13.projectile"
+    },
+    {
+      "manufacturer": "Federal",
+      "productName": "HST",
+      "caliber": ".355",
+      "grooveDiameter": {
+        "mm": 9.02,
+        "in": 0.35512
+      },
+      "length": {
+        "mm": 17.3,
+        "in": 0.6811
+      },
+      "mass": {
+        "gr": 148.2
+      },
+      "engravingPressure": {
+        "bar": 150,
+        "psi": 2175.57
+      },
+      "tailDiameterA": {
+        "mm": 0,
+        "in": 0
+      },
+      "tailDiameterB": {
+        "mm": 0,
+        "in": 0
+      },
+      "tailHeight": {
+        "mm": 0,
+        "in": 0
+      },
+      "tailType": 0,
+      "g1bc": 0.199,
+      "g7bc": 0,
+      "ubcsCode": "D2H2F2C4N4",
+      "createdDate": "2023-06-13",
+      "createdBy": "Zachary Jones",
+      "description": "American Reloading pulldowns from March 2023. Measurement sample size of 20 bullets.",
+      "_source": "Federal_HST_147_by_Zak_2023.06.13.projectile"
+    },
+    {
+      "manufacturer": "Hammer",
+      "productName": "90gr. Hunter No SKU / No Drawing",
+      "caliber": ".284",
+      "grooveDiameter": {
+        "mm": 7.21,
+        "in": 0.28386
+      },
+      "length": {
+        "mm": 22.94,
+        "in": 0.90315
+      },
+      "mass": {
+        "gr": 90
+      },
+      "engravingPressure": {
+        "bar": 200,
+        "psi": 2900.76
+      },
+      "tailDiameterA": {
+        "mm": 7.21,
+        "in": 0.28386
+      },
+      "tailDiameterB": {
+        "mm": 6.5,
+        "in": 0.25591
+      },
+      "tailHeight": {
+        "mm": 5.33,
+        "in": 0.20984
+      },
+      "tailType": 2,
+      "g1bc": 0.275,
+      "g7bc": 0.133,
+      "ubcsCode": "",
+      "createdDate": "2023-01-10",
+      "createdBy": "Charlie",
+      "description": "No drawing available at time of entry.\rBoattail dimensions estimated.",
+      "_source": "Hammer_-_.284_by_Charlie_2023.01.13.projectile"
+    },
+    {
+      "manufacturer": "Hammer",
+      "productName": "Absolute Hammer",
+      "caliber": ".257",
+      "grooveDiameter": {
+        "mm": 6.53,
+        "in": 0.25709
+      },
+      "length": {
+        "mm": 26.67,
+        "in": 1.05
+      },
+      "mass": {
+        "gr": 90
+      },
+      "engravingPressure": {
+        "bar": 200,
+        "psi": 2900.76
+      },
+      "tailDiameterA": {
+        "mm": 6.5,
+        "in": 0.25591
+      },
+      "tailDiameterB": {
+        "mm": 5.71,
+        "in": 0.2248
+      },
+      "tailHeight": {
+        "mm": 3.53,
+        "in": 0.13898
+      },
+      "tailType": 2,
+      "g1bc": 0.354,
+      "g7bc": 0.177,
+      "ubcsCode": "H2H1B2D1N2",
+      "createdDate": "2023-04-12",
+      "createdBy": "grtuser",
+      "description": "Ogive does not contact rifling with Absolute Hammer bullets",
+      "_source": "Hammer_Absolute_Hammer_by_Charlie_2023.04.13.projectile"
+    },
+    {
+      "manufacturer": "Hornady",
+      "productName": "A-MAX 26101",
+      "caliber": ".264",
+      "grooveDiameter": {
+        "mm": 6.71,
+        "in": 0.26417
+      },
+      "length": {
+        "mm": 26.62,
+        "in": 1.04803
+      },
+      "mass": {
+        "gr": 100
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 6.7,
+        "in": 0.26378
+      },
+      "tailDiameterB": {
+        "mm": 5.6,
+        "in": 0.22047
+      },
+      "tailHeight": {
+        "mm": 3.3,
+        "in": 0.12992
+      },
+      "tailType": 2,
+      "g1bc": 0.39,
+      "g7bc": 0,
+      "ubcsCode": "",
+      "createdDate": "2022-12-30",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "Hornady_A-MAX_26101_by_Charlie_2022.12.30.projectile"
+    },
+    {
+      "manufacturer": "Hornady",
+      "productName": "A-Tip Match #28506",
+      "caliber": ".284",
+      "grooveDiameter": {
+        "mm": 7.21,
+        "in": 0.28386
+      },
+      "length": {
+        "mm": 42.16,
+        "in": 1.65984
+      },
+      "mass": {
+        "gr": 190
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 7.21,
+        "in": 0.28386
+      },
+      "tailDiameterB": {
+        "mm": 5.94,
+        "in": 0.23386
+      },
+      "tailHeight": {
+        "mm": 5.11,
+        "in": 0.20118
+      },
+      "tailType": 2,
+      "g1bc": 0.838,
+      "g7bc": 0.422,
+      "ubcsCode": "",
+      "createdDate": "2023-01-09",
+      "createdBy": "grtuser",
+      "description": "Boattail dimensions scaled from Hornady website screen picture.  Bullet length as shown on JBM https://www.jbmballistics.com/ballistics/lengths/lengths.shtml#Hornady.  ",
+      "_source": "Hornady_A-Tip_Match_28506_by_Charlie_2023.01.10.projectile"
+    },
+    {
+      "manufacturer": "Hornady",
+      "productName": "A-Tip Match 33389",
+      "caliber": ".338",
+      "grooveDiameter": {
+        "mm": 8.59,
+        "in": 0.33819
+      },
+      "length": {
+        "mm": 47.55,
+        "in": 1.87205
+      },
+      "mass": {
+        "gr": 300
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 8.59,
+        "in": 0.33819
+      },
+      "tailDiameterB": {
+        "mm": 6.99,
+        "in": 0.2752
+      },
+      "tailHeight": {
+        "mm": 6.5,
+        "in": 0.25591
+      },
+      "tailType": 2,
+      "g1bc": 0.863,
+      "g7bc": 0.435,
+      "ubcsCode": "",
+      "createdDate": "2020-05-29",
+      "createdBy": "Marty",
+      "description": "Created by M289 with help from Howland and SIDS01 from Sniper's Hide Forums.",
+      "_source": "Hornady_A-Tip_Match_300gr_33389_by_Charlie_2022.05.27.projectile"
+    },
+    {
+      "manufacturer": "Hornady",
+      "productName": "A-Tip Match 33389",
+      "caliber": ".338",
+      "grooveDiameter": {
+        "mm": 8.59,
+        "in": 0.33819
+      },
+      "length": {
+        "mm": 47.5,
+        "in": 1.87008
+      },
+      "mass": {
+        "gr": 300
+      },
+      "engravingPressure": {
+        "bar": 360,
+        "psi": 5221.37
+      },
+      "tailDiameterA": {
+        "mm": 8.59,
+        "in": 0.33819
+      },
+      "tailDiameterB": {
+        "mm": 6.79,
+        "in": 0.26732
+      },
+      "tailHeight": {
+        "mm": 7.05,
+        "in": 0.27756
+      },
+      "tailType": 2,
+      "g1bc": 0.863,
+      "g7bc": 0.435,
+      "ubcsCode": "",
+      "createdDate": "2022-06-30",
+      "createdBy": "grtuser",
+      "description": "Created by M289 with help from Howland and SIDS01 from Sniper's Hide Forums.",
+      "_source": "Hornady_A-Tip_Match_33389_by_Charlie_2022.1.18.projectile"
+    },
+    {
+      "manufacturer": "Hornady",
+      "productName": "ELD-Match 26331 (BEG)",
+      "caliber": ".264",
+      "grooveDiameter": {
+        "mm": 6.71,
+        "in": 0.26417
+      },
+      "length": {
+        "mm": 35.04,
+        "in": 1.37953
+      },
+      "mass": {
+        "gr": 139.9
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 6.7,
+        "in": 0.26378
+      },
+      "tailDiameterB": {
+        "mm": 5.1,
+        "in": 0.20079
+      },
+      "tailHeight": {
+        "mm": 3.8,
+        "in": 0.14961
+      },
+      "tailType": 2,
+      "g1bc": 0,
+      "g7bc": 0.305,
+      "ubcsCode": "",
+      "createdDate": "2022-07-17",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "Hornady_ELD-Match_26331_BEG_by_Barney_2022.07.17.projectile"
+    },
+    {
+      "manufacturer": "Hornady",
+      "productName": "ELD-M 22791",
+      "caliber": ".224",
+      "grooveDiameter": {
+        "mm": 5.69,
+        "in": 0.22402
+      },
+      "length": {
+        "mm": 26.7,
+        "in": 1.05118
+      },
+      "mass": {
+        "gr": 75
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 5.69,
+        "in": 0.22402
+      },
+      "tailDiameterB": {
+        "mm": 4.5,
+        "in": 0.17717
+      },
+      "tailHeight": {
+        "mm": 4.6,
+        "in": 0.1811
+      },
+      "tailType": 2,
+      "g1bc": 0.467,
+      "g7bc": 0.235,
+      "ubcsCode": "",
+      "createdDate": "2022-11-22",
+      "createdBy": "Airwolf",
+      "description": "Updated G1 and G7 to match packaging on lot # 2221280",
+      "_source": "Hornady_ELD-M_22791_by_Airwolf_2022.11.22.projectile"
+    },
+    {
+      "manufacturer": "Hornady",
+      "productName": "GMX 26336",
+      "caliber": ".264",
+      "grooveDiameter": {
+        "mm": 6.71,
+        "in": 0.26417
+      },
+      "length": {
+        "mm": 35.7,
+        "in": 1.40551
+      },
+      "mass": {
+        "gr": 140
+      },
+      "engravingPressure": {
+        "bar": 172,
+        "psi": 2494.65
+      },
+      "tailDiameterA": {
+        "mm": 6.7,
+        "in": 0.26378
+      },
+      "tailDiameterB": {
+        "mm": 5.6,
+        "in": 0.22047
+      },
+      "tailHeight": {
+        "mm": 2.5,
+        "in": 0.09843
+      },
+      "tailType": 0,
+      "g1bc": 0.35,
+      "g7bc": 0,
+      "ubcsCode": "",
+      "createdDate": "2021-04-08",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "Hornady_GMX_26336_by_Charlie.2021.04.14.projectile"
+    },
+    {
+      "manufacturer": "Hornady",
+      "productName": "SUB-X 30718",
+      "caliber": ".308",
+      "grooveDiameter": {
+        "mm": 7.82,
+        "in": 0.30787
+      },
+      "length": {
+        "mm": 29.35,
+        "in": 1.15551
+      },
+      "mass": {
+        "gr": 175
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 7.82,
+        "in": 0.30787
+      },
+      "tailDiameterB": {
+        "mm": 6.05,
+        "in": 0.23819
+      },
+      "tailHeight": {
+        "mm": 5.5,
+        "in": 0.21654
+      },
+      "tailType": 0,
+      "g1bc": 0.3,
+      "g7bc": 0,
+      "ubcsCode": "",
+      "createdDate": "2022-09-09",
+      "createdBy": "grtuser",
+      "description": "9/9/2022\r300 Ham'r bullet COAL soft touch = 2.200\", hard COAL touch but not stuck = 2.220\".\r300 Ham'r bullet CBTO soft touch = 1.773\", hard CBTO touch but not stuck = 1.793\".\r7.62x39 bullet COAL soft toucj = 2.256\".\r7.62x39 bullet CBTO soft touch = 1.833\".\rBBTO = .7245\"\rSuitable for 30-30 at action COAL length of 2.555\".  This places neck mouth just below the cannelure.\rSoft touch is approx. 2.671\", way too long for use in magazine, single load only.\r\r",
+      "_source": "Hornady_SUB-X_30718_by_Charlie_2022.09.10.projectile"
+    },
+    {
+      "manufacturer": "Hornady",
+      "productName": "Sub-X  #45031",
+      "caliber": ".452",
+      "grooveDiameter": {
+        "mm": 11.48,
+        "in": 0.45197
+      },
+      "length": {
+        "mm": 28.22,
+        "in": 1.11102
+      },
+      "mass": {
+        "gr": 395
+      },
+      "engravingPressure": {
+        "bar": 210,
+        "psi": 3045.8
+      },
+      "tailDiameterA": {
+        "mm": 0,
+        "in": 0
+      },
+      "tailDiameterB": {
+        "mm": 0,
+        "in": 0
+      },
+      "tailHeight": {
+        "mm": 0,
+        "in": 0
+      },
+      "tailType": 0,
+      "g1bc": 0.3,
+      "g7bc": 0,
+      "ubcsCode": "",
+      "createdDate": "2022-09-09",
+      "createdBy": "grtuser",
+      "description": "BBTO = .442\"",
+      "_source": "Hornady_Sub-X_45031_by_Charlie_2022.09.10.projectile"
+    },
+    {
+      "manufacturer": "HPF",
+      "productName": "HPF150GR",
+      "caliber": ".308",
+      "grooveDiameter": {
+        "mm": 7.82,
+        "in": 0.30787
+      },
+      "length": {
+        "mm": 32,
+        "in": 1.25984
+      },
+      "mass": {
+        "gr": 150
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 7.82,
+        "in": 0.30787
+      },
+      "tailDiameterB": {
+        "mm": 6.3,
+        "in": 0.24803
+      },
+      "tailHeight": {
+        "mm": 2.91,
+        "in": 0.11457
+      },
+      "tailType": 2,
+      "g1bc": 0,
+      "g7bc": 0,
+      "ubcsCode": "",
+      "createdDate": "2022-09-25",
+      "createdBy": "Carlos Mateos",
+      "description": "",
+      "_source": "HPF_HPF150GR_by_cmr29_2022.11.07.projectile"
+    },
+    {
+      "manufacturer": "Lehigh",
+      "productName": "Controlled Fracturing",
+      "caliber": ".458",
+      "grooveDiameter": {
+        "mm": 11.63,
+        "in": 0.45787
+      },
+      "length": {
+        "mm": 26.67,
+        "in": 1.05
+      },
+      "mass": {
+        "gr": 240
+      },
+      "engravingPressure": {
+        "bar": 138,
+        "psi": 2001.52
+      },
+      "tailDiameterA": {
+        "mm": 10.26,
+        "in": 0.40394
+      },
+      "tailDiameterB": {
+        "mm": 10.26,
+        "in": 0.40394
+      },
+      "tailHeight": {
+        "mm": 3.94,
+        "in": 0.15512
+      },
+      "tailType": 1,
+      "g1bc": 0.138,
+      "g7bc": 0,
+      "ubcsCode": "",
+      "createdDate": "2022-07-27",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "Lehigh_.458_240_grain_Controlled_Fracturing_by_Charlie_2022.07.27.projectile"
+    },
+    {
+      "manufacturer": "Missouri Bullet Company",
+      "productName": "LFP 245gr 3 groove, 1 wipe",
+      "caliber": ".308",
+      "grooveDiameter": {
+        "mm": 7.85,
+        "in": 0.30906
+      },
+      "length": {
+        "mm": 33.65,
+        "in": 1.3248
+      },
+      "mass": {
+        "gr": 245
+      },
+      "engravingPressure": {
+        "bar": 103,
+        "psi": 1493.89
+      },
+      "tailDiameterA": {
+        "mm": 0,
+        "in": 0
+      },
+      "tailDiameterB": {
+        "mm": 0,
+        "in": 0
+      },
+      "tailHeight": {
+        "mm": 0,
+        "in": 0
+      },
+      "tailType": 0,
+      "g1bc": 0.332,
+      "g7bc": 0,
+      "ubcsCode": "D0L7F1D4N1",
+      "createdDate": "2022-11-01",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "Missouri_Bullet_Company_LFP_245gr_3_groove_1_wipe_by_Ghirard_2022.12.09.projectile"
+    },
+    {
+      "manufacturer": "Norma",
+      "productName": "GTX",
+      "caliber": ".264",
+      "grooveDiameter": {
+        "mm": 6.71,
+        "in": 0.26417
+      },
+      "length": {
+        "mm": 37.11,
+        "in": 1.46102
+      },
+      "mass": {
+        "gr": 143
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 6.71,
+        "in": 0.26417
+      },
+      "tailDiameterB": {
+        "mm": 5.36,
+        "in": 0.21102
+      },
+      "tailHeight": {
+        "mm": 4.36,
+        "in": 0.17165
+      },
+      "tailType": 2,
+      "g1bc": 0.635,
+      "g7bc": 0.321,
+      "ubcsCode": "",
+      "createdDate": "2022-05-24",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "Norma_.264_143_GTX_by_Sierra1_2022.06.26.projectile"
+    },
+    {
+      "manufacturer": "Norma",
+      "productName": "Bondstrike",
+      "caliber": ".308",
+      "grooveDiameter": {
+        "mm": 7.82,
+        "in": 0.30787
+      },
+      "length": {
+        "mm": 34.34,
+        "in": 1.35197
+      },
+      "mass": {
+        "gr": 180
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 7.82,
+        "in": 0.30787
+      },
+      "tailDiameterB": {
+        "mm": 6.6,
+        "in": 0.25984
+      },
+      "tailHeight": {
+        "mm": 5.3,
+        "in": 0.20866
+      },
+      "tailType": 2,
+      "g1bc": 0.615,
+      "g7bc": 0,
+      "ubcsCode": "",
+      "createdDate": "2023-05-12",
+      "createdBy": "grtuser",
+      "description": "QL imported data, missing variables were filled with default values",
+      "_source": "Norma_Bondstrike_by_Charlie_2023.05.13.projectile"
+    },
+    {
+      "manufacturer": "Norma",
+      "productName": "GTX Match HPBT",
+      "caliber": ".264",
+      "grooveDiameter": {
+        "mm": 6.71,
+        "in": 0.26417
+      },
+      "length": {
+        "mm": 35.1,
+        "in": 1.38189
+      },
+      "mass": {
+        "gr": 130
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 6.71,
+        "in": 0.26417
+      },
+      "tailDiameterB": {
+        "mm": 5.3,
+        "in": 0.20866
+      },
+      "tailHeight": {
+        "mm": 4.9,
+        "in": 0.19291
+      },
+      "tailType": 2,
+      "g1bc": 0.548,
+      "g7bc": 0,
+      "ubcsCode": "S0H1B2S4N1",
+      "createdDate": "2023-03-23",
+      "createdBy": "mykle",
+      "description": "Data received from Norma. They were measured by caliper on the factory 23.03.2023.",
+      "_source": "Norma_GTX_Match_HPBT_by_mykle_2023.03.23.projectile"
+    },
+    {
+      "manufacturer": "Peregrine - 2022",
+      "productName": "VRG6 Solid",
+      "caliber": ".400",
+      "grooveDiameter": {
+        "mm": 10.16,
+        "in": 0.4
+      },
+      "length": {
+        "mm": 16.21,
+        "in": 0.63819
+      },
+      "mass": {
+        "gr": 152
+      },
+      "engravingPressure": {
+        "bar": 50,
+        "psi": 725.19
+      },
+      "tailDiameterA": {
+        "mm": 10.16,
+        "in": 0.4
+      },
+      "tailDiameterB": {
+        "mm": 9.8,
+        "in": 0.38583
+      },
+      "tailHeight": {
+        "mm": 1.25,
+        "in": 0.04921
+      },
+      "tailType": 2,
+      "g1bc": 0,
+      "g7bc": 0,
+      "ubcsCode": "",
+      "createdDate": "2022-10-28",
+      "createdBy": "grtuser",
+      "description": "QL imported data, missing variables were filled with default values",
+      "_source": "Peregrine-2022_by_Charlie_2022.10.28.projectile"
+    },
+    {
+      "manufacturer": "Sako",
+      "productName": "HammerHd 266D",
+      "caliber": ".366",
+      "grooveDiameter": {
+        "mm": 9.3,
+        "in": 0.36614
+      },
+      "length": {
+        "mm": 32.2,
+        "in": 1.26772
+      },
+      "mass": {
+        "gr": 286
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 0,
+        "in": 0
+      },
+      "tailDiameterB": {
+        "mm": 0,
+        "in": 0
+      },
+      "tailHeight": {
+        "mm": 0,
+        "in": 0
+      },
+      "tailType": 0,
+      "g1bc": 0.286,
+      "g7bc": 0,
+      "ubcsCode": "",
+      "createdDate": "2021-11-22",
+      "createdBy": "grtuser",
+      "description": "measured Sako Hammerhead 266D\rmost of the measurements inclined to 32.2mm , some were 32.3mm\rSako diameters range on box: 9.26-9.28 mm\rEAN code: 6 438053 998779",
+      "_source": "Sako_HammerHd_266D_by_Charlie_2022.05.27.projectile"
+    },
+    {
+      "manufacturer": "Sierra",
+      "productName": "HPBT MK",
+      "caliber": ".264",
+      "grooveDiameter": {
+        "mm": 6.71,
+        "in": 0.26417
+      },
+      "length": {
+        "mm": 38.06,
+        "in": 1.49843
+      },
+      "mass": {
+        "gr": 150
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 6.71,
+        "in": 0.26417
+      },
+      "tailDiameterB": {
+        "mm": 5.55,
+        "in": 0.2185
+      },
+      "tailHeight": {
+        "mm": 5.66,
+        "in": 0.22283
+      },
+      "tailType": 2,
+      "g1bc": 0.713,
+      "g7bc": 0,
+      "ubcsCode": "T0H1B2S4N1",
+      "createdDate": "2023-01-23",
+      "createdBy": "270Okie",
+      "description": "Sierra MatchKing .264 150gr",
+      "_source": "Sierra_.264_150gr_HPBT_MK_by_JT427V8_2023.01.24.projectile"
+    },
+    {
+      "manufacturer": "Sierra",
+      "productName": "HPBT MK 1755",
+      "caliber": ".264",
+      "grooveDiameter": {
+        "mm": 6.71,
+        "in": 0.26417
+      },
+      "length": {
+        "mm": 37.77,
+        "in": 1.48701
+      },
+      "mass": {
+        "gr": 150
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 6.7,
+        "in": 0.26378
+      },
+      "tailDiameterB": {
+        "mm": 5.46,
+        "in": 0.21496
+      },
+      "tailHeight": {
+        "mm": 4.8,
+        "in": 0.18898
+      },
+      "tailType": 2,
+      "g1bc": 0.713,
+      "g7bc": 0,
+      "ubcsCode": "",
+      "createdDate": "2023-04-30",
+      "createdBy": "nitrox",
+      "description": "",
+      "_source": "Sierra_HPBT_MK_1755_by_Nitrox_2023.05.01.projectile"
+    },
+    {
+      "manufacturer": "Sierra",
+      "productName": "HPBT MK 9377",
+      "caliber": ".224",
+      "grooveDiameter": {
+        "mm": 5.69,
+        "in": 0.22402
+      },
+      "length": {
+        "mm": 25.26,
+        "in": 0.99449
+      },
+      "mass": {
+        "gr": 77
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 5.69,
+        "in": 0.22402
+      },
+      "tailDiameterB": {
+        "mm": 4.5,
+        "in": 0.17717
+      },
+      "tailHeight": {
+        "mm": 3.42,
+        "in": 0.13465
+      },
+      "tailType": 2,
+      "g1bc": 0.372,
+      "g7bc": 0.19,
+      "ubcsCode": "",
+      "createdDate": "2021-12-27",
+      "createdBy": "grtuser",
+      "description": "6/29/2022 Jam by force seating bullet in chamber = COAL 2.480\" or CBTO 2.077\" in Savage.",
+      "_source": "Sierra_HPBT_MK_9377_by_Charlie_2023.01.04.projectile"
+    },
+    {
+      "manufacturer": "Sierra",
+      "productName": "TGK 4340",
+      "caliber": ".264",
+      "grooveDiameter": {
+        "mm": 6.71,
+        "in": 0.26417
+      },
+      "length": {
+        "mm": 36.65,
+        "in": 1.44291
+      },
+      "mass": {
+        "gr": 140
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 6.71,
+        "in": 0.26417
+      },
+      "tailDiameterB": {
+        "mm": 5.08,
+        "in": 0.2
+      },
+      "tailHeight": {
+        "mm": 5.64,
+        "in": 0.22205
+      },
+      "tailType": 2,
+      "g1bc": 0.563,
+      "g7bc": 0.281,
+      "ubcsCode": "",
+      "createdDate": "2023-01-19",
+      "createdBy": "grtuser",
+      "description": "Length Dimensions taken from Sierra screen image and tail dimensions estimated from 130 SMK on hand.\rBC taken from Sierra screen.\rThis is an estimate only, Users shoeld verify from stock on hand.",
+      "_source": "Sierra_TGK_4340_by_Charlie_2023.01.19.projectile"
+    },
+    {
+      "manufacturer": "Sig Sauer",
+      "productName": "Elite Ball FMJ FB",
+      "caliber": ".308",
+      "grooveDiameter": {
+        "mm": 7.82,
+        "in": 0.30787
+      },
+      "length": {
+        "mm": 28.19,
+        "in": 1.10984
+      },
+      "mass": {
+        "gr": 125
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 0,
+        "in": 0
+      },
+      "tailDiameterB": {
+        "mm": 0,
+        "in": 0
+      },
+      "tailHeight": {
+        "mm": 0,
+        "in": 0
+      },
+      "tailType": 0,
+      "g1bc": 0,
+      "g7bc": 0,
+      "ubcsCode": "T0F2F2C5N1",
+      "createdDate": "2023-04-17",
+      "createdBy": "Airwolf",
+      "description": "",
+      "_source": "Sig_Sauer_Elite_Ball_FMJ_FB_by_Airwolf_2023.04.17.projectile"
+    },
+    {
+      "manufacturer": "Vapor Trail Bullets",
+      "productName": "VT-TAC",
+      "caliber": ".243",
+      "grooveDiameter": {
+        "mm": 6.17,
+        "in": 0.24291
+      },
+      "length": {
+        "mm": 30.94,
+        "in": 1.21811
+      },
+      "mass": {
+        "gr": 103
+      },
+      "engravingPressure": {
+        "bar": 250,
+        "psi": 3625.95
+      },
+      "tailDiameterA": {
+        "mm": 6.17,
+        "in": 0.24291
+      },
+      "tailDiameterB": {
+        "mm": 4.52,
+        "in": 0.17795
+      },
+      "tailHeight": {
+        "mm": 5.08,
+        "in": 0.2
+      },
+      "tailType": 2,
+      "g1bc": 0.507,
+      "g7bc": 0.26,
+      "ubcsCode": "",
+      "createdDate": "2023-05-03",
+      "createdBy": "grtuser",
+      "description": "From Web Page\r",
+      "_source": "Vapor_Trail_Bullets_VT-TAC_by_Charlie_2023.05.03.projectile"
+    }
+  ],
+  "powders": [
+    {
+      "manufacturer": "Accurate",
+      "productName": "MAGPRO",
+      "lotId": "2023/06/22",
+      "progressivityFactor": 0.1246,
+      "brisanceFactor": 0.0812,
+      "combinedBrisanceProgressivity": 0.1052,
+      "vivacityCoefficient": 0.32,
+      "specificExplosiveHeat_kJkg": 3880,
+      "specificHeatRatio": 1.214,
+      "baPhiCoefficient": 9.3381,
+      "burnUpLimitZ1": 0.2476,
+      "burnUpLimitZ2": 0.2724,
+      "covolume_cm3g": 1,
+      "materialDensity_kgm3": 1620,
+      "bulkDensity_kgm3": 978,
+      "temperature_C": 21,
+      "coldTempCoefficient": 0,
+      "hotTempCoefficient": 0,
+      "createdDate": "2023-06-22",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "Accurate_MAGPRO_-_2023_06_28_by_Tom24_2023.06.22.propellant"
+    },
+    {
+      "manufacturer": "Alliant",
+      "productName": "Red Dot",
+      "lotId": "2023/06/21",
+      "progressivityFactor": 1.3166,
+      "brisanceFactor": 1.0246,
+      "combinedBrisanceProgressivity": 1.1797,
+      "vivacityCoefficient": 3.4,
+      "specificExplosiveHeat_kJkg": 4538,
+      "specificHeatRatio": 1.2205,
+      "baPhiCoefficient": 5.3606,
+      "burnUpLimitZ1": 0.1899,
+      "burnUpLimitZ2": 0.3999,
+      "covolume_cm3g": 1,
+      "materialDensity_kgm3": 1640,
+      "bulkDensity_kgm3": 458,
+      "temperature_C": 21,
+      "coldTempCoefficient": 0,
+      "hotTempCoefficient": 0,
+      "createdDate": "2023-06-21",
+      "createdBy": "grtuser",
+      "description": "QL Clone!!",
+      "_source": "Alliant_Red_Dot_-_2023_06_21_by_Tom24_2023.06.21.propellant"
+    },
+    {
+      "manufacturer": "Alliant",
+      "productName": "RL 25",
+      "lotId": "2023/04/01",
+      "progressivityFactor": 0.1238,
+      "brisanceFactor": 0.0892,
+      "combinedBrisanceProgressivity": 0.1079,
+      "vivacityCoefficient": 0.344,
+      "specificExplosiveHeat_kJkg": 3810,
+      "specificHeatRatio": 1.2318,
+      "baPhiCoefficient": 2.3964,
+      "burnUpLimitZ1": 0.6264,
+      "burnUpLimitZ2": 0.689,
+      "covolume_cm3g": 1,
+      "materialDensity_kgm3": 1620,
+      "bulkDensity_kgm3": 915,
+      "temperature_C": 21,
+      "coldTempCoefficient": 0,
+      "hotTempCoefficient": 0,
+      "createdDate": "2023-04-01",
+      "createdBy": "grtuser",
+      "description": "Alliant RL 25 QL-Clone",
+      "_source": "Alliant_RL_25_-_2023_04_01_by_Tom24_2023.04.02.propellant"
+    },
+    {
+      "manufacturer": "Alliant",
+      "productName": "RL 33",
+      "lotId": "2023/03/26",
+      "progressivityFactor": 0.1065,
+      "brisanceFactor": 0.0635,
+      "combinedBrisanceProgressivity": 0.0877,
+      "vivacityCoefficient": 0.248,
+      "specificExplosiveHeat_kJkg": 3900,
+      "specificHeatRatio": 1.2155,
+      "baPhiCoefficient": 6.3434,
+      "burnUpLimitZ1": 0.5131,
+      "burnUpLimitZ2": 0.5645,
+      "covolume_cm3g": 1,
+      "materialDensity_kgm3": 1620,
+      "bulkDensity_kgm3": 1011,
+      "temperature_C": 21,
+      "coldTempCoefficient": 0,
+      "hotTempCoefficient": 0,
+      "createdDate": "2023-03-26",
+      "createdBy": "grtuser",
+      "description": "Alliant RL33 QL-Clone",
+      "_source": "Alliant_RL_33_-_2023_03_26_by_Tom24_2023.04.02.propellant"
+    },
+    {
+      "manufacturer": "Hodgdon",
+      "productName": "50BMG",
+      "lotId": "2020-12-11",
+      "progressivityFactor": 0.0936,
+      "brisanceFactor": 0.0794,
+      "combinedBrisanceProgressivity": 0.0868,
+      "vivacityCoefficient": 0.3020833,
+      "specificExplosiveHeat_kJkg": 3700,
+      "specificHeatRatio": 1.2522964,
+      "baPhiCoefficient": 1.2141,
+      "burnUpLimitZ1": 0.4804,
+      "burnUpLimitZ2": 0.8363,
+      "covolume_cm3g": 1,
+      "materialDensity_kgm3": 1580.06089440001,
+      "bulkDensity_kgm3": 980.009382800007,
+      "temperature_C": 17.7777777777778,
+      "coldTempCoefficient": 0,
+      "hotTempCoefficient": 0,
+      "createdDate": "2020-12-11",
+      "createdBy": "Mahmoud Shmaitelly",
+      "description": "Auto Caliberated from GRT OBT tool",
+      "_source": "Hodgdon_50BMG_-_2020-12-11_by_Beiruty_2022.08.10.propellant"
+    },
+    {
+      "manufacturer": "Hodgdon",
+      "productName": "50BMG",
+      "lotId": "2023/03/26",
+      "progressivityFactor": 0.0902,
+      "brisanceFactor": 0.0618,
+      "combinedBrisanceProgressivity": 0.0773,
+      "vivacityCoefficient": 0.21,
+      "specificExplosiveHeat_kJkg": 4010,
+      "specificHeatRatio": 1.2695,
+      "baPhiCoefficient": 6.421,
+      "burnUpLimitZ1": 0.2923,
+      "burnUpLimitZ2": 0.8385,
+      "covolume_cm3g": 1,
+      "materialDensity_kgm3": 1570,
+      "bulkDensity_kgm3": 934,
+      "temperature_C": 21,
+      "coldTempCoefficient": 0,
+      "hotTempCoefficient": 0,
+      "createdDate": "2023-03-27",
+      "createdBy": "grtuser",
+      "description": "Hodgdon 50BMG QL-Clone",
+      "_source": "Hodgdon_50BMG_-_2023_03_26_by_Tom24_2023.04.02.propellant"
+    },
+    {
+      "manufacturer": "Hodgdon",
+      "productName": "H380 #3",
+      "lotId": "20230129",
+      "progressivityFactor": 0.1717,
+      "brisanceFactor": 0.1259,
+      "combinedBrisanceProgressivity": 0.1506,
+      "vivacityCoefficient": 0.496,
+      "specificExplosiveHeat_kJkg": 3970,
+      "specificHeatRatio": 1.20425,
+      "baPhiCoefficient": 4.0837,
+      "burnUpLimitZ1": 0.3391,
+      "burnUpLimitZ2": 0.4215,
+      "covolume_cm3g": 1,
+      "materialDensity_kgm3": 1570,
+      "bulkDensity_kgm3": 940,
+      "temperature_C": 21,
+      "coldTempCoefficient": 0,
+      "hotTempCoefficient": 0,
+      "createdDate": "2023-01-29",
+      "createdBy": "grtuser",
+      "description": "Gun firing data:\r.30 06 Spring. CIP\r.308, 165 gr Speer SP 2035\rCOAL=81 mm\r57 gr H380\rPrimer = RWS 5341\rv0 = 845 m/s\rpmax = 3645 bar (GRT: + 5% !!)\rBarrel length = 600 mm",
+      "_source": "Hodgdon_H380_3_-_20230129_by_Tom24_2023.01.29.propellant"
+    },
+    {
+      "manufacturer": "Hodgdon",
+      "productName": "Lil'Gun (sub-sonic)",
+      "lotId": "2023/05/07",
+      "progressivityFactor": 0.5862,
+      "brisanceFactor": 0.1861,
+      "combinedBrisanceProgressivity": 0.4349,
+      "vivacityCoefficient": 0.86,
+      "specificExplosiveHeat_kJkg": 4090,
+      "specificHeatRatio": 1.14,
+      "baPhiCoefficient": 100.3009,
+      "burnUpLimitZ1": 0.2378,
+      "burnUpLimitZ2": 0.8506,
+      "covolume_cm3g": 1,
+      "materialDensity_kgm3": 1570,
+      "bulkDensity_kgm3": 956,
+      "temperature_C": 21,
+      "coldTempCoefficient": 0,
+      "hotTempCoefficient": 0,
+      "createdDate": "2023-05-07",
+      "createdBy": "grtuser",
+      "description": "Derived from Hodgdon publishes load data for sub-sonic loads. No information on barrel length, assumption 16 \"!",
+      "_source": "Hodgdon_LilGun_sub-sonic_-_2023_05_07_by_Charlie_2023.05.07.propellant"
+    },
+    {
+      "manufacturer": "Hodgdon",
+      "productName": "Lil'Gun (sub-sonic)",
+      "lotId": "2023/05/07",
+      "progressivityFactor": 0.5862,
+      "brisanceFactor": 0.1861,
+      "combinedBrisanceProgressivity": 0.4349,
+      "vivacityCoefficient": 0.86,
+      "specificExplosiveHeat_kJkg": 4090,
+      "specificHeatRatio": 1.14,
+      "baPhiCoefficient": 100.3009,
+      "burnUpLimitZ1": 0.2378,
+      "burnUpLimitZ2": 0.8506,
+      "covolume_cm3g": 1,
+      "materialDensity_kgm3": 1570,
+      "bulkDensity_kgm3": 956,
+      "temperature_C": 21,
+      "coldTempCoefficient": 0,
+      "hotTempCoefficient": 0,
+      "createdDate": "2023-05-07",
+      "createdBy": "grtuser",
+      "description": "Derived from Hodgdon publishes load data for sub-sonic loads. No information on barrel length, assumption 16 \"!",
+      "_source": "Hodgdon_LilGun_sub-sonic_-_2023_05_07_by_Tom24_2023.05.07.propellant"
+    },
+    {
+      "manufacturer": "Hodgdon",
+      "productName": "Lil' Gun QL",
+      "lotId": "2023/05/03",
+      "progressivityFactor": 0.3589,
+      "brisanceFactor": 0.2137,
+      "combinedBrisanceProgressivity": 0.2954,
+      "vivacityCoefficient": 0.915,
+      "specificExplosiveHeat_kJkg": 4090,
+      "specificHeatRatio": 1.163,
+      "baPhiCoefficient": 7.1827,
+      "burnUpLimitZ1": 0.4555,
+      "burnUpLimitZ2": 0.5011,
+      "covolume_cm3g": 1,
+      "materialDensity_kgm3": 1570,
+      "bulkDensity_kgm3": 956,
+      "temperature_C": 21,
+      "coldTempCoefficient": 0,
+      "hotTempCoefficient": 0,
+      "createdDate": "2023-05-03",
+      "createdBy": "grtuser",
+      "description": "QL Clone",
+      "_source": "Hodgdon_Lil_Gun_QL_-_2023_05_03_by_Tom24_2023.05.05.propellant"
+    },
+    {
+      "manufacturer": "Reload Swiss",
+      "productName": "RS 14",
+      "lotId": "2023/01/27",
+      "progressivityFactor": 0.9771,
+      "brisanceFactor": 0.68,
+      "combinedBrisanceProgressivity": 0.8418,
+      "vivacityCoefficient": 3.147,
+      "specificExplosiveHeat_kJkg": 3200,
+      "specificHeatRatio": 1.228,
+      "baPhiCoefficient": 9.7814,
+      "burnUpLimitZ1": 0.1799,
+      "burnUpLimitZ2": 0.7608,
+      "covolume_cm3g": 1,
+      "materialDensity_kgm3": 1600,
+      "bulkDensity_kgm3": 316,
+      "temperature_C": 21,
+      "coldTempCoefficient": 0,
+      "hotTempCoefficient": 0,
+      "createdDate": "2023-01-27",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "Reload_Swiss_RS_14_-_2023_01_27_by_Tom24_2023.01.27.propellant"
+    },
+    {
+      "manufacturer": "Winchester",
+      "productName": "StaBALL Match",
+      "lotId": "2023/02/13",
+      "progressivityFactor": 0.1995,
+      "brisanceFactor": 0.131,
+      "combinedBrisanceProgressivity": 0.1688,
+      "vivacityCoefficient": 0.56,
+      "specificExplosiveHeat_kJkg": 3700,
+      "specificHeatRatio": 1.2,
+      "baPhiCoefficient": 5.2232,
+      "burnUpLimitZ1": 0.4296,
+      "burnUpLimitZ2": 0.8867,
+      "covolume_cm3g": 1,
+      "materialDensity_kgm3": 1600,
+      "bulkDensity_kgm3": 890,
+      "temperature_C": 21,
+      "coldTempCoefficient": 0,
+      "hotTempCoefficient": 0,
+      "createdDate": "2023-02-13",
+      "createdBy": "grtuser",
+      "description": "Based on Hodgdon Reloading Data website.\rCartridges considered:\r6.5 Creedmoor\r.270 Win\r.308 Win",
+      "_source": "Winchester_StaBALL_Match_-_2023_02_13_by_Tom24_2023.02.13.propellant"
+    }
+  ],
+  "calibers": [
+    {
+      "cipName": "12,7 x 42",
+      "altName": "50 Beowulf",
+      "standard": "CIP",
+      "cipOrigin": "Alexander Arms",
+      "cipType": "1 rimless",
+      "cipDate": "21-11-19",
+      "caseLength": {
+        "mm": 42.04,
+        "in": 1.65512
+      },
+      "overallLength": {
+        "mm": 57.15,
+        "in": 2.25
+      },
+      "caseHeadRadius": {
+        "mm": 1.45,
+        "in": 0.05709
+      },
+      "rimDiameter": {
+        "mm": 11.35,
+        "in": 0.44685
+      },
+      "neckWallThickness": {
+        "mm": 4.46,
+        "in": 0.17559
+      },
+      "bodyDiameter": {
+        "mm": 9.35,
+        "in": 0.36811
+      },
+      "minNeckThickness": {
+        "mm": 1.45,
+        "in": 0.05709
+      },
+      "maxPressure": {
+        "bar": 2300,
+        "psi": 33358.74
+      },
+      "proofPressurePK": {
+        "bar": 2645,
+        "psi": 38362.55
+      },
+      "proofPressurePE": {
+        "bar": 2990,
+        "psi": 43366.36
+      },
+      "caseVolume": 79.7,
+      "caseWeight": 10.41,
+      "sebertFactor": 0.75,
+      "boreArea_mm2": 124.47,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 16,
+        "in": 0.62992
+      },
+      "createdDate": "2023-02-11",
+      "createdBy": "Charlie",
+      "description": "",
+      "_source": "127_x_42_50_Beowulf_by_Charlie_2023.02.11.caliber"
+    },
+    {
+      "cipName": "12,7 x 42",
+      "altName": "50 Beowulf Starline",
+      "standard": "CIP",
+      "cipOrigin": "Alexander Arms",
+      "cipType": "1 rimless",
+      "cipDate": "21-11-19",
+      "caseLength": {
+        "mm": 41.87,
+        "in": 1.64843
+      },
+      "overallLength": {
+        "mm": 57.15,
+        "in": 2.25
+      },
+      "caseHeadRadius": {
+        "mm": 1.45,
+        "in": 0.05709
+      },
+      "rimDiameter": {
+        "mm": 11.35,
+        "in": 0.44685
+      },
+      "neckWallThickness": {
+        "mm": 4.46,
+        "in": 0.17559
+      },
+      "bodyDiameter": {
+        "mm": 9.35,
+        "in": 0.36811
+      },
+      "minNeckThickness": {
+        "mm": 1.45,
+        "in": 0.05709
+      },
+      "maxPressure": {
+        "bar": 2300.02,
+        "psi": 33359.03
+      },
+      "proofPressurePK": {
+        "bar": 2644.97,
+        "psi": 38362.12
+      },
+      "proofPressurePE": {
+        "bar": 2989.98,
+        "psi": 43366.07
+      },
+      "caseVolume": 69.4,
+      "caseWeight": 10.41,
+      "sebertFactor": 0.75,
+      "boreArea_mm2": 124.45,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 508,
+        "in": 20
+      },
+      "createdDate": "2023-03-06",
+      "createdBy": "Charlie",
+      "description": "",
+      "_source": "127_x_42_50_Beowulf_Starline_by_Charlie_2023.03.11.caliber"
+    },
+    {
+      "cipName": ".22 Dasher Reyneke",
+      "altName": "",
+      "standard": "WildCat",
+      "cipOrigin": "From Manson Reamer Print",
+      "cipType": "1 rimless",
+      "cipDate": "2020/01/15",
+      "caseLength": {
+        "mm": 39.62,
+        "in": 1.55984
+      },
+      "overallLength": {
+        "mm": 62,
+        "in": 2.44094
+      },
+      "caseHeadRadius": {
+        "mm": 1.37,
+        "in": 0.05394
+      },
+      "rimDiameter": {
+        "mm": 12.01,
+        "in": 0.47283
+      },
+      "neckWallThickness": {
+        "mm": 3.85,
+        "in": 0.15157
+      },
+      "bodyDiameter": {
+        "mm": 10.39,
+        "in": 0.40906
+      },
+      "minNeckThickness": {
+        "mm": 1.4,
+        "in": 0.05512
+      },
+      "maxPressure": {
+        "bar": 4049.98,
+        "psi": 58740.1
+      },
+      "proofPressurePK": {
+        "bar": 4658.03,
+        "psi": 67559.14
+      },
+      "proofPressurePE": {
+        "bar": 5059.99,
+        "psi": 73389.08
+      },
+      "caseVolume": 37,
+      "caseWeight": 17.53,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 25.03,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 203.2,
+        "in": 8
+      },
+      "createdDate": "2023-06-07",
+      "createdBy": "grtuser",
+      "description": "This file is generated from mixed sources.  Chamber from a Manson / Reyneke print.  Cartridge by guess work reducing some dimensions just enough to allow the case to chamber.  Manson prints are a mix of SAAMI and CIP parameters, thus making exact duplication a bit difficult.  The drawing specifies a .075\" freebore but also says freebore is to allow a 75 ELD-M bullet to be forward of the neck/shoulder junction.  .075\" does not seem long enough to provide this requirement, so it is assumed the freebore is to be established after the chamber is reamed by the use of a separate throating reamer.\r",
+      "_source": "22_Dasher_Reyneke_by_Charlie_2023.06.07.caliber"
+    },
+    {
+      "cipName": "22 Grendel AR15 Platform",
+      "altName": "",
+      "standard": "WildCat JGS Drawing",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "12/21/2017",
+      "caseLength": {
+        "mm": 38.81,
+        "in": 1.52795
+      },
+      "overallLength": {
+        "mm": 57.4,
+        "in": 2.25984
+      },
+      "caseHeadRadius": {
+        "mm": 1.5,
+        "in": 0.05906
+      },
+      "rimDiameter": {
+        "mm": 11.2,
+        "in": 0.44094
+      },
+      "neckWallThickness": {
+        "mm": 3.5,
+        "in": 0.1378
+      },
+      "bodyDiameter": {
+        "mm": 9.6,
+        "in": 0.37795
+      },
+      "minNeckThickness": {
+        "mm": 1.19,
+        "in": 0.04685
+      },
+      "maxPressure": {
+        "bar": 3585.27,
+        "psi": 52000.04
+      },
+      "proofPressurePK": {
+        "bar": 4123.06,
+        "psi": 59800.04
+      },
+      "proofPressurePE": {
+        "bar": 4481.59,
+        "psi": 65000.09
+      },
+      "caseVolume": 35.7,
+      "caseWeight": 24.89,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 34.65,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 200,
+        "in": 7.87402
+      },
+      "createdDate": "2023-02-27",
+      "createdBy": "JGS",
+      "description": "From JGS reamer print, no cartridge print supplied.\rI made the cartridge L1, L2, and L3 dimensions .002\" short of the reamer drawing.\rNo pressures given so I set the limits the same as 6 ARC AR 15 platform.\r\r",
+      "_source": "22_Grendel_AR15_Platform_by_Charlie_2023.02.28.caliber"
+    },
+    {
+      "cipName": "22 Grendel Bolt Action Platform",
+      "altName": "",
+      "standard": "WildCat JGS ",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "12/21/2017",
+      "caseLength": {
+        "mm": 38.81,
+        "in": 1.52795
+      },
+      "overallLength": {
+        "mm": 57.4,
+        "in": 2.25984
+      },
+      "caseHeadRadius": {
+        "mm": 1.5,
+        "in": 0.05906
+      },
+      "rimDiameter": {
+        "mm": 11.2,
+        "in": 0.44094
+      },
+      "neckWallThickness": {
+        "mm": 3.5,
+        "in": 0.1378
+      },
+      "bodyDiameter": {
+        "mm": 9.6,
+        "in": 0.37795
+      },
+      "minNeckThickness": {
+        "mm": 1.19,
+        "in": 0.04685
+      },
+      "maxPressure": {
+        "bar": 4274.75,
+        "psi": 62000.12
+      },
+      "proofPressurePK": {
+        "bar": 4915.96,
+        "psi": 71300.1
+      },
+      "proofPressurePE": {
+        "bar": 5343.44,
+        "psi": 77500.19
+      },
+      "caseVolume": 35.7,
+      "caseWeight": 24.89,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 34.65,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 200,
+        "in": 7.87402
+      },
+      "createdDate": "2023-02-27",
+      "createdBy": "JGS",
+      "description": "From JGS reamer print, no cartridge print supplied.\rI made the cartridge L1, L2, and L3 dimensions .002\" short of the reamer drawing.\rNo pressures given, so I set the limits the same as 6 ARC Bolt platform.\r\r",
+      "_source": "22_Grendel_Bolt_Action_Platform_by_Charlie_2023.02.28.caliber"
+    },
+    {
+      "cipName": ".22 GT",
+      "altName": "",
+      "standard": "WildCat",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "2006-05-16",
+      "caseLength": {
+        "mm": 43.99,
+        "in": 1.73189
+      },
+      "overallLength": {
+        "mm": 65.66,
+        "in": 2.58504
+      },
+      "caseHeadRadius": {
+        "mm": 1.37,
+        "in": 0.05394
+      },
+      "rimDiameter": {
+        "mm": 12.01,
+        "in": 0.47283
+      },
+      "neckWallThickness": {
+        "mm": 3.85,
+        "in": 0.15157
+      },
+      "bodyDiameter": {
+        "mm": 10.39,
+        "in": 0.40906
+      },
+      "minNeckThickness": {
+        "mm": 1.4,
+        "in": 0.05512
+      },
+      "maxPressure": {
+        "bar": 4274.75,
+        "psi": 62000.12
+      },
+      "proofPressurePK": {
+        "bar": 4915.96,
+        "psi": 71300.1
+      },
+      "proofPressurePE": {
+        "bar": 5343.44,
+        "psi": 77500.19
+      },
+      "caseVolume": 44.7,
+      "caseWeight": 24.64,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 25.03,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 177.8,
+        "in": 7
+      },
+      "createdDate": "2023-02-08",
+      "createdBy": "grtuser",
+      "description": "6mm GT to .22 GT",
+      "_source": "22_GT_by_Rico11b_2023.02.09.caliber"
+    },
+    {
+      "cipName": ".22 TCM",
+      "altName": "",
+      "standard": "WildCat",
+      "cipOrigin": "US",
+      "cipType": "4 pistol/revolver",
+      "cipDate": "",
+      "caseLength": {
+        "mm": 26.04,
+        "in": 1.0252
+      },
+      "overallLength": {
+        "mm": 32.51,
+        "in": 1.27992
+      },
+      "caseHeadRadius": {
+        "mm": 1.24,
+        "in": 0.04882
+      },
+      "rimDiameter": {
+        "mm": 9.4,
+        "in": 0.37008
+      },
+      "neckWallThickness": {
+        "mm": 3.13,
+        "in": 0.12323
+      },
+      "bodyDiameter": {
+        "mm": 8.23,
+        "in": 0.32402
+      },
+      "minNeckThickness": {
+        "mm": 0.76,
+        "in": 0.02992
+      },
+      "maxPressure": {
+        "bar": 3171.59,
+        "psi": 46000.11
+      },
+      "proofPressurePK": {
+        "bar": 3654.22,
+        "psi": 53000.08
+      },
+      "proofPressurePE": {
+        "bar": 4205.8,
+        "psi": 61000.08
+      },
+      "caseVolume": 16.4,
+      "caseWeight": 0,
+      "sebertFactor": 0.6,
+      "boreArea_mm2": 25.1,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 305,
+        "in": 12.00787
+      },
+      "createdDate": "2022-02-13",
+      "createdBy": "grtuser",
+      "description": "Sized volume was 15.64 grs. H2O.\rL6 set by maximum the magazine will allow.",
+      "_source": "22_TCM_by_Charlie_2022.02.15.caliber"
+    },
+    {
+      "cipName": ".22 XC",
+      "altName": "",
+      "standard": "WildCat",
+      "cipOrigin": "SE",
+      "cipType": "1 rimless",
+      "cipDate": "2020-04",
+      "caseLength": {
+        "mm": 48.26,
+        "in": 1.9
+      },
+      "overallLength": {
+        "mm": 70,
+        "in": 2.75591
+      },
+      "caseHeadRadius": {
+        "mm": 1.35,
+        "in": 0.05315
+      },
+      "rimDiameter": {
+        "mm": 11.95,
+        "in": 0.47047
+      },
+      "neckWallThickness": {
+        "mm": 3.86,
+        "in": 0.15197
+      },
+      "bodyDiameter": {
+        "mm": 10.3,
+        "in": 0.40551
+      },
+      "minNeckThickness": {
+        "mm": 1.4,
+        "in": 0.05512
+      },
+      "maxPressure": {
+        "bar": 4400.03,
+        "psi": 63817.16
+      },
+      "proofPressurePK": {
+        "bar": 5059.99,
+        "psi": 73389.08
+      },
+      "proofPressurePE": {
+        "bar": 5500.02,
+        "psi": 79771.19
+      },
+      "caseVolume": 49,
+      "caseWeight": 25,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 29.23,
+      "grooveCount": 4,
+      "twistRate": {
+        "mm": 203.2,
+        "in": 8
+      },
+      "createdDate": "2023-06-29",
+      "createdBy": "Tubb",
+      "description": "H2O capacity based on Peterson 6XC brass necked down. Reamer was  Manson Tubb spec",
+      "_source": "22_XC_by_Charlie_2023.06.29.caliber"
+    },
+    {
+      "cipName": "25 Creedmoor",
+      "altName": "",
+      "standard": "WildCat",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "2012-05-30",
+      "caseLength": {
+        "mm": 48.77,
+        "in": 1.92008
+      },
+      "overallLength": {
+        "mm": 71.76,
+        "in": 2.8252
+      },
+      "caseHeadRadius": {
+        "mm": 1.37,
+        "in": 0.05394
+      },
+      "rimDiameter": {
+        "mm": 12.01,
+        "in": 0.47283
+      },
+      "neckWallThickness": {
+        "mm": 3.84,
+        "in": 0.15118
+      },
+      "bodyDiameter": {
+        "mm": 10.39,
+        "in": 0.40906
+      },
+      "minNeckThickness": {
+        "mm": 1.4,
+        "in": 0.05512
+      },
+      "maxPressure": {
+        "bar": 4350,
+        "psi": 63091.53
+      },
+      "proofPressurePK": {
+        "bar": 5003,
+        "psi": 72562.51
+      },
+      "proofPressurePE": {
+        "bar": 5438,
+        "psi": 78871.66
+      },
+      "caseVolume": 53.8,
+      "caseWeight": 25,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 32.78,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 254,
+        "in": 10
+      },
+      "createdDate": "2021-04-14",
+      "createdBy": "grtuser",
+      "description": "0.257 projectile in a 6.5 Creedmoor case \\u005Cu005Cu005Cu00BCalled 25 Creedmoor",
+      "_source": "25_Creedmoor_by_Beiruty_2022.07.12.caliber"
+    },
+    {
+      "cipName": "25 PRC",
+      "altName": "257 PRC Precision Rifle Cartridge (Wildcat based on 6.5 PRC)",
+      "standard": "WildCat",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "2012-05-30",
+      "caseLength": {
+        "mm": 51.56,
+        "in": 2.02992
+      },
+      "overallLength": {
+        "mm": 75.06,
+        "in": 2.95512
+      },
+      "caseHeadRadius": {
+        "mm": 1.27,
+        "in": 0.05
+      },
+      "rimDiameter": {
+        "mm": 13.51,
+        "in": 0.53189
+      },
+      "neckWallThickness": {
+        "mm": 3.24,
+        "in": 0.12756
+      },
+      "bodyDiameter": {
+        "mm": 12.07,
+        "in": 0.4752
+      },
+      "minNeckThickness": {
+        "mm": 0.94,
+        "in": 0.03701
+      },
+      "maxPressure": {
+        "bar": 4400.03,
+        "psi": 63817.16
+      },
+      "proofPressurePK": {
+        "bar": 5059.99,
+        "psi": 73389.08
+      },
+      "proofPressurePE": {
+        "bar": 5500.02,
+        "psi": 79771.19
+      },
+      "caseVolume": 68,
+      "caseWeight": 25,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 32.77,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 190.5,
+        "in": 7.5
+      },
+      "createdDate": "2021-04-14",
+      "createdBy": "grtuser",
+      "description": "A 6.5 PRC necked down to .257 For",
+      "_source": "25_PRC_257_PRC_Precision_Rifle_Cartridge_Wildcat_based_on_6.5_PRC_by_Beiruty_2022.07.12.caliber"
+    },
+    {
+      "cipName": ".26 Nosler",
+      "altName": "",
+      "standard": "CIP",
+      "cipOrigin": "",
+      "cipType": "1 rimless",
+      "cipDate": "21-11-09",
+      "caseLength": {
+        "mm": 65.79,
+        "in": 2.59016
+      },
+      "overallLength": {
+        "mm": 84.84,
+        "in": 3.34016
+      },
+      "caseHeadRadius": {
+        "mm": 1.27,
+        "in": 0.05
+      },
+      "rimDiameter": {
+        "mm": 13.56,
+        "in": 0.53386
+      },
+      "neckWallThickness": {
+        "mm": 3.75,
+        "in": 0.14764
+      },
+      "bodyDiameter": {
+        "mm": 12.07,
+        "in": 0.4752
+      },
+      "minNeckThickness": {
+        "mm": 0.94,
+        "in": 0.03701
+      },
+      "maxPressure": {
+        "bar": 4400,
+        "psi": 63816.72
+      },
+      "proofPressurePK": {
+        "bar": 5060,
+        "psi": 73389.23
+      },
+      "proofPressurePE": {
+        "bar": 5500,
+        "psi": 79770.9
+      },
+      "caseVolume": 100.6,
+      "caseWeight": 25,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 34.22,
+      "grooveCount": 4,
+      "twistRate": {
+        "mm": 230.2,
+        "in": 9.06299
+      },
+      "createdDate": "2023-01-16",
+      "createdBy": "Charlie",
+      "description": "Transcribed from CIP drawing.",
+      "_source": "26_Nosler_by_Charlie_2023.01.17.caliber"
+    },
+    {
+      "cipName": ".277 SIG FURY",
+      "altName": "(277SIG FURY)",
+      "standard": "SAAMI",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "2020-09-23",
+      "caseLength": {
+        "mm": 51.18,
+        "in": 2.01496
+      },
+      "overallLength": {
+        "mm": 71.75,
+        "in": 2.8248
+      },
+      "caseHeadRadius": {
+        "mm": 1.37,
+        "in": 0.05394
+      },
+      "rimDiameter": {
+        "mm": 11.99,
+        "in": 0.47205
+      },
+      "neckWallThickness": {
+        "mm": 4.17,
+        "in": 0.16417
+      },
+      "bodyDiameter": {
+        "mm": 10.36,
+        "in": 0.40787
+      },
+      "minNeckThickness": {
+        "mm": 1.4,
+        "in": 0.05512
+      },
+      "maxPressure": {
+        "bar": 5515.81,
+        "psi": 80000.21
+      },
+      "proofPressurePK": {
+        "bar": 6343.18,
+        "psi": 92000.21
+      },
+      "proofPressurePE": {
+        "bar": 6894.76,
+        "psi": 100000.22
+      },
+      "caseVolume": 56,
+      "caseWeight": 36.83,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 38.39,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 177.8,
+        "in": 7
+      },
+      "createdDate": "2022-05-30",
+      "createdBy": "Charlie",
+      "description": "Converted from SAAMI drawing",
+      "_source": "277_SIG_FURY_277SIG_FURY_by_Charlie_2022.05.30.caliber"
+    },
+    {
+      "cipName": ".277 SIG FURY",
+      "altName": "(277SIG FURY)",
+      "standard": "SAAMI",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "2020-09-23",
+      "caseLength": {
+        "mm": 51.18,
+        "in": 2.01496
+      },
+      "overallLength": {
+        "mm": 71.75,
+        "in": 2.8248
+      },
+      "caseHeadRadius": {
+        "mm": 1.37,
+        "in": 0.05394
+      },
+      "rimDiameter": {
+        "mm": 11.99,
+        "in": 0.47205
+      },
+      "neckWallThickness": {
+        "mm": 4.17,
+        "in": 0.16417
+      },
+      "bodyDiameter": {
+        "mm": 10.36,
+        "in": 0.40787
+      },
+      "minNeckThickness": {
+        "mm": 1.4,
+        "in": 0.05512
+      },
+      "maxPressure": {
+        "bar": 5515.81,
+        "psi": 80000.21
+      },
+      "proofPressurePK": {
+        "bar": 6343.18,
+        "psi": 92000.21
+      },
+      "proofPressurePE": {
+        "bar": 6894.76,
+        "psi": 100000.22
+      },
+      "caseVolume": 56,
+      "caseWeight": 36.83,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 38.39,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 177.8,
+        "in": 7
+      },
+      "createdDate": "2023-01-31",
+      "createdBy": "Charlie",
+      "description": "Converted from SAAMI drawing",
+      "_source": "277_SIG_FURY_277SIG_FURY_by_Charlie_2023.01.03.caliber"
+    },
+    {
+      "cipName": ".300 HAM'R",
+      "altName": "300 HAMR",
+      "standard": "SAAMI",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "2020-06-06",
+      "caseLength": {
+        "mm": 40.72,
+        "in": 1.60315
+      },
+      "overallLength": {
+        "mm": 57.4,
+        "in": 2.25984
+      },
+      "caseHeadRadius": {
+        "mm": 1.14,
+        "in": 0.04488
+      },
+      "rimDiameter": {
+        "mm": 9.6,
+        "in": 0.37795
+      },
+      "neckWallThickness": {
+        "mm": 2.92,
+        "in": 0.11496
+      },
+      "bodyDiameter": {
+        "mm": 8.43,
+        "in": 0.33189
+      },
+      "minNeckThickness": {
+        "mm": 0.76,
+        "in": 0.02992
+      },
+      "maxPressure": {
+        "bar": 3964.49,
+        "psi": 57500.17
+      },
+      "proofPressurePK": {
+        "bar": 4484.97,
+        "psi": 65049.11
+      },
+      "proofPressurePE": {
+        "bar": 4875.01,
+        "psi": 70706.17
+      },
+      "caseVolume": 30.5,
+      "caseWeight": 0,
+      "sebertFactor": 0.6,
+      "boreArea_mm2": 47.48,
+      "grooveCount": 4,
+      "twistRate": {
+        "mm": 330.2,
+        "in": 13
+      },
+      "createdDate": "2023-02-06",
+      "createdBy": "Charlie",
+      "description": "",
+      "_source": "300_HAMR_300_HAMR_by_Charlie_2023.02.08.caliber"
+    },
+    {
+      "cipName": ".300 PRC Corrected",
+      "altName": "300 Precision Rifle Cartridge",
+      "standard": "CIP",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "2019-05-22",
+      "caseLength": {
+        "mm": 65.53,
+        "in": 2.57992
+      },
+      "overallLength": {
+        "mm": 93.98,
+        "in": 3.7
+      },
+      "caseHeadRadius": {
+        "mm": 1.27,
+        "in": 0.05
+      },
+      "rimDiameter": {
+        "mm": 13.51,
+        "in": 0.53189
+      },
+      "neckWallThickness": {
+        "mm": 3.25,
+        "in": 0.12795
+      },
+      "bodyDiameter": {
+        "mm": 12.07,
+        "in": 0.4752
+      },
+      "minNeckThickness": {
+        "mm": 0.94,
+        "in": 0.03701
+      },
+      "maxPressure": {
+        "bar": 4400.03,
+        "psi": 63817.16
+      },
+      "proofPressurePK": {
+        "bar": 5060,
+        "psi": 73389.23
+      },
+      "proofPressurePE": {
+        "bar": 5500,
+        "psi": 79770.9
+      },
+      "caseVolume": 96,
+      "caseWeight": 24.89,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 47.4,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 216,
+        "in": 8.50394
+      },
+      "createdDate": "2023-01-16",
+      "createdBy": "grtuser",
+      "description": "Per CIP Drawing",
+      "_source": "300_PRC_Corrected_300_Precision_Rifle_Cartridge_by_Charlie_2023.01.06.caliber"
+    },
+    {
+      "cipName": ".300 WSM Winchester Brand",
+      "altName": ".300 Win. Short Mag.",
+      "standard": "WildCat",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "2002-01-22",
+      "caseLength": {
+        "mm": 53.34,
+        "in": 2.1
+      },
+      "overallLength": {
+        "mm": 72.64,
+        "in": 2.85984
+      },
+      "caseHeadRadius": {
+        "mm": 1.37,
+        "in": 0.05394
+      },
+      "rimDiameter": {
+        "mm": 13.59,
+        "in": 0.53504
+      },
+      "neckWallThickness": {
+        "mm": 3.35,
+        "in": 0.13189
+      },
+      "bodyDiameter": {
+        "mm": 12.19,
+        "in": 0.47992
+      },
+      "minNeckThickness": {
+        "mm": 1.02,
+        "in": 0.04016
+      },
+      "maxPressure": {
+        "bar": 4400,
+        "psi": 63816.72
+      },
+      "proofPressurePK": {
+        "bar": 5060,
+        "psi": 73389.23
+      },
+      "proofPressurePE": {
+        "bar": 5500,
+        "psi": 79770.9
+      },
+      "caseVolume": 82,
+      "caseWeight": 25,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 47.52,
+      "grooveCount": 4,
+      "twistRate": {
+        "mm": 254,
+        "in": 10
+      },
+      "createdDate": "2023-07-11",
+      "createdBy": "grtuser",
+      "description": "Volume as provided by GRT User JordanWilliams.",
+      "_source": "300_WSM_Winchester_Brand_.300_Win._Short_Mag._by_Charlie_2023.07.11.caliber"
+    },
+    {
+      "cipName": ".308 Win. Federal",
+      "altName": "308 Winchester, 7,62 x 51",
+      "standard": "WildCat",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "1984-06-14",
+      "caseLength": {
+        "mm": 51.18,
+        "in": 2.01496
+      },
+      "overallLength": {
+        "mm": 71.12,
+        "in": 2.8
+      },
+      "caseHeadRadius": {
+        "mm": 1.37,
+        "in": 0.05394
+      },
+      "rimDiameter": {
+        "mm": 12.01,
+        "in": 0.47283
+      },
+      "neckWallThickness": {
+        "mm": 3.85,
+        "in": 0.15157
+      },
+      "bodyDiameter": {
+        "mm": 10.39,
+        "in": 0.40906
+      },
+      "minNeckThickness": {
+        "mm": 1.4,
+        "in": 0.05512
+      },
+      "maxPressure": {
+        "bar": 4150,
+        "psi": 60190.77
+      },
+      "proofPressurePK": {
+        "bar": 4773,
+        "psi": 69226.64
+      },
+      "proofPressurePE": {
+        "bar": 5190,
+        "psi": 75274.72
+      },
+      "caseVolume": 55.8,
+      "caseWeight": 25,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 47.51,
+      "grooveCount": 4,
+      "twistRate": {
+        "mm": 305,
+        "in": 12.00787
+      },
+      "createdDate": "2023-06-26",
+      "createdBy": "grtuser",
+      "description": "From NatinNH",
+      "_source": "308_Win._Federal_308_Winchester_762_x_51_by_Charlie_2023.06.28.caliber"
+    },
+    {
+      "cipName": ".308 Win. Hornady",
+      "altName": "308 Winchester, 7,62 x 51",
+      "standard": "WildCat",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "1984-06-14",
+      "caseLength": {
+        "mm": 51.18,
+        "in": 2.01496
+      },
+      "overallLength": {
+        "mm": 71.12,
+        "in": 2.8
+      },
+      "caseHeadRadius": {
+        "mm": 1.37,
+        "in": 0.05394
+      },
+      "rimDiameter": {
+        "mm": 12.01,
+        "in": 0.47283
+      },
+      "neckWallThickness": {
+        "mm": 3.85,
+        "in": 0.15157
+      },
+      "bodyDiameter": {
+        "mm": 10.39,
+        "in": 0.40906
+      },
+      "minNeckThickness": {
+        "mm": 1.4,
+        "in": 0.05512
+      },
+      "maxPressure": {
+        "bar": 4150,
+        "psi": 60190.77
+      },
+      "proofPressurePK": {
+        "bar": 4773,
+        "psi": 69226.64
+      },
+      "proofPressurePE": {
+        "bar": 5190,
+        "psi": 75274.72
+      },
+      "caseVolume": 56,
+      "caseWeight": 25,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 47.51,
+      "grooveCount": 4,
+      "twistRate": {
+        "mm": 305,
+        "in": 12.00787
+      },
+      "createdDate": "2023-06-26",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "308_Win._Hornady_308_Winchester_762_x_51_by_Charlie_2023.06.28.caliber"
+    },
+    {
+      "cipName": ".308 Win. Lapua #1",
+      "altName": "308 Winchester, 7,62 x 51",
+      "standard": "WildCat",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "1984-06-14",
+      "caseLength": {
+        "mm": 51.18,
+        "in": 2.01496
+      },
+      "overallLength": {
+        "mm": 71.12,
+        "in": 2.8
+      },
+      "caseHeadRadius": {
+        "mm": 1.37,
+        "in": 0.05394
+      },
+      "rimDiameter": {
+        "mm": 12.01,
+        "in": 0.47283
+      },
+      "neckWallThickness": {
+        "mm": 3.85,
+        "in": 0.15157
+      },
+      "bodyDiameter": {
+        "mm": 10.39,
+        "in": 0.40906
+      },
+      "minNeckThickness": {
+        "mm": 1.4,
+        "in": 0.05512
+      },
+      "maxPressure": {
+        "bar": 4150,
+        "psi": 60190.77
+      },
+      "proofPressurePK": {
+        "bar": 4773,
+        "psi": 69226.64
+      },
+      "proofPressurePE": {
+        "bar": 5190,
+        "psi": 75274.72
+      },
+      "caseVolume": 56.3,
+      "caseWeight": 25,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 47.51,
+      "grooveCount": 4,
+      "twistRate": {
+        "mm": 305,
+        "in": 12.00787
+      },
+      "createdDate": "2023-06-26",
+      "createdBy": "grtuser",
+      "description": "From NatinNH",
+      "_source": "308_Win._Lapua_1_308_Winchester_762_x_51_by_Charlie_2023.06.28.caliber"
+    },
+    {
+      "cipName": ".308 Win. Lapua #2",
+      "altName": "308 Winchester, 7,62 x 51",
+      "standard": "WildCat",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "1984-06-14",
+      "caseLength": {
+        "mm": 51.18,
+        "in": 2.01496
+      },
+      "overallLength": {
+        "mm": 71.12,
+        "in": 2.8
+      },
+      "caseHeadRadius": {
+        "mm": 1.37,
+        "in": 0.05394
+      },
+      "rimDiameter": {
+        "mm": 12.01,
+        "in": 0.47283
+      },
+      "neckWallThickness": {
+        "mm": 3.85,
+        "in": 0.15157
+      },
+      "bodyDiameter": {
+        "mm": 10.39,
+        "in": 0.40906
+      },
+      "minNeckThickness": {
+        "mm": 1.4,
+        "in": 0.05512
+      },
+      "maxPressure": {
+        "bar": 4150,
+        "psi": 60190.77
+      },
+      "proofPressurePK": {
+        "bar": 4773,
+        "psi": 69226.64
+      },
+      "proofPressurePE": {
+        "bar": 5190,
+        "psi": 75274.72
+      },
+      "caseVolume": 55.5,
+      "caseWeight": 25,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 47.51,
+      "grooveCount": 4,
+      "twistRate": {
+        "mm": 305,
+        "in": 12.00787
+      },
+      "createdDate": "2023-06-26",
+      "createdBy": "grtuser",
+      "description": "From M.Hopeman",
+      "_source": "308_Win._Lapua_2_308_Winchester_762_x_51_by_Charlie_2023.06.28.caliber"
+    },
+    {
+      "cipName": ".308 Win. SAR 2018",
+      "altName": "308 Winchester, 7,62 x 51",
+      "standard": "WildCat",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "1984-06-14",
+      "caseLength": {
+        "mm": 51.18,
+        "in": 2.01496
+      },
+      "overallLength": {
+        "mm": 71.12,
+        "in": 2.8
+      },
+      "caseHeadRadius": {
+        "mm": 1.37,
+        "in": 0.05394
+      },
+      "rimDiameter": {
+        "mm": 12.01,
+        "in": 0.47283
+      },
+      "neckWallThickness": {
+        "mm": 3.85,
+        "in": 0.15157
+      },
+      "bodyDiameter": {
+        "mm": 10.39,
+        "in": 0.40906
+      },
+      "minNeckThickness": {
+        "mm": 1.4,
+        "in": 0.05512
+      },
+      "maxPressure": {
+        "bar": 4150,
+        "psi": 60190.77
+      },
+      "proofPressurePK": {
+        "bar": 4773,
+        "psi": 69226.64
+      },
+      "proofPressurePE": {
+        "bar": 5190,
+        "psi": 75274.72
+      },
+      "caseVolume": 54.2,
+      "caseWeight": 25,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 47.51,
+      "grooveCount": 4,
+      "twistRate": {
+        "mm": 305,
+        "in": 12.00787
+      },
+      "createdDate": "2023-06-26",
+      "createdBy": "grtuser",
+      "description": "From NatinNH",
+      "_source": "308_Win._SAR_2018_308_Winchester_762_x_51_by_Charlie_2023.06.28.caliber"
+    },
+    {
+      "cipName": ".308 Win. S and B",
+      "altName": "308 Winchester, 7,62 x 51",
+      "standard": "WildCat",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "1984-06-14",
+      "caseLength": {
+        "mm": 50.9,
+        "in": 2.00394
+      },
+      "overallLength": {
+        "mm": 70.9,
+        "in": 2.79134
+      },
+      "caseHeadRadius": {
+        "mm": 1.37,
+        "in": 0.05394
+      },
+      "rimDiameter": {
+        "mm": 12.01,
+        "in": 0.47283
+      },
+      "neckWallThickness": {
+        "mm": 3.85,
+        "in": 0.15157
+      },
+      "bodyDiameter": {
+        "mm": 10.39,
+        "in": 0.40906
+      },
+      "minNeckThickness": {
+        "mm": 1.4,
+        "in": 0.05512
+      },
+      "maxPressure": {
+        "bar": 4150,
+        "psi": 60190.77
+      },
+      "proofPressurePK": {
+        "bar": 4773,
+        "psi": 69226.64
+      },
+      "proofPressurePE": {
+        "bar": 5190,
+        "psi": 75274.72
+      },
+      "caseVolume": 55.7,
+      "caseWeight": 25,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 47.51,
+      "grooveCount": 4,
+      "twistRate": {
+        "mm": 305,
+        "in": 12.00787
+      },
+      "createdDate": "2023-06-26",
+      "createdBy": "grtuser",
+      "description": "From JustinBH",
+      "_source": "308_Win._S_and_B_308_Winchester_762_x_51_by_Charlie_2023.06.28.caliber"
+    },
+    {
+      "cipName": ".308 Win. Winchester",
+      "altName": "308 Winchester, 7,62 x 51",
+      "standard": "WildCat",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "1984-06-14",
+      "caseLength": {
+        "mm": 51.18,
+        "in": 2.01496
+      },
+      "overallLength": {
+        "mm": 71.12,
+        "in": 2.8
+      },
+      "caseHeadRadius": {
+        "mm": 1.37,
+        "in": 0.05394
+      },
+      "rimDiameter": {
+        "mm": 12.01,
+        "in": 0.47283
+      },
+      "neckWallThickness": {
+        "mm": 3.85,
+        "in": 0.15157
+      },
+      "bodyDiameter": {
+        "mm": 10.39,
+        "in": 0.40906
+      },
+      "minNeckThickness": {
+        "mm": 1.4,
+        "in": 0.05512
+      },
+      "maxPressure": {
+        "bar": 4150,
+        "psi": 60190.77
+      },
+      "proofPressurePK": {
+        "bar": 4773,
+        "psi": 69226.64
+      },
+      "proofPressurePE": {
+        "bar": 5190,
+        "psi": 75274.72
+      },
+      "caseVolume": 57.4,
+      "caseWeight": 25,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 47.51,
+      "grooveCount": 4,
+      "twistRate": {
+        "mm": 305,
+        "in": 12.00787
+      },
+      "createdDate": "2023-06-26",
+      "createdBy": "grtuser",
+      "description": "From JustinBH",
+      "_source": "308_Win._Winchester_308_Winchester_762_x_51_by_Charlie_2023.06.28.caliber"
+    },
+    {
+      "cipName": ".30 Nosler",
+      "altName": "",
+      "standard": "SAAMI",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "2015",
+      "caseLength": {
+        "mm": 64.92,
+        "in": 2.55591
+      },
+      "overallLength": {
+        "mm": 84.84,
+        "in": 3.34016
+      },
+      "caseHeadRadius": {
+        "mm": 1.27,
+        "in": 0.05
+      },
+      "rimDiameter": {
+        "mm": 13.56,
+        "in": 0.53386
+      },
+      "neckWallThickness": {
+        "mm": 3.75,
+        "in": 0.14764
+      },
+      "bodyDiameter": {
+        "mm": 12.07,
+        "in": 0.4752
+      },
+      "minNeckThickness": {
+        "mm": 0.94,
+        "in": 0.03701
+      },
+      "maxPressure": {
+        "bar": 4481.59,
+        "psi": 65000.09
+      },
+      "proofPressurePK": {
+        "bar": 5153.83,
+        "psi": 74750.12
+      },
+      "proofPressurePE": {
+        "bar": 5601.99,
+        "psi": 81250.14
+      },
+      "caseVolume": 99.2,
+      "caseWeight": 24.89,
+      "sebertFactor": 0.6,
+      "boreArea_mm2": 47.42,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 254,
+        "in": 10
+      },
+      "createdDate": "2023-01-16",
+      "createdBy": "Charlie",
+      "description": "Transcribed from SAAMI Drawing\rSince this cartridge lies midscale between 300 PRC and 300 Raum I chose a default Sebert between the two, 6.\r\r\r",
+      "_source": "30_Nosler_by_Charlie_2023.01.17.caliber"
+    },
+    {
+      "cipName": "30 Super Carry",
+      "altName": "",
+      "standard": "Federal Release",
+      "cipOrigin": "USA",
+      "cipType": "4 pistol/revolver",
+      "cipDate": "2022-1-1",
+      "caseLength": {
+        "mm": 21.01,
+        "in": 0.82717
+      },
+      "overallLength": {
+        "mm": 29.69,
+        "in": 1.1689
+      },
+      "caseHeadRadius": {
+        "mm": 1.27,
+        "in": 0.05
+      },
+      "rimDiameter": {
+        "mm": 8.76,
+        "in": 0.34488
+      },
+      "neckWallThickness": {
+        "mm": 3,
+        "in": 0.11811
+      },
+      "bodyDiameter": {
+        "mm": 7.57,
+        "in": 0.29803
+      },
+      "minNeckThickness": {
+        "mm": 0.89,
+        "in": 0.03504
+      },
+      "maxPressure": {
+        "bar": 3447.38,
+        "psi": 50000.11
+      },
+      "proofPressurePK": {
+        "bar": 3792.12,
+        "psi": 55000.15
+      },
+      "proofPressurePE": {
+        "bar": 4136.85,
+        "psi": 60000.05
+      },
+      "caseVolume": 11.6,
+      "caseWeight": 10.41,
+      "sebertFactor": 0.75,
+      "boreArea_mm2": 49.23,
+      "grooveCount": 4,
+      "twistRate": {
+        "mm": 254,
+        "in": 10
+      },
+      "createdDate": "2022-01-31",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "30_Super_Carry_by_Charlie_2022.02.01.caliber"
+    },
+    {
+      "cipName": "30 Super Carry",
+      "altName": "",
+      "standard": "SAAMI",
+      "cipOrigin": "USA",
+      "cipType": "4 pistol/revolver",
+      "cipDate": "2022-6-7",
+      "caseLength": {
+        "mm": 21.01,
+        "in": 0.82717
+      },
+      "overallLength": {
+        "mm": 29.69,
+        "in": 1.1689
+      },
+      "caseHeadRadius": {
+        "mm": 1.27,
+        "in": 0.05
+      },
+      "rimDiameter": {
+        "mm": 8.74,
+        "in": 0.34409
+      },
+      "neckWallThickness": {
+        "mm": 2.84,
+        "in": 0.11181
+      },
+      "bodyDiameter": {
+        "mm": 7.57,
+        "in": 0.29803
+      },
+      "minNeckThickness": {
+        "mm": 0.89,
+        "in": 0.03504
+      },
+      "maxPressure": {
+        "bar": 3585.27,
+        "psi": 52000.04
+      },
+      "proofPressurePK": {
+        "bar": 4123.06,
+        "psi": 59800.04
+      },
+      "proofPressurePE": {
+        "bar": 4481.59,
+        "psi": 65000.09
+      },
+      "caseVolume": 11.6,
+      "caseWeight": 10.41,
+      "sebertFactor": 0.75,
+      "boreArea_mm2": 48.26,
+      "grooveCount": 4,
+      "twistRate": {
+        "mm": 254,
+        "in": 10
+      },
+      "createdDate": "2022-10-18",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "30_Super_Carry_by_Charlie_2022.10.19.caliber"
+    },
+    {
+      "cipName": ".327 Fed Magnum",
+      "altName": "",
+      "standard": "WildCat",
+      "cipOrigin": "US",
+      "cipType": "4 pistol/revolver",
+      "cipDate": "1986-02-25",
+      "caseLength": {
+        "mm": 30.48,
+        "in": 1.2
+      },
+      "overallLength": {
+        "mm": 37.34,
+        "in": 1.47008
+      },
+      "caseHeadRadius": {
+        "mm": 1.4,
+        "in": 0.05512
+      },
+      "rimDiameter": {
+        "mm": 9.53,
+        "in": 0.3752
+      },
+      "neckWallThickness": {
+        "mm": 0,
+        "in": 0
+      },
+      "bodyDiameter": {
+        "mm": 0,
+        "in": 0
+      },
+      "minNeckThickness": {
+        "mm": 0,
+        "in": 0
+      },
+      "maxPressure": {
+        "bar": 3102.64,
+        "psi": 45000.07
+      },
+      "proofPressurePK": {
+        "bar": 3102.64,
+        "psi": 45000.07
+      },
+      "proofPressurePE": {
+        "bar": 3102.64,
+        "psi": 45000.07
+      },
+      "caseVolume": 19,
+      "caseWeight": 12.45,
+      "sebertFactor": 0.75,
+      "boreArea_mm2": 47.94,
+      "grooveCount": 5,
+      "twistRate": {
+        "mm": 406,
+        "in": 15.98425
+      },
+      "createdDate": "2021-10-08",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "327_Fed_Magnum_by_dpeppe01_2022.12.12.caliber"
+    },
+    {
+      "cipName": ".338-06 A-Square",
+      "altName": "",
+      "standard": "SAAMI",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "",
+      "caseLength": {
+        "mm": 63.35,
+        "in": 2.49409
+      },
+      "overallLength": {
+        "mm": 87.38,
+        "in": 3.44016
+      },
+      "caseHeadRadius": {
+        "mm": 1.24,
+        "in": 0.04882
+      },
+      "rimDiameter": {
+        "mm": 12.01,
+        "in": 0.47283
+      },
+      "neckWallThickness": {
+        "mm": 3.16,
+        "in": 0.12441
+      },
+      "bodyDiameter": {
+        "mm": 10.39,
+        "in": 0.40906
+      },
+      "minNeckThickness": {
+        "mm": 0.84,
+        "in": 0.03307
+      },
+      "maxPressure": {
+        "bar": 4049.98,
+        "psi": 58740.1
+      },
+      "proofPressurePK": {
+        "bar": 4658.03,
+        "psi": 67559.14
+      },
+      "proofPressurePE": {
+        "bar": 5059.99,
+        "psi": 73389.08
+      },
+      "caseVolume": 71.1,
+      "caseWeight": 24.89,
+      "sebertFactor": 0.45,
+      "boreArea_mm2": 56.9,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 254,
+        "in": 10
+      },
+      "createdDate": "2022-10-19",
+      "createdBy": "Charlie",
+      "description": "",
+      "_source": "338-06_A-Square_by_Charlie_2022.10.19.caliber"
+    },
+    {
+      "cipName": "33xc",
+      "altName": "Initial",
+      "standard": "WildCat",
+      "cipOrigin": "Tubb",
+      "cipType": "1 rimless",
+      "cipDate": "",
+      "caseLength": {
+        "mm": 78.16,
+        "in": 3.07717
+      },
+      "overallLength": {
+        "mm": 109.45,
+        "in": 4.30906
+      },
+      "caseHeadRadius": {
+        "mm": 1.33,
+        "in": 0.05236
+      },
+      "rimDiameter": {
+        "mm": 14.81,
+        "in": 0.58307
+      },
+      "neckWallThickness": {
+        "mm": 3.12,
+        "in": 0.12283
+      },
+      "bodyDiameter": {
+        "mm": 0,
+        "in": 0
+      },
+      "minNeckThickness": {
+        "mm": 0,
+        "in": 0
+      },
+      "maxPressure": {
+        "bar": 5171.07,
+        "psi": 75000.17
+      },
+      "proofPressurePK": {
+        "bar": 0,
+        "psi": 0
+      },
+      "proofPressurePE": {
+        "bar": 0,
+        "psi": 0
+      },
+      "caseVolume": 140.1,
+      "caseWeight": 0,
+      "sebertFactor": 0.55,
+      "boreArea_mm2": 56.84,
+      "grooveCount": 0,
+      "twistRate": {
+        "mm": 0,
+        "in": 0
+      },
+      "createdDate": "2022-08-15",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "33xc_Initial_by_SmokinCache_2022.08.15.caliber"
+    },
+    {
+      "cipName": "400 Legend",
+      "altName": "400 LGND",
+      "standard": "SAAMI",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "2023-01-15",
+      "caseLength": {
+        "mm": 41.91,
+        "in": 1.65
+      },
+      "overallLength": {
+        "mm": 57.4,
+        "in": 2.25984
+      },
+      "caseHeadRadius": {
+        "mm": 1.24,
+        "in": 0.04882
+      },
+      "rimDiameter": {
+        "mm": 10.72,
+        "in": 0.42205
+      },
+      "neckWallThickness": {
+        "mm": 3.2,
+        "in": 0.12598
+      },
+      "bodyDiameter": {
+        "mm": 9.09,
+        "in": 0.35787
+      },
+      "minNeckThickness": {
+        "mm": 0.84,
+        "in": 0.03307
+      },
+      "maxPressure": {
+        "bar": 3102.64,
+        "psi": 45000.07
+      },
+      "proofPressurePK": {
+        "bar": 3568.04,
+        "psi": 51750.14
+      },
+      "proofPressurePE": {
+        "bar": 3878.3,
+        "psi": 56250.09
+      },
+      "caseVolume": 48.5,
+      "caseWeight": 24.89,
+      "sebertFactor": 0.7,
+      "boreArea_mm2": 79.48,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 406.4,
+        "in": 16
+      },
+      "createdDate": "2023-04-26",
+      "createdBy": "Charlie",
+      "description": "",
+      "_source": "400_Legend_400_LGND_by_Charlie_2023.04.26.caliber"
+    },
+    {
+      "cipName": "5.45 x 39",
+      "altName": "",
+      "standard": "CIP",
+      "cipOrigin": "SU",
+      "cipType": "1 rimless",
+      "cipDate": "1992-07-23",
+      "caseLength": {
+        "mm": 39.82,
+        "in": 1.56772
+      },
+      "overallLength": {
+        "mm": 57,
+        "in": 2.24409
+      },
+      "caseHeadRadius": {
+        "mm": 1.5,
+        "in": 0.05906
+      },
+      "rimDiameter": {
+        "mm": 10,
+        "in": 0.3937
+      },
+      "neckWallThickness": {
+        "mm": 3.2,
+        "in": 0.12598
+      },
+      "bodyDiameter": {
+        "mm": 8.6,
+        "in": 0.33858
+      },
+      "minNeckThickness": {
+        "mm": 1,
+        "in": 0.03937
+      },
+      "maxPressure": {
+        "bar": 3549.97,
+        "psi": 51488.05
+      },
+      "proofPressurePK": {
+        "bar": 4083.01,
+        "psi": 59219.16
+      },
+      "proofPressurePE": {
+        "bar": 4438.02,
+        "psi": 64368.15
+      },
+      "caseVolume": 28.3,
+      "caseWeight": 17.53,
+      "sebertFactor": 0.6,
+      "boreArea_mm2": 24.19,
+      "grooveCount": 4,
+      "twistRate": {
+        "mm": 195,
+        "in": 7.67717
+      },
+      "createdDate": "2022-05-20",
+      "createdBy": "GRT",
+      "description": "",
+      "_source": "5.45_x_39_by_Charlie_2022.05.25.caliber"
+    },
+    {
+      "cipName": "50 Beowulf",
+      "altName": "12.7 x 42",
+      "standard": "CIP",
+      "cipOrigin": "Alexander Arms",
+      "cipType": "1 rimless",
+      "cipDate": "21-11-19",
+      "caseLength": {
+        "mm": 42.04,
+        "in": 1.65512
+      },
+      "overallLength": {
+        "mm": 57.15,
+        "in": 2.25
+      },
+      "caseHeadRadius": {
+        "mm": 1.45,
+        "in": 0.05709
+      },
+      "rimDiameter": {
+        "mm": 11.35,
+        "in": 0.44685
+      },
+      "neckWallThickness": {
+        "mm": 4.46,
+        "in": 0.17559
+      },
+      "bodyDiameter": {
+        "mm": 9.35,
+        "in": 0.36811
+      },
+      "minNeckThickness": {
+        "mm": 1.45,
+        "in": 0.05709
+      },
+      "maxPressure": {
+        "bar": 2300,
+        "psi": 33358.74
+      },
+      "proofPressurePK": {
+        "bar": 2645,
+        "psi": 38362.55
+      },
+      "proofPressurePE": {
+        "bar": 2990,
+        "psi": 43366.36
+      },
+      "caseVolume": 79.7,
+      "caseWeight": 10.41,
+      "sebertFactor": 0.75,
+      "boreArea_mm2": 124.47,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 16,
+        "in": 0.62992
+      },
+      "createdDate": "2023-02-11",
+      "createdBy": "Charlie",
+      "description": "",
+      "_source": "50_Beowulf_12.7_x_42_by_Charlie_2023.02.11.caliber"
+    },
+    {
+      "cipName": "6.5-06 A-Square",
+      "altName": "",
+      "standard": "WildCat by A-Square",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "2022-02-12",
+      "caseLength": {
+        "mm": 63.35,
+        "in": 2.49409
+      },
+      "overallLength": {
+        "mm": 87.38,
+        "in": 3.44016
+      },
+      "caseHeadRadius": {
+        "mm": 1.24,
+        "in": 0.04882
+      },
+      "rimDiameter": {
+        "mm": 12.01,
+        "in": 0.47283
+      },
+      "neckWallThickness": {
+        "mm": 3.16,
+        "in": 0.12441
+      },
+      "bodyDiameter": {
+        "mm": 10.39,
+        "in": 0.40906
+      },
+      "minNeckThickness": {
+        "mm": 0.84,
+        "in": 0.03307
+      },
+      "maxPressure": {
+        "bar": 4400.03,
+        "psi": 63817.16
+      },
+      "proofPressurePK": {
+        "bar": 5059.99,
+        "psi": 73389.08
+      },
+      "proofPressurePE": {
+        "bar": 5500.02,
+        "psi": 79771.19
+      },
+      "caseVolume": 66.9,
+      "caseWeight": 24.89,
+      "sebertFactor": 0.55,
+      "boreArea_mm2": 33.03,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 254,
+        "in": 10
+      },
+      "createdDate": "2022-12-02",
+      "createdBy": "Charlie",
+      "description": "Cartridge data from Nosler Book, Chamber is a guess based on 26-06 Rem.\rCase volume is by GRT estimate.",
+      "_source": "6.5-06_A-Square_by_Charlie_2022.12.02.caliber"
+    },
+    {
+      "cipName": "6.5 PRC SI",
+      "altName": "6.5 Precision Rifle Cartridge Sherman Improved",
+      "standard": "WildCat",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "2012-05-30",
+      "caseLength": {
+        "mm": 51.56,
+        "in": 2.02992
+      },
+      "overallLength": {
+        "mm": 75.06,
+        "in": 2.95512
+      },
+      "caseHeadRadius": {
+        "mm": 1.27,
+        "in": 0.05
+      },
+      "rimDiameter": {
+        "mm": 13.51,
+        "in": 0.53189
+      },
+      "neckWallThickness": {
+        "mm": 3.24,
+        "in": 0.12756
+      },
+      "bodyDiameter": {
+        "mm": 12.07,
+        "in": 0.4752
+      },
+      "minNeckThickness": {
+        "mm": 0.94,
+        "in": 0.03701
+      },
+      "maxPressure": {
+        "bar": 4400.03,
+        "psi": 63817.16
+      },
+      "proofPressurePK": {
+        "bar": 5059.99,
+        "psi": 73389.08
+      },
+      "proofPressurePE": {
+        "bar": 5500.02,
+        "psi": 79771.19
+      },
+      "caseVolume": 71,
+      "caseWeight": 24.89,
+      "sebertFactor": 0.53,
+      "boreArea_mm2": 34.65,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 203,
+        "in": 7.99213
+      },
+      "createdDate": "2022-11-23",
+      "createdBy": "grtuser",
+      "description": "Sherman Improved\u000bNotes: fro Sherman\u000bneck/shoulder is .003\" forward of std. at 40 degrees\rtaper is almost .007\" less.\rthroat dimensions are a little different\rno neck taper\rcapacity is 71 grains h20 with Lapua brass",
+      "_source": "6.5_PRC_SI_6.5_Precision_Rifle_Cartridge_Sherman_Improved_by_Beirut_2022.11.23.caliber"
+    },
+    {
+      "cipName": "6.5 Weatherby  RPM",
+      "altName": "6.5 WBY Rebated Precision Magnum",
+      "standard": "SAAMI",
+      "cipOrigin": "US",
+      "cipType": "3 magnum",
+      "cipDate": "2020-9-23",
+      "caseLength": {
+        "mm": 65.28,
+        "in": 2.57008
+      },
+      "overallLength": {
+        "mm": 84.84,
+        "in": 3.34016
+      },
+      "caseHeadRadius": {
+        "mm": 1.37,
+        "in": 0.05394
+      },
+      "rimDiameter": {
+        "mm": 12.01,
+        "in": 0.47283
+      },
+      "neckWallThickness": {
+        "mm": 3.81,
+        "in": 0.15
+      },
+      "bodyDiameter": {
+        "mm": 10.39,
+        "in": 0.40906
+      },
+      "minNeckThickness": {
+        "mm": 1.02,
+        "in": 0.04016
+      },
+      "maxPressure": {
+        "bar": 4481.59,
+        "psi": 65000.09
+      },
+      "proofPressurePK": {
+        "bar": 5153.83,
+        "psi": 74750.12
+      },
+      "proofPressurePE": {
+        "bar": 5601.99,
+        "psi": 81250.14
+      },
+      "caseVolume": 82.5,
+      "caseWeight": 0,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 34.77,
+      "grooveCount": 4,
+      "twistRate": {
+        "mm": 203.2,
+        "in": 8
+      },
+      "createdDate": "2022-11-01",
+      "createdBy": "Weatherby",
+      "description": "R1 dimensions will cause a warning as this is a rebated rim cartridge.\rThe Chamber R1 has to be larger than the Cartridge R1 or the cartridge could not chamber as the entry hole would be smaller than the largest cartridge diemeter.  Ignore this warning. \r",
+      "_source": "6.5_Weatherby_RPM_6.5_WBY_Rebated_Precision_Magnum_by_Charlie_2022.11.02.caliber"
+    },
+    {
+      "cipName": "6.8 Western",
+      "altName": "6.8 Western (Winchester)",
+      "standard": "SAAMI",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "2020-09-23",
+      "caseLength": {
+        "mm": 51.31,
+        "in": 2.02008
+      },
+      "overallLength": {
+        "mm": 75.06,
+        "in": 2.95512
+      },
+      "caseHeadRadius": {
+        "mm": 1.37,
+        "in": 0.05394
+      },
+      "rimDiameter": {
+        "mm": 13.59,
+        "in": 0.53504
+      },
+      "neckWallThickness": {
+        "mm": 3.35,
+        "in": 0.13189
+      },
+      "bodyDiameter": {
+        "mm": 12.19,
+        "in": 0.47992
+      },
+      "minNeckThickness": {
+        "mm": 1.02,
+        "in": 0.04016
+      },
+      "maxPressure": {
+        "bar": 4481.59,
+        "psi": 65000.09
+      },
+      "proofPressurePK": {
+        "bar": 5171.07,
+        "psi": 75000.17
+      },
+      "proofPressurePE": {
+        "bar": 5584.75,
+        "psi": 81000.1
+      },
+      "caseVolume": 74,
+      "caseWeight": 24.89,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 38.19,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 203.2,
+        "in": 8
+      },
+      "createdDate": "2023-01-31",
+      "createdBy": "Charlie",
+      "description": "Copied from SAAMI Drawing",
+      "_source": "6.8_Western_6.8_Western_Winchester_by_Charlie_2023.02.07.caliber"
+    },
+    {
+      "cipName": "6.8 Western",
+      "altName": "6.8 Western (Winchester)",
+      "standard": "SAAMI",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "2020-09-23",
+      "caseLength": {
+        "mm": 51.31,
+        "in": 2.02008
+      },
+      "overallLength": {
+        "mm": 75.06,
+        "in": 2.95512
+      },
+      "caseHeadRadius": {
+        "mm": 1.37,
+        "in": 0.05394
+      },
+      "rimDiameter": {
+        "mm": 13.59,
+        "in": 0.53504
+      },
+      "neckWallThickness": {
+        "mm": 3.35,
+        "in": 0.13189
+      },
+      "bodyDiameter": {
+        "mm": 12.19,
+        "in": 0.47992
+      },
+      "minNeckThickness": {
+        "mm": 1.02,
+        "in": 0.04016
+      },
+      "maxPressure": {
+        "bar": 4481.59,
+        "psi": 65000.09
+      },
+      "proofPressurePK": {
+        "bar": 5171.07,
+        "psi": 75000.17
+      },
+      "proofPressurePE": {
+        "bar": 5584.75,
+        "psi": 81000.1
+      },
+      "caseVolume": 75,
+      "caseWeight": 24.89,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 38.19,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 203.2,
+        "in": 8
+      },
+      "createdDate": "2023-02-15",
+      "createdBy": "Charlie",
+      "description": "Copied from SAAMI Drawing",
+      "_source": "6.8_Western_6.8_Western_Winchester_by_Charlie_2023.02.17.caliber"
+    },
+    {
+      "cipName": "6 mm ARC AR-15",
+      "altName": "",
+      "standard": "WildCat",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "2020",
+      "caseLength": {
+        "mm": 37.85,
+        "in": 1.49016
+      },
+      "overallLength": {
+        "mm": 57.4,
+        "in": 2.25984
+      },
+      "caseHeadRadius": {
+        "mm": 1.5,
+        "in": 0.05906
+      },
+      "rimDiameter": {
+        "mm": 11.2,
+        "in": 0.44094
+      },
+      "neckWallThickness": {
+        "mm": 3.5,
+        "in": 0.1378
+      },
+      "bodyDiameter": {
+        "mm": 9.55,
+        "in": 0.37598
+      },
+      "minNeckThickness": {
+        "mm": 1.19,
+        "in": 0.04685
+      },
+      "maxPressure": {
+        "bar": 3585.27,
+        "psi": 52000.04
+      },
+      "proofPressurePK": {
+        "bar": 4123.06,
+        "psi": 59800.04
+      },
+      "proofPressurePE": {
+        "bar": 4481.59,
+        "psi": 65000.09
+      },
+      "caseVolume": 34.7,
+      "caseWeight": 24.89,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 29.48,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 190.5,
+        "in": 7.5
+      },
+      "createdDate": "2023-02-28",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "6_mm_ARC_AR-15_by_Charlie_2023.03.01.caliber"
+    },
+    {
+      "cipName": "6 mm ARC Bolt Gun",
+      "altName": "",
+      "standard": "WildCat",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "2020",
+      "caseLength": {
+        "mm": 37.85,
+        "in": 1.49016
+      },
+      "overallLength": {
+        "mm": 57.4,
+        "in": 2.25984
+      },
+      "caseHeadRadius": {
+        "mm": 1.5,
+        "in": 0.05906
+      },
+      "rimDiameter": {
+        "mm": 11.2,
+        "in": 0.44094
+      },
+      "neckWallThickness": {
+        "mm": 3.5,
+        "in": 0.1378
+      },
+      "bodyDiameter": {
+        "mm": 9.55,
+        "in": 0.37598
+      },
+      "minNeckThickness": {
+        "mm": 1.19,
+        "in": 0.04685
+      },
+      "maxPressure": {
+        "bar": 4274.75,
+        "psi": 62000.12
+      },
+      "proofPressurePK": {
+        "bar": 4915.96,
+        "psi": 71300.1
+      },
+      "proofPressurePE": {
+        "bar": 5343.44,
+        "psi": 77500.19
+      },
+      "caseVolume": 34.7,
+      "caseWeight": 24.89,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 29.48,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 190.5,
+        "in": 7.5
+      },
+      "createdDate": "2023-02-28",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "6_mm_ARC_Bolt_Gun_by_Charlie_2023.03.01.caliber"
+    },
+    {
+      "cipName": "6 mm ARC",
+      "altName": "6mm Advanced Rifle Cartridge, 6 ARC, 6mm ARC",
+      "standard": "WildCat",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "2020",
+      "caseLength": {
+        "mm": 37.85,
+        "in": 1.49016
+      },
+      "overallLength": {
+        "mm": 57.4,
+        "in": 2.25984
+      },
+      "caseHeadRadius": {
+        "mm": 1.5,
+        "in": 0.05906
+      },
+      "rimDiameter": {
+        "mm": 10.44,
+        "in": 0.41102
+      },
+      "neckWallThickness": {
+        "mm": 3.5,
+        "in": 0.1378
+      },
+      "bodyDiameter": {
+        "mm": 9.55,
+        "in": 0.37598
+      },
+      "minNeckThickness": {
+        "mm": 1.19,
+        "in": 0.04685
+      },
+      "maxPressure": {
+        "bar": 3585.27,
+        "psi": 52000.04
+      },
+      "proofPressurePK": {
+        "bar": 4067.91,
+        "psi": 59000.15
+      },
+      "proofPressurePE": {
+        "bar": 4274.75,
+        "psi": 62000.12
+      },
+      "caseVolume": 33.8,
+      "caseWeight": 25,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 29.48,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 190.5,
+        "in": 7.5
+      },
+      "createdDate": "2020-09-06",
+      "createdBy": "GRT",
+      "description": "",
+      "_source": "6_mm_ARC_by_Gordon_2020.09.06.caliber"
+    },
+    {
+      "cipName": "6 mm GT",
+      "altName": "",
+      "standard": "WildCat",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "2006-05-16",
+      "caseLength": {
+        "mm": 44.35,
+        "in": 1.74606
+      },
+      "overallLength": {
+        "mm": 65.66,
+        "in": 2.58504
+      },
+      "caseHeadRadius": {
+        "mm": 1.37,
+        "in": 0.05394
+      },
+      "rimDiameter": {
+        "mm": 12.01,
+        "in": 0.47283
+      },
+      "neckWallThickness": {
+        "mm": 3.85,
+        "in": 0.15157
+      },
+      "bodyDiameter": {
+        "mm": 10.39,
+        "in": 0.40906
+      },
+      "minNeckThickness": {
+        "mm": 1.4,
+        "in": 0.05512
+      },
+      "maxPressure": {
+        "bar": 4350,
+        "psi": 63091.53
+      },
+      "proofPressurePK": {
+        "bar": 5003,
+        "psi": 72562.51
+      },
+      "proofPressurePE": {
+        "bar": 5438,
+        "psi": 78871.66
+      },
+      "caseVolume": 45.7,
+      "caseWeight": 25,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 29.48,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 203.2,
+        "in": 8
+      },
+      "createdDate": "2023-02-06",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "6_mm_GT_01-16-2022_by_Charlie_2023.03.24.caliber"
+    },
+    {
+      "cipName": "6 mm GT",
+      "altName": "",
+      "standard": "WildCat",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "2006-05-16",
+      "caseLength": {
+        "mm": 44.35,
+        "in": 1.74606
+      },
+      "overallLength": {
+        "mm": 65.66,
+        "in": 2.58504
+      },
+      "caseHeadRadius": {
+        "mm": 1.37,
+        "in": 0.05394
+      },
+      "rimDiameter": {
+        "mm": 12.01,
+        "in": 0.47283
+      },
+      "neckWallThickness": {
+        "mm": 3.85,
+        "in": 0.15157
+      },
+      "bodyDiameter": {
+        "mm": 10.39,
+        "in": 0.40906
+      },
+      "minNeckThickness": {
+        "mm": 1.4,
+        "in": 0.05512
+      },
+      "maxPressure": {
+        "bar": 4350,
+        "psi": 63091.53
+      },
+      "proofPressurePK": {
+        "bar": 5003,
+        "psi": 72562.51
+      },
+      "proofPressurePE": {
+        "bar": 5438,
+        "psi": 78871.66
+      },
+      "caseVolume": 45.7,
+      "caseWeight": 25,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 29.48,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 203.2,
+        "in": 8
+      },
+      "createdDate": "2023-02-06",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "6_mm_GT_by_Charlie_2023.02.08.caliber"
+    },
+    {
+      "cipName": "7-300 PRC",
+      "altName": "7-300 Precision Rifle Cartridge",
+      "standard": "WildCat",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "2010-05-26",
+      "caseLength": {
+        "mm": 65.53,
+        "in": 2.57992
+      },
+      "overallLength": {
+        "mm": 90.81,
+        "in": 3.5752
+      },
+      "caseHeadRadius": {
+        "mm": 1.27,
+        "in": 0.05
+      },
+      "rimDiameter": {
+        "mm": 13.51,
+        "in": 0.53189
+      },
+      "neckWallThickness": {
+        "mm": 3.27,
+        "in": 0.12874
+      },
+      "bodyDiameter": {
+        "mm": 12.07,
+        "in": 0.4752
+      },
+      "minNeckThickness": {
+        "mm": 0.94,
+        "in": 0.03701
+      },
+      "maxPressure": {
+        "bar": 4400.03,
+        "psi": 63817.16
+      },
+      "proofPressurePK": {
+        "bar": 5059.99,
+        "psi": 73389.08
+      },
+      "proofPressurePE": {
+        "bar": 5500.02,
+        "psi": 79771.19
+      },
+      "caseVolume": 95.8,
+      "caseWeight": 24.89,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 40.39,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 203.2,
+        "in": 8
+      },
+      "createdDate": "2022-06-26",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "7-300_PRC_7-300_Precision_Rifle_Cartridge_by_Beiruty_2022.06.27.caliber"
+    },
+    {
+      "cipName": "7mm .300 Norma Mag. ",
+      "altName": "7mm.300 Norma Mag",
+      "standard": "WildCat",
+      "cipOrigin": "Adjusted from 300 NM",
+      "cipType": "1 rimless",
+      "cipDate": "2023",
+      "caseLength": {
+        "mm": 63.3,
+        "in": 2.49213
+      },
+      "overallLength": {
+        "mm": 93.5,
+        "in": 3.6811
+      },
+      "caseHeadRadius": {
+        "mm": 1.52,
+        "in": 0.05984
+      },
+      "rimDiameter": {
+        "mm": 14.93,
+        "in": 0.5878
+      },
+      "neckWallThickness": {
+        "mm": 3.15,
+        "in": 0.12402
+      },
+      "bodyDiameter": {
+        "mm": 13.24,
+        "in": 0.52126
+      },
+      "minNeckThickness": {
+        "mm": 0.95,
+        "in": 0.0374
+      },
+      "maxPressure": {
+        "bar": 4400.03,
+        "psi": 63817.16
+      },
+      "proofPressurePK": {
+        "bar": 5059.99,
+        "psi": 73389.08
+      },
+      "proofPressurePE": {
+        "bar": 5500.02,
+        "psi": 79771.19
+      },
+      "caseVolume": 104,
+      "caseWeight": 24.89,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 47.48,
+      "grooveCount": 4,
+      "twistRate": {
+        "mm": 229,
+        "in": 9.01575
+      },
+      "createdDate": "2023-01-19",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "7mm_.300_Norma_Mag._7mm.300_Norma_Mag_by_Charlie_2023.01.19.caliber"
+    },
+    {
+      "cipName": "7mm Precision Rifle Cartridge",
+      "altName": "7mm PRC",
+      "standard": "SAAMI",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "2022-6-7",
+      "caseLength": {
+        "mm": 57.912,
+        "in": 2.28
+      },
+      "overallLength": {
+        "mm": 84.836,
+        "in": 3.34
+      },
+      "caseHeadRadius": {
+        "mm": 1.27,
+        "in": 0.05
+      },
+      "rimDiameter": {
+        "mm": 13.513,
+        "in": 0.53201
+      },
+      "neckWallThickness": {
+        "mm": 3.255,
+        "in": 0.12815
+      },
+      "bodyDiameter": {
+        "mm": 12.065,
+        "in": 0.475
+      },
+      "minNeckThickness": {
+        "mm": 0.94,
+        "in": 0.03701
+      },
+      "maxPressure": {
+        "bar": 4481.59,
+        "psi": 65000.09
+      },
+      "proofPressurePK": {
+        "bar": 5153.83,
+        "psi": 74750.12
+      },
+      "proofPressurePE": {
+        "bar": 5601.99,
+        "psi": 81250.14
+      },
+      "caseVolume": 82.5,
+      "caseWeight": 25,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 40.387,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 203.2,
+        "in": 8
+      },
+      "createdDate": "2022-06-26",
+      "createdBy": "Gews",
+      "description": "SAAMI conversion pending CIP approval.",
+      "_source": "7mm_Precision_Rifle_Cartridge_7mm_PRC_by_Gews_2022.06.27.caliber"
+    },
+    {
+      "cipName": "7 PRC-W",
+      "altName": "7mm Precision Rifle Cartridge - Wheeler",
+      "standard": "WildCat",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "2012-05-30",
+      "caseLength": {
+        "mm": 51.56,
+        "in": 2.02992
+      },
+      "overallLength": {
+        "mm": 74.93,
+        "in": 2.95
+      },
+      "caseHeadRadius": {
+        "mm": 1.27,
+        "in": 0.05
+      },
+      "rimDiameter": {
+        "mm": 13.51,
+        "in": 0.53189
+      },
+      "neckWallThickness": {
+        "mm": 3.24,
+        "in": 0.12756
+      },
+      "bodyDiameter": {
+        "mm": 12.07,
+        "in": 0.4752
+      },
+      "minNeckThickness": {
+        "mm": 0.94,
+        "in": 0.03701
+      },
+      "maxPressure": {
+        "bar": 4400.03,
+        "psi": 63817.16
+      },
+      "proofPressurePK": {
+        "bar": 5059.99,
+        "psi": 73389.08
+      },
+      "proofPressurePE": {
+        "bar": 5500.02,
+        "psi": 79771.19
+      },
+      "caseVolume": 73,
+      "caseWeight": 24.89,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 40,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 203,
+        "in": 7.99213
+      },
+      "createdDate": "2023-02-07",
+      "createdBy": "grtuser",
+      "description": "",
+      "_source": "7_PRC-W_7mm_Precision_Rifle_Cartridge_-_Wheeler_by_Charlie_2023.02.09.caliber"
+    },
+    {
+      "cipName": "7 PRC",
+      "altName": "7 Precision Rifle Cartridge",
+      "standard": "Hornady",
+      "cipOrigin": "US",
+      "cipType": "1 rimless",
+      "cipDate": "",
+      "caseLength": {
+        "mm": 57.91,
+        "in": 2.27992
+      },
+      "overallLength": {
+        "mm": 84.84,
+        "in": 3.34016
+      },
+      "caseHeadRadius": {
+        "mm": 1.27,
+        "in": 0.05
+      },
+      "rimDiameter": {
+        "mm": 13.51,
+        "in": 0.53189
+      },
+      "neckWallThickness": {
+        "mm": 3.24,
+        "in": 0.12756
+      },
+      "bodyDiameter": {
+        "mm": 12.07,
+        "in": 0.4752
+      },
+      "minNeckThickness": {
+        "mm": 0.94,
+        "in": 0.03701
+      },
+      "maxPressure": {
+        "bar": 4400.03,
+        "psi": 63817.16
+      },
+      "proofPressurePK": {
+        "bar": 5059.99,
+        "psi": 73389.08
+      },
+      "proofPressurePE": {
+        "bar": 5500.02,
+        "psi": 79771.19
+      },
+      "caseVolume": 82.6,
+      "caseWeight": 24.89,
+      "sebertFactor": 0.5,
+      "boreArea_mm2": 40.39,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 203,
+        "in": 7.99213
+      },
+      "createdDate": "2023-02-07",
+      "createdBy": "Charlie",
+      "description": "Hornady Release",
+      "_source": "7_PRC_7_Precision_Rifle_Cartridge_by_Charlie_2023.02.09.caliber"
+    },
+    {
+      "cipName": "8.6 Blackout",
+      "altName": "",
+      "standard": "WildCat",
+      "cipOrigin": "?",
+      "cipType": "1 rimless",
+      "cipDate": "8/16/2021",
+      "caseLength": {
+        "mm": 42.8,
+        "in": 1.68504
+      },
+      "overallLength": {
+        "mm": 71.75,
+        "in": 2.8248
+      },
+      "caseHeadRadius": {
+        "mm": 1.37,
+        "in": 0.05394
+      },
+      "rimDiameter": {
+        "mm": 12.01,
+        "in": 0.47283
+      },
+      "neckWallThickness": {
+        "mm": 3.16,
+        "in": 0.12441
+      },
+      "bodyDiameter": {
+        "mm": 10.39,
+        "in": 0.40906
+      },
+      "minNeckThickness": {
+        "mm": 0.84,
+        "in": 0.03307
+      },
+      "maxPressure": {
+        "bar": 4049.98,
+        "psi": 58740.1
+      },
+      "proofPressurePK": {
+        "bar": 4658.03,
+        "psi": 67559.14
+      },
+      "proofPressurePE": {
+        "bar": 5059.99,
+        "psi": 73389.08
+      },
+      "caseVolume": 47.6,
+      "caseWeight": 0,
+      "sebertFactor": 0.6,
+      "boreArea_mm2": 56.9,
+      "grooveCount": 6,
+      "twistRate": {
+        "mm": 254,
+        "in": 10
+      },
+      "createdDate": "2022-11-09",
+      "createdBy": "?",
+      "description": "",
+      "_source": "8.6_Blackout_by_Charlie_2022.11.14.caliber"
+    }
+  ],
+  "loads": [
+    {
+      "caliber": {
+        "name": "30 Super Carry",
+        "overallLength": {
+          "mm": 29.6926,
+          "in": 1.169
+        },
+        "caseLength": {
+          "mm": 21.0058,
+          "in": 0.827
+        },
+        "caseVolume_cm3": 0.753180495860717,
+        "grooveCaliber": {
+          "mm": 7.9502,
+          "in": 0.313
+        },
+        "effectiveArea_mm2": 49.225708,
+        "maxPressure": {
+          "bar": 3447.37864658392,
+          "psi": 50000.09
+        }
+      },
+      "gun": {
+        "barrelLength": {
+          "mm": 127,
+          "in": 5
+        },
+        "twistRate": {
+          "mm": 254,
+          "in": 10
+        },
+        "weight_kg": 0
+      },
+      "projectile": {
+        "manufacturer": "Speer",
+        "productName": "JHP 3981",
+        "diameter": {
+          "mm": 7.92,
+          "in": 0.31181
+        },
+        "weight": {
+          "g": 6.479890999975408,
+          "gr": 100.0003
+        },
+        "length": {
+          "mm": 14.3,
+          "in": 0.56299
+        },
+        "g1bc": 0.167,
+        "g7bc": 0,
+        "engravingPressure": {
+          "bar": 150,
+          "psi": 2175.57
+        }
+      },
+      "propellant": {
+        "manufacturer": "Winchester",
+        "productName": "231",
+        "vivacityCoefficient": 3.2774,
+        "specificExplosiveHeat_kJkg": 4000,
+        "specificHeatRatio": 1.2214,
+        "baPhiCoefficient": 2.3163,
+        "burnUpLimitZ1": 0.3287,
+        "burnUpLimitZ2": 0.8307,
+        "covolume_cm3g": 1,
+        "materialDensity_kgm3": 1670,
+        "bulkDensity_kgm3": 790,
+        "chargeMass": {
+          "g": 0.300666942398859,
+          "gr": 4.64
+        },
+        "temperature_C": 21.11111111111111,
+        "coldTempCoefficient": 0,
+        "hotTempCoefficient": 0
+      },
+      "_source": "30_SC_100_JHP_Sample_by_Charlie_2022.10.06.grtload"
+    },
+    {
+      "caliber": {
+        "name": "30 Super Carry",
+        "overallLength": {
+          "mm": 29.6926,
+          "in": 1.169
+        },
+        "caseLength": {
+          "mm": 21.0058,
+          "in": 0.827
+        },
+        "caseVolume_cm3": 0.753180495860717,
+        "grooveCaliber": {
+          "mm": 7.9502,
+          "in": 0.313
+        },
+        "effectiveArea_mm2": 49.225708,
+        "maxPressure": {
+          "bar": 3447.37864658392,
+          "psi": 50000.09
+        }
+      },
+      "gun": {
+        "barrelLength": {
+          "mm": 127,
+          "in": 5
+        },
+        "twistRate": {
+          "mm": 254,
+          "in": 10
+        },
+        "weight_kg": 0
+      },
+      "projectile": {
+        "manufacturer": "Speer",
+        "productName": "JHP 3981",
+        "diameter": {
+          "mm": 7.92,
+          "in": 0.31181
+        },
+        "weight": {
+          "g": 6.479890999975408,
+          "gr": 100.0003
+        },
+        "length": {
+          "mm": 14.3,
+          "in": 0.56299
+        },
+        "g1bc": 0.167,
+        "g7bc": 0,
+        "engravingPressure": {
+          "bar": 150,
+          "psi": 2175.57
+        }
+      },
+      "propellant": {
+        "manufacturer": "Alliant",
+        "productName": "Power Pistol",
+        "vivacityCoefficient": 2.2259,
+        "specificExplosiveHeat_kJkg": 4910,
+        "specificHeatRatio": 1.2004,
+        "baPhiCoefficient": 0.3941,
+        "burnUpLimitZ1": 0.2329,
+        "burnUpLimitZ2": 0.7295,
+        "covolume_cm3g": 1,
+        "materialDensity_kgm3": 1690,
+        "bulkDensity_kgm3": 756,
+        "chargeMass": {
+          "g": 0.356394004998647,
+          "gr": 5.5
+        },
+        "temperature_C": 21,
+        "coldTempCoefficient": 0,
+        "hotTempCoefficient": 0
+      },
+      "_source": "30_SC_100_JHP_Sample_Power_Pistol_by_Charlie_2022.10.06.grtload"
+    },
+    {
+      "caliber": {
+        "name": "30 Super Carry",
+        "overallLength": {
+          "mm": 29.6926,
+          "in": 1.169
+        },
+        "caseLength": {
+          "mm": 21.0058,
+          "in": 0.827
+        },
+        "caseVolume_cm3": 0.753180495860717,
+        "grooveCaliber": {
+          "mm": 7.9502,
+          "in": 0.313
+        },
+        "effectiveArea_mm2": 49.225708,
+        "maxPressure": {
+          "bar": 3447.37864658392,
+          "psi": 50000.09
+        }
+      },
+      "gun": {
+        "barrelLength": {
+          "mm": 127,
+          "in": 5
+        },
+        "twistRate": {
+          "mm": 254,
+          "in": 10
+        },
+        "weight_kg": 0
+      },
+      "projectile": {
+        "manufacturer": "Speer",
+        "productName": "HP GD 3988",
+        "diameter": {
+          "mm": 7.92,
+          "in": 0.31181
+        },
+        "weight": {
+          "g": 7.451874649971718,
+          "gr": 115.0003
+        },
+        "length": {
+          "mm": 16,
+          "in": 0.62992
+        },
+        "g1bc": 0.18,
+        "g7bc": 0,
+        "engravingPressure": {
+          "bar": 150,
+          "psi": 2175.57
+        }
+      },
+      "propellant": {
+        "manufacturer": "Winchester",
+        "productName": "231",
+        "vivacityCoefficient": 3.2774,
+        "specificExplosiveHeat_kJkg": 4000,
+        "specificHeatRatio": 1.2214,
+        "baPhiCoefficient": 2.3163,
+        "burnUpLimitZ1": 0.3287,
+        "burnUpLimitZ2": 0.8307,
+        "covolume_cm3g": 1,
+        "materialDensity_kgm3": 1670,
+        "bulkDensity_kgm3": 790,
+        "chargeMass": {
+          "g": 0.252067759899043,
+          "gr": 3.89
+        },
+        "temperature_C": 21.11111111111111,
+        "coldTempCoefficient": 0,
+        "hotTempCoefficient": 0
+      },
+      "_source": "30_SC_115_JHP_Sample_by_Charlie_2022.10.06.grtload"
+    },
+    {
+      "caliber": {
+        "name": "30 Super Carry",
+        "overallLength": {
+          "mm": 29.6926,
+          "in": 1.169
+        },
+        "caseLength": {
+          "mm": 21.0058,
+          "in": 0.827
+        },
+        "caseVolume_cm3": 0.753180495860717,
+        "grooveCaliber": {
+          "mm": 7.9502,
+          "in": 0.313
+        },
+        "effectiveArea_mm2": 49.225708,
+        "maxPressure": {
+          "bar": 3447.37864658392,
+          "psi": 50000.09
+        }
+      },
+      "gun": {
+        "barrelLength": {
+          "mm": 127,
+          "in": 5
+        },
+        "twistRate": {
+          "mm": 254,
+          "in": 10
+        },
+        "weight_kg": 0
+      },
+      "projectile": {
+        "manufacturer": "Speer",
+        "productName": "HP GD 3988",
+        "diameter": {
+          "mm": 7.92,
+          "in": 0.31181
+        },
+        "weight": {
+          "g": 7.451874649971718,
+          "gr": 115.0003
+        },
+        "length": {
+          "mm": 16,
+          "in": 0.62992
+        },
+        "g1bc": 0.18,
+        "g7bc": 0,
+        "engravingPressure": {
+          "bar": 150,
+          "psi": 2175.57
+        }
+      },
+      "propellant": {
+        "manufacturer": "Alliant",
+        "productName": "Power Pistol",
+        "vivacityCoefficient": 2.2259,
+        "specificExplosiveHeat_kJkg": 4910,
+        "specificHeatRatio": 1.2004,
+        "baPhiCoefficient": 0.3941,
+        "burnUpLimitZ1": 0.2329,
+        "burnUpLimitZ2": 0.7295,
+        "covolume_cm3g": 1,
+        "materialDensity_kgm3": 1690,
+        "bulkDensity_kgm3": 756,
+        "chargeMass": {
+          "g": 0.291595094998893,
+          "gr": 4.5
+        },
+        "temperature_C": 21,
+        "coldTempCoefficient": 0,
+        "hotTempCoefficient": 0
+      },
+      "_source": "30_SC_115_JHP_Sample_Power_Pistol_by_Charlie_2022.10.06.grtload"
+    },
+    {
+      "caliber": {
+        "name": ".327 Fed Magnum",
+        "overallLength": {
+          "mm": 36.83,
+          "in": 1.45
+        },
+        "caseLength": {
+          "mm": 30.479999999999997,
+          "in": 1.2
+        },
+        "caseVolume_cm3": 1.233657708737381,
+        "grooveCaliber": {
+          "mm": 7.924799999999999,
+          "in": 0.312
+        },
+        "effectiveArea_mm2": 47.935388,
+        "maxPressure": {
+          "bar": 3102.640781925532,
+          "psi": 45000.08
+        }
+      },
+      "gun": {
+        "barrelLength": {
+          "mm": 127,
+          "in": 5
+        },
+        "twistRate": {
+          "mm": 406.00121999999993,
+          "in": 15.9843
+        },
+        "weight_kg": 0
+      },
+      "projectile": {
+        "manufacturer": "Hornady",
+        "productName": "HP/XTP 32050",
+        "diameter": {
+          "mm": 7.92,
+          "in": 0.31181
+        },
+        "weight": {
+          "g": 5.507907349979097,
+          "gr": 85.0002
+        },
+        "length": {
+          "mm": 11.4,
+          "in": 0.44882
+        },
+        "g1bc": 0.145,
+        "g7bc": 0,
+        "engravingPressure": {
+          "bar": 150,
+          "psi": 2175.57
+        }
+      },
+      "propellant": {
+        "manufacturer": "Winchester",
+        "productName": "231",
+        "vivacityCoefficient": 3.2774,
+        "specificExplosiveHeat_kJkg": 4000,
+        "specificHeatRatio": 1.2214,
+        "baPhiCoefficient": 2.3163,
+        "burnUpLimitZ1": 0.3287,
+        "burnUpLimitZ2": 0.8307,
+        "covolume_cm3g": 1,
+        "materialDensity_kgm3": 1669.9244550000112,
+        "bulkDensity_kgm3": 790.0304472000053,
+        "chargeMass": {
+          "g": 0.388793459998524,
+          "gr": 6
+        },
+        "temperature_C": 21.11111111111111,
+        "coldTempCoefficient": 0,
+        "hotTempCoefficient": 0
+      },
+      "_source": "327_Federal_Magnum_by_dpeppe01_2022.12.12.grtload"
+    },
+    {
+      "caliber": {
+        "name": "30 Super Carry",
+        "overallLength": {
+          "mm": 29.6926,
+          "in": 1.169
+        },
+        "caseLength": {
+          "mm": 21.0058,
+          "in": 0.827
+        },
+        "caseVolume_cm3": 0.753180495860717,
+        "grooveCaliber": {
+          "mm": 7.9502,
+          "in": 0.313
+        },
+        "effectiveArea_mm2": 49.225708,
+        "maxPressure": {
+          "bar": 3447.37864658392,
+          "psi": 50000.09
+        }
+      },
+      "gun": {
+        "barrelLength": {
+          "mm": 101.6,
+          "in": 4
+        },
+        "twistRate": {
+          "mm": 254,
+          "in": 10
+        },
+        "weight_kg": 0
+      },
+      "projectile": {
+        "manufacturer": "Speer",
+        "productName": "JHP 3981",
+        "diameter": {
+          "mm": 7.92,
+          "in": 0.31181
+        },
+        "weight": {
+          "g": 6.479890999975408,
+          "gr": 100.0003
+        },
+        "length": {
+          "mm": 14.3,
+          "in": 0.56299
+        },
+        "g1bc": 0.167,
+        "g7bc": 0,
+        "engravingPressure": {
+          "bar": 150,
+          "psi": 2175.57
+        }
+      },
+      "propellant": {
+        "manufacturer": "Hodgdon",
+        "productName": "CFE-Pistol",
+        "vivacityCoefficient": 3.0199,
+        "specificExplosiveHeat_kJkg": 4220,
+        "specificHeatRatio": 1.2211,
+        "baPhiCoefficient": -0.4412,
+        "burnUpLimitZ1": 0.1437,
+        "burnUpLimitZ2": 0.7239,
+        "covolume_cm3g": 1,
+        "materialDensity_kgm3": 1580,
+        "bulkDensity_kgm3": 840,
+        "chargeMass": {
+          "g": 0.32399454999877,
+          "gr": 5
+        },
+        "temperature_C": 21.11111111111111,
+        "coldTempCoefficient": 0,
+        "hotTempCoefficient": 0
+      },
+      "_source": "First_Look_Federal_30_Super_Carry_Speer_100_by_Charlie_2022.02.01.grtload"
+    },
+    {
+      "caliber": {
+        "name": "30 Super Carry",
+        "overallLength": {
+          "mm": 29.6926,
+          "in": 1.169
+        },
+        "caseLength": {
+          "mm": 21.0058,
+          "in": 0.827
+        },
+        "caseVolume_cm3": 0.753180495860717,
+        "grooveCaliber": {
+          "mm": 7.9502,
+          "in": 0.313
+        },
+        "effectiveArea_mm2": 49.225708,
+        "maxPressure": {
+          "bar": 3447.37864658392,
+          "psi": 50000.09
+        }
+      },
+      "gun": {
+        "barrelLength": {
+          "mm": 101.6,
+          "in": 4
+        },
+        "twistRate": {
+          "mm": 254,
+          "in": 10
+        },
+        "weight_kg": 0
+      },
+      "projectile": {
+        "manufacturer": "Hornady",
+        "productName": "HP/XTP 32070",
+        "diameter": {
+          "mm": 7.92,
+          "in": 0.31181
+        },
+        "weight": {
+          "g": 6.479890999975408,
+          "gr": 100.0003
+        },
+        "length": {
+          "mm": 14.3,
+          "in": 0.56299
+        },
+        "g1bc": 0.153,
+        "g7bc": 0,
+        "engravingPressure": {
+          "bar": 150,
+          "psi": 2175.57
+        }
+      },
+      "propellant": {
+        "manufacturer": "Hodgdon",
+        "productName": "CFE-Pistol",
+        "vivacityCoefficient": 3.0199,
+        "specificExplosiveHeat_kJkg": 4220,
+        "specificHeatRatio": 1.2211,
+        "baPhiCoefficient": -0.4412,
+        "burnUpLimitZ1": 0.1437,
+        "burnUpLimitZ2": 0.7239,
+        "covolume_cm3g": 1,
+        "materialDensity_kgm3": 1580,
+        "bulkDensity_kgm3": 840,
+        "chargeMass": {
+          "g": 0.32399454999877,
+          "gr": 5
+        },
+        "temperature_C": 21.11111111111111,
+        "coldTempCoefficient": 0,
+        "hotTempCoefficient": 0
+      },
+      "_source": "First_Look_Federal_30_Super_Carry_XTP_100_by_Charlie_2022.02.01.grtload"
+    }
+  ]
+}

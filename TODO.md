@@ -23,8 +23,9 @@
 | **v0.7.0** | Batch B | Scope profile system, turret matching, BDC reticle overlay, custom turret dial builder, FFP/SFP holdover correction |
 | **v0.8.0** | Batch C | Rifle profiles (localStorage), performance tracking (ES/SD trends), shareable URLs, export/print, localStorage persistence layer |
 | **v0.9.0** | Phase 7 | Chrono data import (LabRadar/MagnetoSpeed CSV), seed reference data (Ammolytics), barrel length validation, predicted vs. measured comparison |
+| **v0.9.1** | Phase 8.6 | ML training data ingestion pipeline — GRT XML parser, 115-record normalized corpus (48 projectiles, 12 powders, 48 calibers, 7 loads), typed query utilities |
 
-> **Current:** `v0.9.0` — defined in `src/lib/version.ts`
+> **Current:** `v0.9.1` — defined in `src/lib/version.ts`
 > **Versioning:** Major phases bump minor version. Patches for bugfixes.
 
 ---
@@ -355,6 +356,7 @@
 - [ ] **Barrel maker integration** — Krieger, Bartlein, Proof Research twist rate recommendations
 
 ### 🤖 8.6 Advanced Analytics & ML
+- [x] **Training data ingestion pipeline** — GRT XML parser (`scripts/parse-grt.mjs`) → normalized JSON corpus, typed TS query utilities, 115 records (48 projectiles, 12 powders, 48 calibers, 7 loads)
 - [ ] **True BC prediction** — ML model trained on community chrono data
 - [ ] **Load optimization AI** — Suggest optimal charge/seating for a given goal (accuracy vs. velocity)
 - [ ] **Barrel life prediction** — Model accuracy degradation from round count + cartridge heat
