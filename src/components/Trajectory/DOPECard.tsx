@@ -226,7 +226,8 @@ export function DOPECard({
         >
           <div
             dangerouslySetInnerHTML={{ __html: qrSvg }}
-            style={{ width: 64, height: 64, flexShrink: 0 }}
+            className="[&>svg]:w-full [&>svg]:h-full"
+            style={{ width: 64, height: 64, flexShrink: 0, overflow: "hidden" }}
           />
           <div className="text-[8px] font-mono leading-relaxed" style={{ color: "var(--c-text-dim)" }}>
             Scan to load this exact configuration in BulletForge.
