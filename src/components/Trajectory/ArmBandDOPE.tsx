@@ -299,7 +299,8 @@ export function ArmBandDOPE() {
               >
                 <div
                   dangerouslySetInnerHTML={{ __html: qrSvg }}
-                  style={{ width: 40, height: 40, flexShrink: 0 }}
+                  className="[&>svg]:w-full [&>svg]:h-full"
+                  style={{ width: 40, height: 40, flexShrink: 0, overflow: "hidden" }}
                 />
                 <div style={{ fontSize: 7, fontFamily: "monospace", color: "var(--c-text-dim)", lineHeight: 1.3 }}>
                   Scan to load
